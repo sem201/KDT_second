@@ -9,27 +9,34 @@ const sequelize = new Sequelize(
   config
 );
 
-const User = require("./User")(sequelize, Sequelize.DataTypes);
-const Moim = require("./Moim")(sequelize, Sequelize.DataTypes);
-const MoimDetail = require("./MoimDetail")(sequelize, Sequelize.DataTypes);
-const MoimSet = require("./MoimSet")(sequelize, Sequelize.DataTypes);
-const DibsMoim = require("./DibsMoim")(sequelize, Sequelize.DataTypes);
+const User = require("../models/User")(sequelize, Sequelize.DataTypes);
+const Moim = require("../models/Moim")(sequelize, Sequelize.DataTypes);
+const MoimDetail = require("../models/MoimDetail")(
+  sequelize,
+  Sequelize.DataTypes
+);
+const MoimSet = require("../models/MoimSet")(sequelize, Sequelize.DataTypes);
+const DibsMoim = require("../models/DibsMoim")(sequelize, Sequelize.DataTypes);
 
 Moim.hasOne(MoimDetail, {
   foreignKey: "moim_id",
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
 });
-MoimDetail.belogsTo(Moim, { foreignKey: "moim_id" });
+MoimDetail.belongsTo(Moim, { foreignKey: "moim_id" });
+// //1 : 1
 
-Moim.belogsToMany(User, { through: "moim_set", foreignKey: "user_id" });
-User.belogsToMany(Moim, { through: "moim_set", foreignKey: "moim_id" });
+User.hasMany(Moim, { foreignKey: "user_id" });
+Moim.belongsTo(User, { foreignKey: "user_id" });
+
+Moim.belongsToMany(User, { through: "moim_set", foreignKey: "user_id" });
+User.belongsToMany(Moim, { through: "moim_set", foreignKey: "moim_id" });
 
 Moim.hasMany(DibsMoim, { foreignKey: "moim_id" });
-DibsMoim.belogsTo(Moim, { foreignKey: "moim_id" });
+DibsMoim.belongsTo(Moim, { foreignKey: "moim_id" });
 
 User.hasMany(DibsMoim, { foreignKey: "user_id" });
-DibsMoim.belogsTo(User, { foreignKey: "user_id" });
+DibsMoim.belongsTo(User, { foreignKey: "user_id" });
 
 db.User = User;
 db.Moim = Moim;

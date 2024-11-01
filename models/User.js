@@ -8,17 +8,18 @@ const UserModel = (Sequelize, DataTypes) => {
     "user",
     {
       user_id: {
-        type: DataTypes.VARCHAR(20),
+        type: DataTypes.STRING(20),
         primaryKey: true,
         allowNull: false,
       },
       pw: {
-        type: DataTypes.VARCHAR(20),
+        type: DataTypes.STRING(20),
         allowNull: false,
       },
-      name: {
-        type: DataTypes.VARCHAR(10),
+      nickname: {
+        type: DataTypes.STRING(10),
         allowNull: false,
+        unique: true,
       },
       review: {
         type: DataTypes.FLOAT(2, 1),
@@ -27,6 +28,7 @@ const UserModel = (Sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
+      timestamps: false,
     }
   );
 };

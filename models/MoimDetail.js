@@ -9,12 +9,13 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
   return Sequelize.define(
     "moim_detail",
     {
-      content: {
-        type: DataTypes.VARCHAR(255),
-        allowNull: true,
+      moim_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
       },
-      represent_img: {
-        type: DataTypes.VARCHAR(255),
+      content: {
+        type: DataTypes.STRING(255),
         allowNull: true,
       },
       min_people: {
@@ -24,6 +25,7 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
+      timestamps: false,
     }
   );
 };

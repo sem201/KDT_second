@@ -9,8 +9,9 @@ const DibsMoimModel = (Sequelize, DataTypes) => {
     {},
     {
       freezeTableName: true,
+      timestamps: false,
     }
   );
 };
 
-module.exports.DibsMoimModel;
+module.exports = DibsMoimModel;

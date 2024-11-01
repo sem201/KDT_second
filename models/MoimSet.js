@@ -16,6 +16,7 @@ const MoimSetModel = (Sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
+      timestamps: false,
     }
   );
 };
