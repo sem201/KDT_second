@@ -13,6 +13,7 @@ const User = require("./User")(sequelize, Sequelize.DataTypes);
 const Moim = require("./Moim")(sequelize, Sequelize.DataTypes);
 const MoimDetail = require("./MoimDetail")(sequelize, Sequelize.DataTypes);
 const MoimSet = require("./MoimSet")(sequelize, Sequelize.DataTypes);
+const DibsMoim = require("./DibsMoim")(sequelize, Sequelize.DataTypes);
 
 Moim.hasOne(MoimDetail, {
   foreignKey: "moim_id",
@@ -23,6 +24,12 @@ MoimDetail.belogsTo(Moim, { foreignKey: "moim_id" });
 
 Moim.belogsToMany(User, { through: "moim_set", foreignKey: "user_id" });
 User.belogsToMany(Moim, { through: "moim_set", foreignKey: "moim_id" });
+
+Moim.hasMany(DibsMoim, { foreignKey: "moim_id" });
+DibsMoim.belogsTo(Moim, { foreignKey: "moim_id" });
+
+User.hasMany(DibsMoim, { foreignKey: "user_id" });
+DibsMoim.belogsTo(User, { foreignKey: "user_id" });
 
 db.User = User;
 db.Moim = Moim;
