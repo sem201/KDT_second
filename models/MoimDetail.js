@@ -9,6 +9,11 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
   return Sequelize.define(
     "moim_detail",
     {
+      moim_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
       content: {
         type: DataTypes.STRING(255),
         allowNull: true,
