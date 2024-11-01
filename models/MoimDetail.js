@@ -10,11 +10,7 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
     "moim_detail",
     {
       content: {
-        type: DataTypes.VARCHAR(255),
-        allowNull: true,
-      },
-      represent_img: {
-        type: DataTypes.VARCHAR(255),
+        type: DataTypes.STRING(255),
         allowNull: true,
       },
       min_people: {
@@ -24,6 +20,7 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
+      timestamps: false,
     }
   );
 };
