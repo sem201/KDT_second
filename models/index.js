@@ -29,8 +29,8 @@ MoimDetail.belongsTo(Moim, { foreignKey: "moim_id" });
 User.hasMany(Moim, { foreignKey: "user_id" });
 Moim.belongsTo(User, { foreignKey: "user_id" });
 
-Moim.belongsToMany(User, { through: "moim_set", foreignKey: "user_id" });
-User.belongsToMany(Moim, { through: "moim_set", foreignKey: "moim_id" });
+Moim.belongsToMany(User, { through: "moim_set", foreignKey: "moim_id" });
+User.belongsToMany(Moim, { through: "moim_set", foreignKey: "user_id" });
 
 Moim.hasMany(DibsMoim, { foreignKey: "moim_id" });
 DibsMoim.belongsTo(Moim, { foreignKey: "moim_id" });
