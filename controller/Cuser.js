@@ -82,7 +82,19 @@ exports.loginUser = async (req, res) => {
 
 // User 정보 확인
 exports.userPasswordConfirm = async (req, res) => {
+  console.log("user 세션 확인", req.session.userInfo);
+  const { pw } = req.body;
+
   try {
+    const userIsExist = await User.findOne({
+      where: { user_id: req.session.userInfo.userid },
+    });
+    if (userIsExist && compareFunc(pw, userIsExist.dataValues.pw)) {
+      console.log("user 정보 확인 성공");
+      res.send("성공");
+    } else {
+      console.log("user 정보 다시 확인");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -90,8 +102,19 @@ exports.userPasswordConfirm = async (req, res) => {
 
 // User 정보 수정
 exports.updateUser = async (req, res) => {
+  const { nickname, pw } = req.body;
+  const updateData = {};
+  if (nickname != null) {
+    updateData.nickname = nickname;
+  }
+  if (pw != null) {
+    updateData.pw = bcryptPassword(pw);
+  }
   try {
-    const { nickname, pw } = req.body;
+    await User.update(updateData, {
+      where: { user_id: req.session.userInfo.userid },
+    });
+    res.send("성공");
   } catch (error) {
     console.log("User 정보 수정 DB 에러 발생", error);
   }

@@ -18,4 +18,10 @@ router.post("/user/register", userController.postUser);
 // 로그인
 router.post("/user/login", userController.loginUser);
 
+// 회원정보 확인
+router.post("/user/check-pw", userController.userPasswordConfirm);
+
+// 회원정보 업데이트
+router.post("/user/update", userController.updateUser);
+
 module.exports = router;
