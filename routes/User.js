@@ -29,4 +29,3 @@ router.get("/moim/:moimid", controller.moim);
 
 // user가 상세 모임에서 찜하기
 router.post("/user/dibs", userController.dibsMoim);
-module.exports = router;
