@@ -4,7 +4,7 @@ const session = require("express-session");
 dotenv.config();
 const db = require("./models");
 const app = express();
-const router = require("./routes/Router");
+const router = require("./routes/User");
 const PORT = process.env.PORT;
 
 app.set("view engine", "ejs");

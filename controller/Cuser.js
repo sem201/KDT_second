@@ -1,4 +1,5 @@
 const { Op } = require("sequelize");
+const bcrypt = require("bcrypt");
 const { bcryptPassword, compareFunc } = require("../utils/encrypt");
 
 const {
@@ -17,6 +18,7 @@ exports.index = (req, res) => {
 exports.postUser = async (req, res) => {
   try {
     const { userid, pw, nickname } = req.body;
+    console.log("userid:", userid);
     const isduplicate = await User.findOne({
       where: {
         [Op.or]: [{ user_id: userid }, { nickname: nickname }],
@@ -44,13 +46,28 @@ exports.postUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { userid, pw } = req.body;
-    const hashedPw = compareFunc(pw);
     const isExist = await User.findOne({
-      where: { [Op.or]: [{ user_id: userid }, { pw: hashedPw }] },
+      where: { user_id: userid },
     });
     if (isExist) {
-      console.log("로그인 성공");
-      res.send({ result: true, message: "로그인 성공" });
+      const hashedPw = isExist.dataValues.pw;
+      const isMatch = bcrypt.compareSync(pw, hashedPw);
+      if (isMatch) {
+        console.log("로그인 성공");
+        console.log(isExist.dataValues);
+        req.session.userInfo = {
+          userid: isExist.dataValues.user_id,
+          nickname: isExist.dataValues.nickname,
+        };
+        console.log("세션 생성", req.session.userInfo);
+        res.send({ result: true, message: "로그인 성공" });
+      } else {
+        console.log("로그인 실패");
+        res.send({
+          result: true,
+          message: "로그인 실패 아이디 혹은 비밀번호를 확인해주세요",
+        });
+      }
     } else {
       console.log("로그인 실패");
       res.send({

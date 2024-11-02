@@ -13,7 +13,7 @@ const UserModel = (Sequelize, DataTypes) => {
         allowNull: false,
       },
       pw: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
       nickname: {
@@ -23,7 +23,7 @@ const UserModel = (Sequelize, DataTypes) => {
       },
       review: {
         type: DataTypes.FLOAT(2, 1),
-        defaultValue: 5.0,
+        defaultValue: 3.0,
       },
     },
     {
