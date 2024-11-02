@@ -4,6 +4,24 @@ const controller = require("../controller/Cuser");
 
 router.get("/", controller.index);
 
+// // 회원가입 화면 렌더링
+// router.get("/signup", controller.signup);
+
+// // 로그인 화면 렌더링
+// router.get("/login", controller.login);
+
+// 회원가입
+router.post("/user/register", userController.postUser);
+
+// 로그인
+router.post("/user/login", userController.loginUser);
+
+// 회원정보 확인
+router.post("/user/check-pw", userController.userPasswordConfirm);
+
+// 회원정보 업데이트
+router.post("/user/update", userController.updateUser);
+
 router.get("/reunion", controller.reunion_GET); //모임 사이토 진입
 
 router.post("/reunion", controller.reunion_POST); //모임 정보 추가
