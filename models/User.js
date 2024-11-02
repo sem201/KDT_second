@@ -13,7 +13,7 @@ const UserModel = (Sequelize, DataTypes) => {
         allowNull: false,
       },
       pw: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(40),
         allowNull: false,
       },
       nickname: {
