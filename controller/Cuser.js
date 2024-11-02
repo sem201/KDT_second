@@ -10,10 +10,6 @@ const {
   DibsMoim,
 } = require("../models/index");
 
-exports.index = (req, res) => {
-  res.render("index");
-};
-
 // User 회원가입
 exports.postUser = async (req, res) => {
   try {
@@ -117,6 +113,29 @@ exports.updateUser = async (req, res) => {
     res.send("성공");
   } catch (error) {
     console.log("User 정보 수정 DB 에러 발생", error);
+  }
+};
+
+// User 찜
+
+// 아직 다 못했음
+exports.dibsMoim = async (req, res) => {
+  const { moimid } = req.params;
+  try {
+    const isAlreadyDibs = await DibsMoim.findOne({
+      where: {
+        [Op.and]: [
+          { user_id: req.session.userInfo.userid },
+          { moim_id: moimid },
+        ],
+      },
+    });
+    await DibsMoim.create({
+      user_id: req.session.userInfo.userid,
+      moim_id: moimid,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
