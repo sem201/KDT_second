@@ -2,6 +2,14 @@ const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const { bcryptPassword, compareFunc } = require("../utils/encrypt");
 
+const {
+  Moim,
+  User,
+  MoimDetail,
+  MoimSet,
+  DibsMoim,
+} = require("../models/index");
+
 // User 회원가입
 exports.postUser = async (req, res) => {
   try {
@@ -108,5 +116,25 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-//모임 추가, 모임 detail 추가, 모임 수정, 모임 detail 수정, 모임 삭제(모임 detail은 동시 삭제)
-//모임 set 테이블 추가, 수정, 삭제 TEST만 남음
+// User 찜
+
+// 아직 다 못했음
+exports.dibsMoim = async (req, res) => {
+  const { moimid } = req.params;
+  try {
+    const isAlreadyDibs = await DibsMoim.findOne({
+      where: {
+        [Op.and]: [
+          { user_id: req.session.userInfo.userid },
+          { moim_id: moimid },
+        ],
+      },
+    });
+    await DibsMoim.create({
+      user_id: req.session.userInfo.userid,
+      moim_id: moimid,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

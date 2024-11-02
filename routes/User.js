@@ -22,9 +22,10 @@ router.post("/user/login", userController.loginUser);
 router.post("/user/check-pw", userController.userPasswordConfirm);
 
 // 회원정보 업데이트
-router.post("/user/update", userController.updateUser);
+router.patch("/user/update", userController.updateUser);
 
 // 상세 모임 화며 조회
-router.get("/moim/");
+router.get("/moim/:moimid", controller.moim);
 
-module.exports = router;
+// user가 상세 모임에서 찜하기
+router.post("/user/dibs", userController.dibsMoim);
