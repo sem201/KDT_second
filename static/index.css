@@ -80,7 +80,7 @@ a {
     flex-direction: column;
 }
 
-.moim_set {
+.moim_set_page {
     width: 170px;
     height: 70px;
     min-width: 170px;
@@ -114,7 +114,7 @@ a {
     top: -5px;
 }
 
-.moim_list {
+.moim_list_page {
     width: 170px;
     height: 70px;
     min-width: 170px;
