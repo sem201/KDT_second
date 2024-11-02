@@ -26,4 +26,5 @@ router.post("/user/update", userController.updateUser);
 
 // 상세 모임 화며 조회
 router.get("/moim/");
+
 module.exports = router;

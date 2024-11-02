@@ -5,6 +5,8 @@ dotenv.config();
 const db = require("./models");
 const app = express();
 const router = require("./routes/User");
+const moimrouter = require("./routes/Moim");
+
 const PORT = process.env.PORT;
 
 app.set("view engine", "ejs");
@@ -24,6 +26,7 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 
 app.use("/", router);
+app.use("/moim", moimrouter);
 
 app.get("*", (req, res) => {
   res.render("404");
