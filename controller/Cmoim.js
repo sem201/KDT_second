@@ -193,3 +193,13 @@ exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
   res.render("moimdetail");
 };
+
+exports.moimlist1 = async (req, res) => {
+  const data = await Moim.findAll();
+  if (data) {
+    res.json("moimlist", { data });
+  } else {
+    alert("모임 리스트 출력 실패");
+    res.redirect("/");
+  }
+};
