@@ -14,6 +14,7 @@ function selectLocation() {
     // 닫기 버튼 클릭 시 팝업 닫기
     closeButton.addEventListener("click", () => {
         categoryPopup.remove();
+        document.removeEventListener("click", closePopupOnClickOutside);
     });
 
     let location_list = [
@@ -34,6 +35,20 @@ function selectLocation() {
     categoryPopup.innerHTML = location;
     categoryPopup.prepend(closeButton);
     document.querySelector("section").append(categoryPopup);
+
+        // 팝업 외부 클릭 시 닫기 함수
+        function closePopupOnClickOutside(event) {
+            if (!categoryPopup.contains(event.target)) {
+                categoryPopup.remove();
+                document.removeEventListener("click", closePopupOnClickOutside);
+            }
+        }
+    
+        // 팝업 외부 클릭 감지 이벤트 추가
+        setTimeout(() => {
+            document.addEventListener("click", closePopupOnClickOutside);
+        }, 0); // 팝업 생성 이후 클릭 이벤트 등록
+
 
     // 모든 location_item 요소 선택
     const locationItems = document.querySelectorAll(".location_item");
@@ -72,6 +87,7 @@ function selectCategory() {
     // 닫기 버튼 클릭 시 팝업 닫기
     closeButton.addEventListener("click", () => {
         categoryPopup.remove();
+        document.removeEventListener("click", closePopupOnClickOutside);
     });
 
     let category_list = [
@@ -91,6 +107,20 @@ function selectCategory() {
     categoryPopup.innerHTML = category;
     categoryPopup.prepend(closeButton);
     document.querySelector("section").append(categoryPopup);
+
+    // 팝업 외부 클릭 시 닫기 함수
+    function closePopupOnClickOutside(event) {
+        if (!categoryPopup.contains(event.target)) {
+            categoryPopup.remove();
+            document.removeEventListener("click", closePopupOnClickOutside);
+        }
+    }
+
+    // 팝업 외부 클릭 감지 이벤트 추가
+    setTimeout(() => {
+        document.addEventListener("click", closePopupOnClickOutside);
+    }, 0); // 팝업 생성 이후 클릭 이벤트 등록
+
 
     // 모든 location_item 요소 선택
     const categoryItems = document.querySelectorAll(".category_item");
@@ -127,3 +157,16 @@ function filterMoim(onOff) {
 
 }
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    const tableRows = document.querySelectorAll("table tbody tr");
+
+    tableRows.forEach(row => {
+        row.addEventListener("click", function() {
+            const url = this.getAttribute("data-url");
+            if (url) {
+                window.location.href = url; // 해당 URL로 이동
+            }
+        });
+    });
+});
