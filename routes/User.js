@@ -30,10 +30,6 @@ router.delete("/delete", userController.userDelete);
 // router.get("/moim/:moimid", controller.moim);
 
 // user가 상세 모임에서 찜하기
-<<<<<<< HEAD
-router.post("/user/dibs", userController.dibsMoim);
-=======
 router.post("/dibs", userController.dibsMoim);
->>>>>>> 4fd993c4298269eaba4f6b1fe714915b0f68f073
 
 module.exports = router;
