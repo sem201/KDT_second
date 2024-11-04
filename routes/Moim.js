@@ -21,4 +21,6 @@ router.patch("/moimset", controller.Moimset_patch); //가입한 사용자의 별
 
 router.delete("/moimset", controller.MoimSet_detory); // 모임 set 테이블의 정보를 삭제함.
 
+router.get("/moim_insert", controller.moim_insert);
+
 module.exports = router;

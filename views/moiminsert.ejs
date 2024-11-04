@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../static/" defer></script>
+  </head>
+  <body>
+    <form name="moim-insert">
+      <fieldset>
+        <label for="title">제목</label>
+        <input type="text" id="title" />
+        <label for="on_line">온라인</label>
+        <input type="radio" name="on_line" id="on_line" value="true" /> 온라인
+        <input type="radio" name="on_line" id="on_line" value="false" />
+        오프라인
+        <label for="max_people">최대 인원수</label>
+        <select id="max_people" required>
+          <option value="" disabled selected>좋아하는 색상 선택</option>
+          <% for( let i = 0; i < 15; index++ ) { %>
+          <option value="<%= i %>"><%= i %></option>
+          <% } %>
+          <option value="X">무제한</option>
+        </select>
+        <label for="expiration_date">모집 마감 시한</label>
+        <input type="datetime" name="expiration_date" id="expiration_date" />
+        <label for="even_date ">이벤트 진행 날짜</label>
+        <input type="datetime" name="even_date" id="even_date" />4
+        <label for="represent_img">모집 공고 이미지</label>
+        <input type="file" id="represent_img" name="represent_img" />
+      </fieldset>
+      <button type="button" onclick="moim_insert()">모임 개설</button>
+    </form>
+    <script>
+      function moim_insert() {
+        let form = document.forms["moim-insert"];
+      }
+    </script>
+  </body>
+</html>

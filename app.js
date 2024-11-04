@@ -17,6 +17,7 @@ const sessionConfig = {
   secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
+  rolling: true,
   cookie: {
     httpOnly: true,
     maxAge: 60 * 60 * 1000, // 1시간
