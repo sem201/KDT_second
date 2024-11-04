@@ -13,21 +13,23 @@ router.get("/", controller.index);
 // router.get("/login", controller.login);
 
 // 회원가입
-router.post("/user/register", userController.postUser);
+router.post("/register", userController.postUser);
 
 // 로그인
-router.post("/user/login", userController.loginUser);
+router.post("/login", userController.loginUser);
 
 // 회원정보 확인
-router.post("/user/check-pw", userController.userPasswordConfirm);
+router.post("/check-pw", userController.userPasswordConfirm);
 
 // 회원정보 업데이트
-router.patch("/user/update", userController.updateUser);
+router.patch("/update", userController.updateUser);
 
+// 회원정보 삭제
+router.delete("/delete", userController.userDelete);
 // 상세 모임 화며 조회
 // router.get("/moim/:moimid", controller.moim);
 
 // user가 상세 모임에서 찜하기
-router.post("/user/dibs", userController.dibsMoim);
+router.post("/dibs", userController.dibsMoim);
 
 module.exports = router;

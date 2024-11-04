@@ -116,6 +116,13 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+// User 삭제
+exports.userDelete = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log("user 삭제 실패", error);
+  }
+};
 // User 찜
 
 // 아직 다 못했음
