@@ -4,7 +4,8 @@ const session = require("express-session");
 dotenv.config();
 const db = require("./models");
 const app = express();
-const router = require("./routes/User");
+const router = require("./routes/main");
+const userrouter = require("./routes/User");
 const moimrouter = require("./routes/Moim");
 
 const PORT = process.env.PORT;
@@ -27,6 +28,7 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 
 app.use("/", router);
+app.use("/user", userrouter);
 app.use("/moim", moimrouter);
 
 app.get("*", (req, res) => {
