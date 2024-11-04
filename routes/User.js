@@ -26,13 +26,15 @@ router.patch("/update", userController.updateUser);
 
 // 회원정보 삭제
 router.delete("/delete", userController.userDelete);
-// 상세 모임 화며 조회
-// router.get("/moim/:moimid", controller.moim);
 
 // user가 상세 모임에서 찜하기
 router.post("/dibs", userController.dibsMoim);
 
+<<<<<<< HEAD
 // 프로필
 router.get("/profile", userController.profile);
 
+=======
+router.get("/info", userController.userInformation);
+>>>>>>> 1fb6a3380d99bcf76bcc7e8b9f5a90c46a7c7900
 module.exports = router;

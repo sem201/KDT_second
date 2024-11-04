@@ -61,14 +61,14 @@ exports.loginUser = async (req, res) => {
         console.log("로그인 실패");
         res.send({
           result: true,
-          message: "로그인 실패 아이디 혹은 비밀번호를 확인해주세요",
+          message: "로그인 실패 비밀번호를 확인해주세요",
         });
       }
     } else {
       console.log("로그인 실패");
       res.send({
         result: true,
-        message: "로그인 실패 아이디 혹은 비밀번호를 확인해주세요",
+        message: "로그인 실패 아이디를 확인해주세요",
       });
     }
   } catch (error) {
@@ -119,13 +119,17 @@ exports.updateUser = async (req, res) => {
 // User 삭제
 exports.userDelete = async (req, res) => {
   try {
+    await User.destroy({
+      where: { user_id: req.session.userInfo.userid },
+      // where: { user_id: "1234" },
+    });
+    res.send("user 삭제됨");
   } catch (error) {
     console.log("user 삭제 실패", error);
   }
 };
-// User 찜
 
-// 아직 다 못했음
+// User 찜
 exports.dibsMoim = async (req, res) => {
   const { moimid } = req.params;
   try {
@@ -137,15 +141,38 @@ exports.dibsMoim = async (req, res) => {
         ],
       },
     });
-    await DibsMoim.create({
-      user_id: req.session.userInfo.userid,
-      moim_id: moimid,
-    });
+    if (isAlreadyDibs) {
+      await DibsMoim.destroy({
+        where: {
+          [Op.and]: [
+            { user_id: req.session.userInfo.userid },
+            { moim_id: moimid },
+          ],
+        },
+      });
+      console.log("이미 찜한 목록임 삭제할게");
+      res.send({ result: false, message: "찜 목록에서 제외되었습니다." });
+    } else {
+      await DibsMoim.create({
+        user_id: req.session.userInfo.userid,
+        moim_id: moimid,
+      });
+      res.send({ result: true, message: "찜 목록에 추가되었습니다." });
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
+<<<<<<< HEAD
 exports.profile = async (req, res) => {
   res.render("profile");
+=======
+// user 정보 페이지 렌더링
+exports.userInformation = async (req, res) => {
+  res.render("userinfo", {
+    nickname: req.session.userIfo.nickname,
+    user_id: req.session.userInfo.userid,
+  });
+>>>>>>> 1fb6a3380d99bcf76bcc7e8b9f5a90c46a7c7900
 };

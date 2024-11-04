@@ -22,6 +22,10 @@ exports.Moim_destory = async (req, res) => {
   }
 };
 
+exports.moim_insert = (req, res) => {
+  res.render("moiminsert"); // 모임 추가 창으로 가는 코드
+};
+
 exports.Moimset_patch = async (req, res) => {
   //각 유저 별 모임 점수 수정
   // if (req.session.userInfo) {
@@ -176,4 +180,10 @@ exports.reunion_POST = async (req, res) => {
   // } else {
   //   res.redirect("/login");
   // }
+};
+
+// 모임 디테일 페이지 렌더링
+exports.MoimDetail_render = async (req, res) => {
+  console.log(req.params.moimid);
+  res.render("moimdetail");
 };
