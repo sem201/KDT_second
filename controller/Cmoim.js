@@ -194,7 +194,7 @@ exports.MoimDetail_render = async (req, res) => {
   res.render("moimdetail");
 };
 
-exports.moimlist = async (req, res) => {
+exports.moimlist1 = async (req, res) => {
   const data = await Moim.findAll();
   if (data) {
     res.json("moimlist", { data });
