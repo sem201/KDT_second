@@ -24,4 +24,6 @@ router.delete("/moimset", controller.MoimSet_detory); // 모임 set 테이블의
 // 상세 모임 화며 조회
 router.get("/:moimid", controller.MoimDetail_render);
 
+router.get("/moim_insert", controller.moim_insert);
+
 module.exports = router;
