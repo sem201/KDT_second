@@ -164,10 +164,15 @@ exports.dibsMoim = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+exports.profile = async (req, res) => {
+  res.render("profile");
+=======
 // user 정보 페이지 렌더링
 exports.userInformation = async (req, res) => {
   res.render("userinfo", {
     nickname: req.session.userIfo.nickname,
     user_id: req.session.userInfo.userid,
   });
+>>>>>>> 1fb6a3380d99bcf76bcc7e8b9f5a90c46a7c7900
 };
