@@ -4,6 +4,8 @@ const controller = require("../controller/Cmoim");
 
 router.get("/reunion", controller.reunion_GET); //모임 사이토 진입
 
+router.post("/moimlist", controller.moimlist); // moimlist 페이지 이동
+
 router.post("/reunion", controller.reunion_POST); //모임 정보 추가 - 완료
 
 router.patch("/reunion", controller.Moim_UPDATE); //모임 정보 업데이트 - 완료
