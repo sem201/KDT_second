@@ -31,18 +31,18 @@ section {
 }
 
 
-.category {
+.categorize {
     /* position: relative;
     top: -10px;
     left: 100px; */
     margin: 10px;
 }
 
-.category>p {
+.categorize>p {
     margin: 5px 0;
 }
 
-.category>p>span {
+.categorize>p>span {
     text-decoration: underline;
     font-size: 20px;
 }
@@ -123,5 +123,17 @@ td {
 
 li {
     list-style: none;
-    padding: 3px 0;
+    padding: 5px 0;
+}
+
+
+/* pop up */
+.location_item, .category_item {
+    padding: 10px;
+    border-top: 0.5px solid rgb(0, 0, 0);
+    text-align: center;
+}
+
+.location_item:click {
+    background-color: white;
 }
