@@ -145,3 +145,7 @@ exports.dibsMoim = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.profile = async (req, res) => {
+  res.render("profile");
+};
