@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h2>회원가입</h2>
+    <form name="signup-form">
+      <input type="text" name="username" placeholder="닉넥임(1~10자)" /><br />
+      <input type="text" id="id" placeholder="아이디를 입력하세요." /><br />
+      <input
+        type="password"
+        id="pw"
+        placeholder="비밀번호를 입력하세요.(8~12자)"
+      /><br />
+      <input
+        type="password"
+        id="confirmPw"
+        placeholder="비밀번호를 다시 입력하세요."
+      /><br />
+      <button type="button" onclick="signup()">회원가입하기</button>
+    </form>
+
+    <p><a href="/login">로그인 </a></p>
+
+    <script>
+      async function signup() {
+        const form = document.forms["signup-form"];
+        console.log(form);
+        if (form.pw.value !== form.confirmPw.value) {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
+        await axios({
+          method: "post",
+          url: "/user/register",
+          data: {
+            nickname: form.username.value,
+            userid: form.id.value,
+            pw: form.pw.value,
+          },
+        }).then((res) => {
+          console.log("res", res);
+          if (res.data.result) {
+            alert("회원가입이 완료되었습니다. 로그인해주세요.");
+            document.location.href = "login";
+          } else {
+            alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+            form.reset();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

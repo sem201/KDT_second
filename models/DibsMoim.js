@@ -3,24 +3,19 @@
  * @param {import('sequelize').DataTypes} DataTypes
  */
 
-const { Sequelize } = require(".");
-
-const MoimDetailModel = (Sequelize, DataTypes) => {
+const DibsMoimModel = (Sequelize, DataTypes) => {
   return Sequelize.define(
-    "moim_detail",
+    "dibs_moim",
     {
       moim_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      content: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-      },
-      min_people: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+      user_id: {
+        type: DataTypes.STRING(20),
+        primaryKey: true,
+        allowNull: false,
       },
     },
     {
@@ -30,4 +25,4 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
   );
 };
 
-module.exports = MoimDetailModel;
+module.exports = DibsMoimModel;

@@ -14,27 +14,35 @@ const MoimModel = (Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: {
-        type: DataTypes.VARCHAR(30),
+        type: DataTypes.STRING(30),
         allowNull: false,
+      },
+      on_line: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       max_people: {
         type: DataTypes.INTEGER,
       },
       expiration_date: {
-        type: DataTypes.DATETIME,
-        allowNull: false,
+        type: DataTypes.DATE,
       },
       even_date: {
-        type: DataTypes.DATETIME,
-        allowNull: false,
+        type: DataTypes.DATE,
       },
       location: {
-        type: DataTypes.VARCHAR(25),
+        type: DataTypes.STRING(25),
         allowNull: true,
+      },
+      represent_img: {
+        type: DataTypes.STRING(255),
       },
     },
     {
       freezeTableName: true,
+      timestamps: false,
     }
   );
 };
+
+module.exports = MoimModel;
