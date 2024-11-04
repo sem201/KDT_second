@@ -187,3 +187,9 @@ exports.reunion_POST = async (req, res) => {
   //   res.redirect("/login");
   // }
 };
+
+// 모임 디테일 페이지 렌더링
+exports.MoimDetail_render = async (req, res) => {
+  console.log(req.params.moimid);
+  res.render("moimdetail");
+};
