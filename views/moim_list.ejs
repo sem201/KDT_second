@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<link rel="stylesheet" href="/static/moim_list.css" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="/static/moim_list.js"></script>
+<body>
+  <header>
+    <div class="logo">
+      <!-- 로고 -->
+      <a href="/">MOiM</a>
+    </div>
+    <div class="categorize">
+        <!-- 위치 정보 불러오기 -->
+        <p>in <span class="location" onclick="selectLocation()">WHERE?
+        </span></p>
+      <p>about <span class="category" onclick="selectCategory()">WHAT?
+          <!-- 관심사 정보 불러오기 -->
+        </span></p>
+    </div>
+  </header>
+  <section>
+      <div class="onOff">
+        <button type="button" onclick="filterMoim('all')">전체</button>
+        <button type="button" onclick="filterMoim('online');">온라인</button>
+        <button type="button" onclick="filterMoim('offline');">오프라인</button>
+      </div>
+
+      <div class="moim_table">
+        <table>
+          <tbody>
+            <tr data-url="http://localhost:5500/views/moim_detail.html">
+              <td>
+                <div class="moim_infoBox">
+                  <!-- 모임 제목 & 남은 인원-->
+                  <div class="moim_title">
+                    <span style="font-size: 20px; font-weight: 700;">모임 제목</span><br>
+                    <span>(3/10)</span>
+                  </div>
+                  <!-- 장소 & 날짜-->
+                  <div class="locationDate">
+                    <span>인천시 미추홀구</span>
+                    <span><br>2024.11.14</span>
+                  </div>
+                </div>
+                <div class="moim_imgBox">
+                  <img src="" alt="" id="moim_img">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="moim_infoBox">
+                  <!-- 모임 제목 & 남은 인원-->
+                  <div class="moim_title">
+                    <span style="font-size: 20px; font-weight: 700;">모임 제목</span><br>
+                    <span>(3/10)</span>
+                  </div>
+                  <!-- 장소 & 날짜-->
+                  <div class="locationDate">
+                    <span>인천시 미추홀구</span>
+                    <span><br>2024.11.14</span>
+                  </div>
+                </div>
+                <div class="moim_imgBox">
+                  <img src="" alt="" id="moim_img">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="moim_infoBox">
+                  <!-- 모임 제목 & 남은 인원-->
+                  <div class="moim_title">
+                    <span style="font-size: 20px; font-weight: 700;">모임 제목</span><br>
+                    <span>(3/10)</span>
+                  </div>
+                  <!-- 장소 & 날짜-->
+                  <div class="locationDate">
+                    <span>인천시 미추홀구</span>
+                    <span><br>2024.11.14</span>
+                  </div>
+                </div>
+                <div class="moim_imgBox">
+                  <img src="" alt="" id="moim_img">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="moim_infoBox">
+                  <!-- 모임 제목 & 남은 인원-->
+                  <div class="moim_title">
+                    <span style="font-size: 20px; font-weight: 700;">모임 제목</span><br>
+                    <span>(3/10)</span>
+                  </div>
+                  <!-- 장소 & 날짜-->
+                  <div class="locationDate">
+                    <span>인천시 미추홀구</span>
+                    <span><br>2024.11.14</span>
+                  </div>
+                </div>
+                <div class="moim_imgBox">
+                  <img src="" alt="" id="moim_img">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="moim_infoBox">
+                  <!-- 모임 제목 & 남은 인원-->
+                  <div class="moim_title">
+                    <span style="font-size: 20px; font-weight: 700;">모임 제목</span><br>
+                    <span>(3/10)</span>
+                  </div>
+                  <!-- 장소 & 날짜-->
+                  <div class="locationDate">
+                    <span>인천시 미추홀구</span>
+                    <span><br>2024.11.14</span>
+                  </div>
+                </div>
+                <div class="moim_imgBox">
+                  <img src="" alt="" id="moim_img">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="moim_infoBox">
+                  <!-- 모임 제목 & 남은 인원-->
+                  <div class="moim_title">
+                    <span style="font-size: 20px; font-weight: 700;">모임 제목</span><br>
+                    <span>(3/10)</span>
+                  </div>
+                  <!-- 장소 & 날짜-->
+                  <div class="locationDate">
+                    <span>인천시 미추홀구</span>
+                    <span><br>2024.11.14</span>
+                  </div>
+                </div>
+                <div class="moim_imgBox">
+                  <img src="" alt="" id="moim_img">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </section>
+
+
+
+</body>
+
+</html>
