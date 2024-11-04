@@ -5,36 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="../static/" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <form name="moim-insert">
       <fieldset>
+        <!-- 동작 확인 후 세션에서 정보를 받는 걸로 수정 예정 -->
+        <label for="user_id">유저 아이디</label>
+        <input type="text" id="user_id" /> <br /><br />
         <label for="title">제목</label>
-        <input type="text" id="title" />
-        <label for="on_line">온라인</label>
+        <input type="text" id="title" /> <br /><br />
+        <label for="on_line">온라인 여부</label>
         <input type="radio" name="on_line" id="on_line" value="true" /> 온라인
-        <input type="radio" name="on_line" id="on_line" value="false" />
-        오프라인
+        <input type="radio" name="on_line" id="on_line" value="false" checked />
+        오프라인 <br /><br />
         <label for="max_people">최대 인원수</label>
         <select id="max_people" required>
           <option value="" disabled selected>좋아하는 색상 선택</option>
-          <% for( let i = 0; i < 15; index++ ) { %>
+          <% for( let i = 0; i < 15; i++ ) { %>
           <option value="<%= i %>"><%= i %></option>
           <% } %>
           <option value="X">무제한</option>
         </select>
+        <br /><br />
+        <label for="min_people">최소 인원수</label>
+        <select id="min_people" required>
+          <option value="" selected>선택하지 않음</option>
+          <% for( let i = 0; i < 15; i++ ) { %>
+          <option value="<%= i %>"><%= i %></option>
+          <% } %>
+          <option value="X">무제한</option>
+        </select>
+        <br />
+        <br />
         <label for="expiration_date">모집 마감 시한</label>
-        <input type="datetime" name="expiration_date" id="expiration_date" />
+        <input
+          type="datetime-local"
+          id="expiration_date"
+          name="expiration_date"
+          max="2054-11-20T21:00"
+          min="2024-11-20T21:00"
+          value="2024-11-15T13:27"
+        />
+
+        <br /><br />
         <label for="even_date ">이벤트 진행 날짜</label>
-        <input type="datetime" name="even_date" id="even_date" />4
+        <input
+          type="datetime-local"
+          id="even_date"
+          name="even_date"
+          max="2054-11-20T21:00"
+          min="2024-11-20T21:00"
+          value="2024-11-15T13:27"
+        />
+        <br /><br />
+        <label for="location">모임을 개설할 지역</label>
+        <input type="text" id="location" /> <br /><br />
+
         <label for="represent_img">모집 공고 이미지</label>
         <input type="file" id="represent_img" name="represent_img" />
+        <br /><br />
+        <textarea
+          id="content"
+          name="content"
+          rows="20"
+          cols="100"
+          placeholder="내용을 입력해주세요?"
+        >
+        </textarea>
       </fieldset>
       <button type="button" onclick="moim_insert()">모임 개설</button>
+      <button type="button" onclick="location.href= '/'">개설 취소</button>
     </form>
     <script>
-      function moim_insert() {
+      async function moim_insert() {
         let form = document.forms["moim-insert"];
+        console.log(form.on_line.value);
+        const on_line = [];
+        form.on_line.forEach((element) => {
+          if (element.checked == true) {
+            on_line.push(element.value);
+          }
+        });
+
+        if (
+          form.title.value == null ||
+          form.on_line.value == null ||
+          form.expiration_date.value == null ||
+          form.even_date.value == null ||
+          form.location.value == null
+        ) {
+          alert(
+            "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
+          );
+          return;
+        }
+
+        if (form.expiration_date.value >= form.even_date.value) {
+          alert("모임 가입 가능일은 모임 날짜를 초과하여 설정할 수 없습니다.");
+          return;
+        }
+
+        if (
+          form.max_people.value !== null &&
+          form.min_people.value !== null &&
+          form.max_people.value < form.min_people.value
+        ) {
+          alert(
+            "최소 인원수를 설정하였을 경우, 최대 인원수를 초과하여 설정할 수 없습니다."
+          );
+          return;
+        }
+
+        const { data } = await axios({
+          method: "POST",
+          url: "/moim/reunion",
+          data: {
+            title: form.title.value,
+            on_line: form.on_line.value,
+            max_people: form.max_people.value,
+            expiration_date: form.expiration_date.value,
+            even_date: form.even_date.value,
+            location: form.location.value,
+            represent_img: form.represent_img.value,
+            user_id: form.user_id.value,
+          },
+        });
+        const moim_id = data.userInfo.moim_id;
+        if (data.result) {
+          const { data } = await axios({
+            method: "POST",
+            url: "/moim/reuniondetail",
+            data: {
+              moim_id: moim_id,
+              content: form.content.value,
+              min_people: form.min_people.value,
+            },
+          });
+          if (data.result) {
+            alert("form 데이터가 정상적으로 추가되었습니다.");
+            window.location.href = "/";
+          } else {
+            alert("form 데이터 생성에 실패하였습니다.");
+            location.reload();
+          }
+        } else {
+          alert("모임 개설에 실패하였습니다. 다시 시도해주세요");
+          location.reload();
+        }
       }
     </script>
   </body>

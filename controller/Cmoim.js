@@ -134,11 +134,11 @@ exports.Moim_UPDATE = async (req, res) => {
 
 exports.MoimDetail_POST = async (req, res) => {
   // if (req.session.userInfo) {
+  const { moim_id, content, min_people } = req.body;
   try {
-    const { moim_id, content, min_people } = req.body;
     await MoimDetail.create({ moim_id, content, min_people });
     res.json({ result: true });
-  } catch {
+  } catch (error) {
     console.error(error);
     await Moim.destroy({ where: { moim_id } });
     //Moim_detaill 테이블에 정보 저장이 실패하였을 때, Moim table의 이전 저장 정보를 삭제한다.
@@ -162,7 +162,9 @@ exports.reunion_POST = async (req, res) => {
       represent_img,
       user_id,
     } = req.body;
-    const { data } = await Moim.create({
+
+    console.log(req.body);
+    const date = await Moim.create({
       title,
       on_line,
       max_people,
@@ -172,10 +174,14 @@ exports.reunion_POST = async (req, res) => {
       represent_img,
       user_id,
     });
-    res.json({ result: true, userInfo: data });
+    res.json({ result: true, userInfo: date });
   } catch (error) {
     console.error(error);
-    res.send({ result: false, Message: "모임 개설에 실패하였습니다." });
+    res.send({
+      result: false,
+      Message: "모임 개설에 실패하였습니다.",
+      userInfo: null,
+    });
   }
   // } else {
   //   res.redirect("/login");
