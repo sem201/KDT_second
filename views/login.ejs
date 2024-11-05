@@ -34,8 +34,8 @@
         }).then((res) => {
           console.log("res", res);
           if (res.data.result) {
-            alert(`${res.data.data.username}님, 로그인 되었습니다.`);
-            document.location.href = `/profile/${res.data.data.id}`;
+            // alert(`${res.data.data.username}님, 로그인 되었습니다.`);
+            // document.location.href = `/profile/${res.data.data.id}`;
           } else {
             alert("아이디와 비밀번호가 일치하지 않습니다.");
             form.reset();

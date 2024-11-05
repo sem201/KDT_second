@@ -150,7 +150,6 @@ exports.dibsMoim = async (req, res) => {
           ],
         },
       });
-      console.log("이미 찜한 목록임 삭제할게");
       res.send({ result: false, message: "찜 목록에서 제외되었습니다." });
     } else {
       await DibsMoim.create({

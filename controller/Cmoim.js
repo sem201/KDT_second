@@ -36,7 +36,7 @@ exports.Moimset_patch = async (req, res) => {
   //각 유저 별 모임 점수 수정
   // if (req.session.userInfo) {
   try {
-    const { user_review, moim_id, user_id, updatereview } = req.body;
+    const { moim_id, user_id, updatereview } = req.body;
     await MoimSet.update(
       { user_review: updatereview },
       { where: { user_id, moim_id } }
@@ -198,4 +198,14 @@ exports.Moims_POST = async (req, res) => {
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
   res.render("moim_detail");
+};
+
+exports.moimlist1 = async (req, res) => {
+  const data = await Moim.findAll();
+  if (data) {
+    res.json("moimlist", { data });
+  } else {
+    alert("모임 리스트 출력 실패");
+    res.redirect("/");
+  }
 };

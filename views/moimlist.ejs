@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>모임 전체 리스트 호출 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div name="moim-list">즉시 실행 함수로 동작하는 페이지 입니다.</div>
+    <script>
+      (function () {
+        const { data } = axios({
+          method: "POST",
+          url: "/moim/moimlist",
+        });
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>

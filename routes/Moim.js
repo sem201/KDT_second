@@ -4,7 +4,10 @@ const controller = require("../controller/Cmoim");
 
 router.get("/moims", controller.Moims_GET); //모임 사이토 진입
 
+
 router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
+
+// router.post("/moimlist", controller.moimlist); // moimlist 페이지 이동
 
 router.patch("/moims", controller.Moim_UPDATE); //모임 정보 업데이트 - 완료
 
