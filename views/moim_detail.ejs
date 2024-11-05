@@ -8,7 +8,7 @@
 </head>
 <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="/static/moim_list.js"></script>
+<script src="/static/moim_detail.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <body>
@@ -18,44 +18,32 @@
       <a href="/">MOiM</a>
     </div>
     <div class="setting">
-        <div><span>×</span></div>
+        <div>
+            <span onclick="location.href='/moim/moims'">←</span>
+        </div>
     </div>
   </header>
   <section>
     <div class="moim">
       <img src="#" alt=""><br>
-      <h3>모임 제목</h3>
-      <!-- <div class="moim_info">
-        <div class="element">
-            <div>장소</div>
-            <div>일시</div>
-            <div>모집 기간</div>
-            <div>인원</div>
-        </div>
-        <div class="content">
-            <div>인천광역시</div>
-            <div>2024.11.15</div>
-          <div>2024.11.01 ~ 2024.11.10</div>
-          <div>3/10</div>
-        </div>
-      </div> -->
+      <h3><%= data.title %></h3>
       <table>
         <tbody>
             <tr>
                 <td id="col1">장소</td>
-                <td id="col2">인천광역시</td>
+                <td id="col2"><%= data.location %></td>
             </tr>
             <tr>
                 <td id="col1">일시</td>
-                <td id="col2">2024.11.15</td>
+                <td id="col2"><%= data.even_date %></td>
             </tr>
             <tr>
                 <td id="col1">모집 기간</td>
-                <td id="col2">2024.11.01 ~ 2024.11.10</td>
+                <td id="col2"><%= data.expiration_date %></td>
             </tr>
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span>5/10 </span><button type="button" onclick="showPPL()">👥</button></td>
+                <td id="col2"><span>5 ~ <%= data.max_people %> </span><button type="button" onclick="showPPL()">👥</button></td>
             </tr>
             <tr>
                 <!-- 참여하는 경우 detail 정보 추가 -->
@@ -64,7 +52,7 @@
       </table>
     </div>
 
-    <div class="apply">
+    <div class="apply" onclick="apply()">
       <span>참여하기</span>
     </div>
   </section>

@@ -36,7 +36,7 @@
         <table>
           <tbody>
             <% for( let i = 0; i < data.length; i++ ) { %>
-              <tr onclick="location.href='/moim/moim_detail'">
+              <tr onclick="location.href=`/moim/<%= data[i].moim_id %>`">
                 <td>
                   <div class="moim_infoBox">
                     <!-- 모임 제목 & 남은 인원-->

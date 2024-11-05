@@ -146,14 +146,6 @@ function selectCategory() {
 function showMoim(location, category) {
     const moim_infoBox = document.querySelector(".moim_infoBox");
     
-    const row = ``;
-
-    const data = axios({
-        method: "POST",
-        url: "/moim/moims",
-    });
-
-    console.log(data);
     
 }
 
@@ -164,17 +156,6 @@ function filterMoim(onOff) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    const tableRows = document.querySelectorAll("table tbody tr");
 
-    tableRows.forEach(row => {
-        row.addEventListener("click", function() {
-            const url = this.getAttribute("data-url");
-            if (url) {
-                window.location.href = url; // 해당 URL로 이동
-            }
-        });
-    });
-});
 
 

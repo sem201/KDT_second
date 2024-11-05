@@ -126,6 +126,22 @@ td>button {
     border: none;
 }
 
+.listOfppl {
+    position: fixed;
+    width: 70vw;
+    height: 50vh;
+    bottom: 25vh;
+    background-color: aqua;
+    z-index: 1;
+}
+
+.turnOff {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
+}
+
 .apply {
     position: fixed;
     bottom: 0;

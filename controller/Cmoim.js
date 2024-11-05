@@ -197,7 +197,13 @@ exports.Moims_POST = async (req, res) => {
 // 모임 디테일 페이지 렌더링
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
-  res.render("moim_detail");
+  try {
+    const data = await Moim.findOne({where: {moim_id: req.params.moimid}});
+    // const detail = await MoimDetail.findOne({where: {moim_id: req.params.moim_id}})
+    res.render("moim_detail", {data});
+  } catch(error){
+    res.json({ result: true, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+  }
 };
 
 exports.moimlist1 = async (req, res) => {
