@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 로고 
+- 위치 고정
+- 폰트 설정
+- 링크 연결
+*/
+
+*{
+    font-family: 'GmarketSansMedium';
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    margin: 10px;
+}
+
+.logo>a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+.setting>div {
+    width: 50px;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+    /* position: fixed;
+    top: 10px;
+    right: 10px; */
+    font-size: 35px
+
+}
+
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.500);
+}
+
+section {
+    position: absolute;
+    top: 60px;
+}
+
+.moim {
+    margin: 10px;
+    justify-items: center;
+}
+
+.moim>h3, .moim>h4, .moim>p, .locationDate {
+    width: 80vw;
+    text-align: start;
+}
+
+.moim>img {
+    width: 80vw;
+    height: 200px;
+    max-width: 430px;
+    padding: 10px;
+}
+
+.moim_info {
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+    border-top: 2px solid black;
+}
+
+.element {
+    width: 40%;
+    border-right: 1px solid black;
+}
+
+.content {
+    width: 60%;
+}
+
+.element>div, .content>div {
+    border-bottom: 2px solid black;
+    padding: 5px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tbody {
+    width: 80vw;
+    border-top: 2px solid black
+}
+
+tr {
+    border-bottom: 2px solid black;
+}
+
+td {
+    padding: 10px 5px;
+}
+
+#col1 {
+    width: 40%;
+    border-right: 1px solid black;
+}
+
+#col2 {
+    width: 60%;
+}
+
+td>button {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: none;
+}
+
+.apply {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #88d66c;
+}

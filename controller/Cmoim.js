@@ -6,8 +6,17 @@ const {
   DibsMoim,
 } = require("../models/index");
 
-exports.reunion_GET = (req, res) => {
-  res.render("moim");
+exports.Moims_GET = async (req, res) => {
+  try {
+    const data = await Moim.findAll();
+
+    res.render("moim_list", { data: data });
+  } catch (error) {
+    res.json({
+      result: true,
+      Message: "모임 정보 불러오기에 실패하였습니다!!!",
+    });
+  }
 };
 
 exports.Moim_destory = async (req, res) => {
@@ -26,38 +35,12 @@ exports.moim_insert = (req, res) => {
   res.render("moiminsert"); // 모임 추가 창으로 가는 코드
 };
 
-// exports.Moimset_patch = async (req, res) => {
-//   //각 유저 별 모임 점수 수정
-//   // if (req.session.userInfo) {
-//   try {
-//     const { moim_id, user_id, updatereview } = req.body;
-//     await MoimSet.update(
-//       { user_review: updatereview },
-//       { where: { user_id, moim_id } }
-//     );
-//     res.send({
-//       result: true,
-//       Message: `해당 user의 점수를 ${updatereview}로 수정합니다`,
-//     });
-//   } catch (error) {
-//     res.send({
-//       result: false,
-//       Message: "에러 발생!! 유저의 별점을 설정할 수 없습니다.",
-//     });
-//   }
-//   // } else {
-//   //   res.redirect("/login");
-//   // }
-// };
-
 exports.Moimset_patch = async (req, res) => {
   try {
-    const { user_id, updatereview, moim_id } = req.body;
-
+    const { user_review, moim_id, user_id, updatereview } = req.body;
     console.log(
       `User ID: ${user_id}, Moim ID: ${moim_id}, New Review Score: ${updatereview}`
     );
-
     await MoimSet.update(
       { user_review: updatereview },
       { where: { user_id, moim_id } }
@@ -161,11 +144,11 @@ exports.Moim_UPDATE = async (req, res) => {
 
 exports.MoimDetail_POST = async (req, res) => {
   // if (req.session.userInfo) {
+  const { moim_id, content, min_people } = req.body;
   try {
-    const { moim_id, content, min_people } = req.body;
     await MoimDetail.create({ moim_id, content, min_people });
     res.json({ result: true });
-  } catch {
+  } catch (error) {
     console.error(error);
     await Moim.destroy({ where: { moim_id } });
     //Moim_detaill 테이블에 정보 저장이 실패하였을 때, Moim table의 이전 저장 정보를 삭제한다.
@@ -176,7 +159,7 @@ exports.MoimDetail_POST = async (req, res) => {
   // }
 };
 
-exports.reunion_POST = async (req, res) => {
+exports.Moims_POST = async (req, res) => {
   // if (req.session.userInfo) {
   try {
     const {
@@ -189,7 +172,9 @@ exports.reunion_POST = async (req, res) => {
       represent_img,
       user_id,
     } = req.body;
-    const { data } = await Moim.create({
+
+    console.log(req.body);
+    const date = await Moim.create({
       title,
       on_line,
       max_people,
@@ -199,10 +184,14 @@ exports.reunion_POST = async (req, res) => {
       represent_img,
       user_id,
     });
-    res.json({ result: true, userInfo: data });
+    res.json({ result: true, userInfo: date });
   } catch (error) {
     console.error(error);
-    res.send({ result: false, Message: "모임 개설에 실패하였습니다." });
+    res.send({
+      result: false,
+      Message: "모임 개설에 실패하였습니다.",
+      userInfo: null,
+    });
   }
   // } else {
   //   res.redirect("/login");
@@ -212,5 +201,15 @@ exports.reunion_POST = async (req, res) => {
 // 모임 디테일 페이지 렌더링
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
-  res.render("moimdetail");
+  res.render("moim_detail");
+};
+
+exports.moimlist1 = async (req, res) => {
+  const data = await Moim.findAll();
+  if (data) {
+    res.json("moimlist", { data });
+  } else {
+    alert("모임 리스트 출력 실패");
+    res.redirect("/");
+  }
 };

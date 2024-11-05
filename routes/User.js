@@ -28,7 +28,7 @@ router.patch("/update", userController.updateUser);
 router.delete("/delete", userController.userDelete);
 
 // user가 상세 모임에서 찜하기
-router.post("/dibs", userController.dibsMoim);
+router.post("/dibs/:moimid", userController.dibsMoim);
 
 // 프로필 테스트
 router.get("/profile", userController.profile);
@@ -41,4 +41,9 @@ router.get("/meeting", userController.meeting);
 
 router.get("/info", userController.userInformation);
 
+//user 리뷰 페이지 렌더링
+router.get("/review", userController.review);
+
+// user에 대한 리뷰
+router.post("/review", userController.postReview);
 module.exports = router;
