@@ -164,9 +164,21 @@ exports.dibsMoim = async (req, res) => {
   }
 };
 
+// profile 테스트
 exports.profile = async (req, res) => {
   res.render("profile");
 };
+
+// review 테스트
+exports.review = async (req, res) => {
+  res.render("review");
+};
+
+// 모집글 테스트
+exports.meeting = async (req, res) => {
+  res.render("meeting");
+};
+
 // user 정보 페이지 렌더링
 exports.userInformation = async (req, res) => {
   res.render("userinfo", {

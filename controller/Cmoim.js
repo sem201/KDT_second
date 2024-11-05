@@ -26,29 +26,56 @@ exports.moim_insert = (req, res) => {
   res.render("moiminsert"); // 모임 추가 창으로 가는 코드
 };
 
+// exports.Moimset_patch = async (req, res) => {
+//   //각 유저 별 모임 점수 수정
+//   // if (req.session.userInfo) {
+//   try {
+//     const { moim_id, user_id, updatereview } = req.body;
+//     await MoimSet.update(
+//       { user_review: updatereview },
+//       { where: { user_id, moim_id } }
+//     );
+//     res.send({
+//       result: true,
+//       Message: `해당 user의 점수를 ${updatereview}로 수정합니다`,
+//     });
+//   } catch (error) {
+//     res.send({
+//       result: false,
+//       Message: "에러 발생!! 유저의 별점을 설정할 수 없습니다.",
+//     });
+//   }
+//   // } else {
+//   //   res.redirect("/login");
+//   // }
+// };
+
 exports.Moimset_patch = async (req, res) => {
-  //각 유저 별 모임 점수 수정
-  // if (req.session.userInfo) {
   try {
-    const { user_review, moim_id, user_id, updatereview } = req.body;
+    const { user_id, updatereview, moim_id } = req.body;
+
+    console.log(
+      `User ID: ${user_id}, Moim ID: ${moim_id}, New Review Score: ${updatereview}`
+    );
+
     await MoimSet.update(
       { user_review: updatereview },
       { where: { user_id, moim_id } }
     );
+
     res.send({
       result: true,
       Message: `해당 user의 점수를 ${updatereview}로 수정합니다`,
     });
   } catch (error) {
+    console.error("Error updating review score:", error);
     res.send({
       result: false,
       Message: "에러 발생!! 유저의 별점을 설정할 수 없습니다.",
     });
   }
-  // } else {
-  //   res.redirect("/login");
-  // }
 };
+
 exports.MoimSet_detory = async (req, res) => {
   // if (req.session.userInfo) {
   try {
