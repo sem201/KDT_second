@@ -17,6 +17,7 @@ const MoimDetail = require("../models/MoimDetail")(
 );
 const MoimSet = require("../models/MoimSet")(sequelize, Sequelize.DataTypes);
 const DibsMoim = require("../models/DibsMoim")(sequelize, Sequelize.DataTypes);
+const Review = require("../models/Review")(sequelize, Sequelize.DataTypes);
 
 Moim.hasOne(MoimDetail, {
   foreignKey: "moim_id",
@@ -38,11 +39,15 @@ DibsMoim.belongsTo(Moim, { foreignKey: "moim_id" });
 User.hasMany(DibsMoim, { foreignKey: "user_id" });
 DibsMoim.belongsTo(User, { foreignKey: "user_id" });
 
+MoimSet.hasMany(Review, { foreignKey: "moim_id" });
+Review.belongsTo(MoimSet, { foreignKey: "moim_id" });
+
 db.User = User;
 db.Moim = Moim;
 db.MoimDetail = MoimDetail;
 db.MoimSet = MoimSet;
 db.DibsMoim = DibsMoim;
+db.Review = Review;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
