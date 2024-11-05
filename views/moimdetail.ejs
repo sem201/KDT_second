@@ -4,8 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <p>예시 화면입니다</p>
+    <button onclick="DibsMoim()">찜하기</button>
+
+    <script>
+      function DibsMoim() {
+        const pathParts = window.location.pathname.split("/");
+        const moimid = pathParts[pathParts.length - 1];
+        console.log(moimid);
+        axios({
+          method: "post",
+          url: `/user/dibs/${moimid}`,
+        });
+        console.log("클릭 실행됨");
+      }
+    </script>
   </body>
 </html>
