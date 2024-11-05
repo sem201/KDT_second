@@ -42,6 +42,7 @@ db.User = User;
 db.Moim = Moim;
 db.MoimDetail = MoimDetail;
 db.MoimSet = MoimSet;
+db.DibsMoim = DibsMoim;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

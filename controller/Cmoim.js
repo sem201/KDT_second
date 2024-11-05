@@ -30,7 +30,7 @@ exports.Moimset_patch = async (req, res) => {
   //각 유저 별 모임 점수 수정
   // if (req.session.userInfo) {
   try {
-    const { user_review, moim_id, user_id, updatereview } = req.body;
+    const { moim_id, user_id, updatereview } = req.body;
     await MoimSet.update(
       { user_review: updatereview },
       { where: { user_id, moim_id } }
