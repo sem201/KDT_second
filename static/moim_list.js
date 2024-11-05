@@ -148,7 +148,13 @@ function showMoim(location, category) {
     
     const row = ``;
 
+    const data = axios({
+        method: "POST",
+        url: "/moim/moims",
+    });
 
+    console.log(data);
+    
 }
 
 // 온라인, 오프라인 필터링하여 보여주는 함수
@@ -170,3 +176,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
