@@ -1,3 +1,4 @@
+const sequelize = require("sequelize");
 const {
   Moim,
   User,
@@ -194,10 +195,21 @@ exports.MoimDetail_render = async (req, res) => {
   res.render("moimdetail");
 };
 
-exports.moimlist1 = async (req, res) => {
+exports.moimlist = async (req, res) => {
   const data = await Moim.findAll();
+  const moimset = await MoimSet.findAll({
+    attributes: [
+      "moim_id",
+      [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+    ],
+    group: "moim_id",
+  });
+  let moimcount = [];
+  for (let i = 0; i < moimset.length; i++) {
+    moimcount.push(moimset[i].dataValues);
+  }
   if (data) {
-    res.json("moimlist", { data });
+    res.render("moimlist", { data, moimcount });
   } else {
     alert("모임 리스트 출력 실패");
     res.redirect("/");
