@@ -28,7 +28,7 @@ router.patch("/update", userController.updateUser);
 router.delete("/delete", userController.userDelete);
 
 // user가 상세 모임에서 찜하기
-router.post("/dibs", userController.dibsMoim);
+router.post("/dibs/:moimid", userController.dibsMoim);
 
 // 프로필
 router.get("/profile", userController.profile);
