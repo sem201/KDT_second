@@ -39,8 +39,8 @@ DibsMoim.belongsTo(Moim, { foreignKey: "moim_id" });
 User.hasMany(DibsMoim, { foreignKey: "user_id" });
 DibsMoim.belongsTo(User, { foreignKey: "user_id" });
 
-MoimSet.hasMany(Review, { foreignKey: "moim_id" });
-Review.belongsTo(MoimSet, { foreignKey: "moim_id" });
+Moim.hasMany(Review, { foreignKey: "moim_id" });
+Review.belongsTo(Moim, { foreignKey: "moim_id" });
 
 db.User = User;
 db.Moim = Moim;
@@ -53,5 +53,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 // TODO: User 모델 db 객체에 저장
+//Sequelize에서 외래키를 복합키로 지정하는 방법을 지원하지 않음.
 
 module.exports = db;
