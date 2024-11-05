@@ -30,8 +30,14 @@ router.delete("/delete", userController.userDelete);
 // user가 상세 모임에서 찜하기
 router.post("/dibs/:moimid", userController.dibsMoim);
 
-// 프로필
+// 프로필 테스트
 router.get("/profile", userController.profile);
+
+// 리뷰 테스트
+router.get("/review", userController.review);
+
+// 모집글 테스트
+router.get("/meeting", userController.meeting);
 
 router.get("/info", userController.userInformation);
 
