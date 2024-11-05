@@ -8,6 +8,7 @@ const {
   MoimDetail,
   MoimSet,
   DibsMoim,
+  Review,
 } = require("../models/index");
 
 // User 회원가입
@@ -172,4 +173,31 @@ exports.userInformation = async (req, res) => {
     nickname: req.session.userIfo.nickname,
     user_id: req.session.userInfo.userid,
   });
+};
+
+// review 페이지 렌더링
+exports.review = async (req, res) => {
+  res.render("review");
+};
+
+// review 점수 주기
+exports.postReview = async (req, res) => {
+  const { moim_id, nickname, score } = req.body;
+  const reviewer_id = req.session.userInfo.userid;
+  const reviewee_id = await User.findOne({
+    where: { nickname: nickname },
+  });
+  console.log(reviewee_id.dataValues.user_id);
+  try {
+    await Review.create({
+      moim_id,
+      reviewer_id,
+      reviewee_id: reviewee_id.dataValues.user_id,
+      score,
+    });
+    res.send({ result: "suceess", message: "리뷰 작성이 완료되었습니다." });
+  } catch (error) {
+    console.log("리뷰 작성 실패", error);
+    res.send({ result: "fail", message: "리뷰 작성에 실패했습니다." });
+  }
 };
