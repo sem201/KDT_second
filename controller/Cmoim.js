@@ -6,8 +6,8 @@ const {
   DibsMoim,
 } = require("../models/index");
 
-exports.reunion_GET = (req, res) => {
-  res.render("moim");
+exports.Moims_GET = (req, res) => {
+  res.render("moim_list");
 };
 
 exports.Moim_destory = async (req, res) => {
@@ -149,7 +149,7 @@ exports.MoimDetail_POST = async (req, res) => {
   // }
 };
 
-exports.reunion_POST = async (req, res) => {
+exports.Moims_POST = async (req, res) => {
   // if (req.session.userInfo) {
   try {
     const {
@@ -191,5 +191,5 @@ exports.reunion_POST = async (req, res) => {
 // 모임 디테일 페이지 렌더링
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
-  res.render("moimdetail");
+  res.render("moim_detail");
 };

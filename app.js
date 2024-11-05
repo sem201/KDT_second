@@ -11,6 +11,7 @@ const moimrouter = require("./routes/Moim");
 const PORT = process.env.PORT;
 
 app.set("view engine", "ejs");
+app.use("/static", express.static(__dirname + "/static"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

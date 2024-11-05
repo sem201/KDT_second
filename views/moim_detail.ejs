@@ -1,35 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상세페이지</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상세페이지</title>
 </head>
 <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="/static/moim_list.js"></script>
+
 <body>
-    <header>
-        <div class="logo">
-          <!-- 로고 -->
-          <a href="/">MOiM</a>
+  <header>
+    <div class="logo">
+      <!-- 로고 -->
+      <a href="/">MOiM</a>
+    </div>
+    <div class="setting">
+        <div><span>×</span></div>
+    </div>
+  </header>
+  <section>
+    <div class="moim">
+      <img src="#" alt=""><br>
+      <h3>모임 제목</h3>
+      <!-- <div class="moim_info">
+        <div class="element">
+            <div>장소</div>
+            <div>일시</div>
+            <div>모집 기간</div>
+            <div>인원</div>
         </div>
-    </header>
-    <section>
-        <div class="moim_detail">
-            <!-- <h3><%= title  %></h3> -->
-             <h3>모임 제목</h3>
-             <!-- <h4><%= date %></h4> -->
-             <h4>모임 일자</h4>
-             <img src="#" alt=""><br>
-             <p>모집 기간 <span></span></p>
-             <p>모집 인원 <span>10</span></p>
+        <div class="content">
+            <div>인천광역시</div>
+            <div>2024.11.15</div>
+          <div>2024.11.01 ~ 2024.11.10</div>
+          <div>3/10</div>
+        </div>
+      </div> -->
+      <table>
+        <tbody>
+            <tr>
+                <td id="col1">장소</td>
+                <td id="col2">인천광역시</td>
+            </tr>
+            <tr>
+                <td id="col1">일시</td>
+                <td id="col2">2024.11.15</td>
+            </tr>
+            <tr>
+                <td id="col1">모집 기간</td>
+                <td id="col2">2024.11.01 ~ 2024.11.10</td>
+            </tr>
+            <tr>
+                <td id="col1">모집 인원</td>
+                <td id="col2"><span style="">5/10 </span><button type="button" onclick="showPPL()">👥</button></td>
+            </tr>
+            <tr>
+                <!-- 참여하는 경우 detail 정보 추가 -->
+            </tr>
+        </tbody>
+      </table>
+    </div>
 
-        </div>
-
-        <div class="apply">
-            <span>참여하기</span>
-        </div>
-    </section>
+    <div class="apply">
+      <span>참여하기</span>
+    </div>
+  </section>
 </body>
+
 </html>
