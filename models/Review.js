@@ -13,7 +13,6 @@ const ReviewModel = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-
       reviewer_id: {
         type: DataTypes.STRING(20),
         allowNull: false,

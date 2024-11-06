@@ -6,16 +6,36 @@
     <title>모임 전체 리스트 호출 페이지</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
   <body>
-    <div name="moim-list">즉시 실행 함수로 동작하는 페이지 입니다.</div>
-    <script>
-      (function () {
-        const { data } = axios({
-          method: "POST",
-          url: "/moim/moimlist",
-        });
-        console.log(data);
-      });
-    </script>
+    <% let count = 0 %>
+    <table>
+      <% for( let i = 0; i < data.length; i++ ) { %>
+      <tr>
+        <td><a href="/moim/:<%=data[i].moim_id %>"><%= i+1 %></a></td>
+        <td><%= data[i].location %></td>
+        <td><img src="<%= data[i].represent_img %>" alt="" /></td>
+        <td><%= data[i].title %></td>
+        <td>
+          <% if (data[i].on_line == true) { %> 온라인 <% } %> <% if
+          (data[i].on_line == false) { %> 오프라인 <% } %>
+        </td>
+        <td>
+          <% for( let j = 0; j < moimcount.length; j++ ) { %> <% if
+          (moimcount[j].moim_id == data[i].moim_id) { %> <% count =
+          moimcount[j].moim_count %> <% } %> <% } %> <%= count %>
+        </td>
+        <td><%= data[i].max_people %></td>
+        <td><%= data[i].expiration_date %></td>
+        <td><%= data[i].even_date %></td>
+      </tr>
+      <% count = 0; %> <% } %>
+    </table>
   </body>
 </html>

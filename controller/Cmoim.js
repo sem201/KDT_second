@@ -1,3 +1,4 @@
+const sequelize = require("sequelize");
 const {
   Moim,
   User,
@@ -9,10 +10,13 @@ const {
 exports.Moims_GET = async (req, res) => {
   try {
     const data = await Moim.findAll();
-    
-    res.render("moim_list", {data: data});
-  } catch(error){
-    res.json({ result: true, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+
+    res.render("moim_list", { data: data });
+  } catch (error) {
+    res.json({
+      result: true,
+      Message: "모임 정보 불러오기에 실패하였습니다!!!",
+    });
   }
 };
 
@@ -33,28 +37,29 @@ exports.moim_insert = (req, res) => {
 };
 
 exports.Moimset_patch = async (req, res) => {
-  //각 유저 별 모임 점수 수정
-  // if (req.session.userInfo) {
   try {
-    const { moim_id, user_id, updatereview } = req.body;
+    const { user_review, moim_id, user_id, updatereview } = req.body;
+    console.log(
+      `User ID: ${user_id}, Moim ID: ${moim_id}, New Review Score: ${updatereview}`
+    );
     await MoimSet.update(
       { user_review: updatereview },
       { where: { user_id, moim_id } }
     );
+
     res.send({
       result: true,
       Message: `해당 user의 점수를 ${updatereview}로 수정합니다`,
     });
   } catch (error) {
+    console.error("Error updating review score:", error);
     res.send({
       result: false,
       Message: "에러 발생!! 유저의 별점을 설정할 수 없습니다.",
     });
   }
-  // } else {
-  //   res.redirect("/login");
-  // }
 };
+
 exports.MoimSet_detory = async (req, res) => {
   // if (req.session.userInfo) {
   try {
@@ -200,10 +205,21 @@ exports.MoimDetail_render = async (req, res) => {
   res.render("moim_detail");
 };
 
-exports.moimlist1 = async (req, res) => {
+exports.moimlist = async (req, res) => {
   const data = await Moim.findAll();
+  const moimset = await MoimSet.findAll({
+    attributes: [
+      "moim_id",
+      [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+    ],
+    group: "moim_id",
+  });
+  let moimcount = [];
+  for (let i = 0; i < moimset.length; i++) {
+    moimcount.push(moimset[i].dataValues);
+  }
   if (data) {
-    res.json("moimlist", { data });
+    res.render("moimlist", { data, moimcount });
   } else {
     alert("모임 리스트 출력 실패");
     res.redirect("/");
