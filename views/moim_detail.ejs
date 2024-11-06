@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상세페이지</title>
+  </head>
+  <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+  <script src="/static/moim_list.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>상세페이지</title>
-</head>
-<link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="/static/moim_list.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<body>
-  <header>
-    <div class="logo">
-      <!-- 로고 -->
-      <a href="/">MOiM</a>
-    </div>
-    <div class="setting">
+  <body>
+    <header>
+      <div id="moim_id" style="display: none"><%=moim.moim_id %></div>
+      <% let count = 0; %>
+      <div class="logo">
+        <!-- 로고 -->
+        <a href="/">MOiM</a>
+      </div>
+      <div class="setting">
         <div><span>×</span></div>
-    </div>
-  </header>
-  <section>
-    <div class="moim">
-      <img src="#" alt=""><br>
-      <h3>모임 제목</h3>
-      <!-- <div class="moim_info">
+      </div>
+    </header>
+    <section>
+      <div class="moim">
+        <img src="<%=moim.represent_img %>" alt="" /><br />
+        <h3>모임 제목 : <%=moim.title %></h3>
+        <!-- <div class="moim_info">
         <div class="element">
             <div>장소</div>
             <div>일시</div>
@@ -39,35 +44,74 @@
           <div>3/10</div>
         </div>
       </div> -->
-      <table>
-        <tbody>
+        <table>
+          <tbody>
             <tr>
-                <td id="col1">장소</td>
-                <td id="col2">인천광역시</td>
+              <td id="col1">카테고리</td>
+              <td id="col2"><%=moim.category %></td>
             </tr>
             <tr>
-                <td id="col1">일시</td>
-                <td id="col2">2024.11.15</td>
+              <td id="col1">장소</td>
+              <td id="col2"><%=moim.location %></td>
             </tr>
             <tr>
-                <td id="col1">모집 기간</td>
-                <td id="col2">2024.11.01 ~ 2024.11.10</td>
+              <td id="col1">온라인 여부</td>
+              <td id="col2">
+                <% if (moim.on_line == true) { %> 온라인 <% } %> <% if
+                (moim.on_line == false) { %> 오프라인 <% } %>
+              </td>
             </tr>
-            <tr>
-                <td id="col1">모집 인원</td>
-                <td id="col2"><span>5/10 </span><button type="button" onclick="showPPL()">👥</button></td>
-            </tr>
-            <tr>
-                <!-- 참여하는 경우 detail 정보 추가 -->
-            </tr>
-        </tbody>
-      </table>
-    </div>
 
-    <div class="apply">
-      <span>참여하기</span>
-    </div>
-  </section>
-</body>
+            <tr>
+              <td id="col1">일시</td>
+              <td id="col2"><%=moim.even_date %></td>
+            </tr>
+            <tr>
+              <td id="col1">모집 기간</td>
+              <td id="col2"><%= moim.expiration_date %></td>
+            </tr>
+            <tr name="moimcount">
+              <td id="col1">모집 인원</td>
+              <td id="col2">
+                <span>
+                  <% for( let j = 0; j < moimcount.length; j++ ) { %> <% if
+                  (moimcount[j].moim_id == moim.moim_id) { %> <% count =
+                  moimcount[j].moim_count %> <% } %> <% } %> <%= count
+                  %>/<%=moim.max_people %></span
+                ><button type="button" onclick="showPPL()">👥</button>
+              </td>
+            </tr>
+            <tr>
+              <!-- 참여하는 경우 detail 정보 추가 -->
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
+      <button class="apply" onclick="moimSet()">참여하기</button>
+    </section>
+    <script>
+      async function moimSet() {
+        const moim_id = document.getElementById("moim_id");
+        console.log(moim_id.textContent);
+        const { data } = await axios({
+          method: "POST",
+          url: "/moim/moimset",
+          data: {
+            moim_id: moim_id.textContent,
+          },
+        });
 
+        if (data.result == true) {
+          alert("가입 성공");
+          window.location.reload();
+        } else {
+          alert("가입 실패");
+        }
+      }
+    </script>
+  </body>
 </html>
