@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debug PORT value
-        run: echo "PORT is: ${{ secrets.PORT }}"
+        run: echo "PORT : ${{ secrets.PORT }}"
       - name: run ssh commands
         uses: appleboy/ssh-action@master
         with:
