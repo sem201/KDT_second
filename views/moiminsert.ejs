@@ -15,6 +15,8 @@
         <input type="text" id="user_id" /> <br /><br />
         <label for="title">제목</label>
         <input type="text" id="title" /> <br /><br />
+        <label for="category">장르</label>
+        <input type="text" id="category" /> <br /><br />
         <label for="on_line">온라인 여부</label>
         <input type="radio" name="on_line" id="on_line" value="true" /> 온라인
         <input type="radio" name="on_line" id="on_line" value="false" checked />
@@ -93,7 +95,8 @@
           form.on_line.value == null ||
           form.expiration_date.value == null ||
           form.even_date.value == null ||
-          form.location.value == null
+          form.location.value == null ||
+          form.category.value == null
         ) {
           alert(
             "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
@@ -119,7 +122,7 @@
 
         const { data } = await axios({
           method: "POST",
-          url: "/moim/reunion",
+          url: "/moim/moims",
           data: {
             title: form.title.value,
             on_line: form.on_line.value,
@@ -129,13 +132,14 @@
             location: form.location.value,
             represent_img: form.represent_img.value,
             user_id: form.user_id.value,
+            category: form.category.value,
           },
         });
         const moim_id = data.userInfo.moim_id;
         if (data.result) {
           const { data } = await axios({
             method: "POST",
-            url: "/moim/reuniondetail",
+            url: "/moim/moimsdetail",
             data: {
               moim_id: moim_id,
               content: form.content.value,

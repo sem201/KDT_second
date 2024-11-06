@@ -5,6 +5,7 @@ const development = {
   database: process.env.DB_DATABASE,
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT,
+  timezone: process.env.DB_TIMEZONE,
 };
 const test = {};
 const production = {};
