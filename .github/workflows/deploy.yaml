@@ -1,15 +1,14 @@
-name : remote ssh command for deploy
+name: remote ssh command for deploy
 on:
   push:
-    branches: 'main'
+    branches: "main"
 jobs:
   deploy:
-    name : build
-    runs-on : ubuntu-latest
+    name: build
+    runs-on: ubuntu-latest
 
     steps:
-        - name: run delploy.sh
-          run: |
-            chmod +x ./deploy.sh
-            ./deploy.sh
-        
+      - name: run delploy.sh
+        run: |
+          chmod +x /deploy.sh
+          /deploy.sh
