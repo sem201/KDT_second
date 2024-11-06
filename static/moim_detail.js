@@ -24,3 +24,18 @@ function showPPL() {
         apply.style.cssText = "pointer-events: all;"
     }
 }
+
+function DibsMoim() {
+    const pathParts = window.location.pathname.split("/");
+    const moimid = pathParts[pathParts.length - 1];
+    console.log(moimid);
+    axios({
+      method: "post",
+      url: `/user/dibs/${moimid}`,
+    });
+    console.log("클릭 실행됨");
+
+    const button = document.querySelector(".dibsMoim");
+    
+    button.innerHTML = '♥︎';
+  }

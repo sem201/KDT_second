@@ -6,13 +6,18 @@ const {
   DibsMoim,
 } = require("../models/index");
 
+exports.MoimList_GET = async (req, res) => {
+  res.render("moim_list");
+}
+
 exports.Moims_GET = async (req, res) => {
   try {
     const data = await Moim.findAll();
+    console.log(data);
     
-    res.render("moim_list", {data: data});
+    res.json({ data: data });
   } catch(error){
-    res.json({ result: true, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+    res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
   }
 };
 
