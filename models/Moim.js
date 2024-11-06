@@ -37,6 +37,10 @@ const MoimModel = (Sequelize, DataTypes) => {
       represent_img: {
         type: DataTypes.STRING(255),
       },
+      category: {
+        type: DataTypes.STRING(40),
+        allowNull: false,
+      },
     },
     {
       freezeTableName: true,
