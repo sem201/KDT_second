@@ -14,7 +14,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          passpharse: ${{ secrets.PASSWORD}}
+          passphrase: ${{ secrets.PASSWORD}}
           script: |
             cd ~/moim
             git pull origin main
