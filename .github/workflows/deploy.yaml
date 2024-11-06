@@ -10,5 +10,5 @@ jobs:
     steps:
       - name: run delploy.sh
         run: |
-          chmod +x /deploy.sh
-          /deploy.sh
+          chmod +x ../../deploy.sh
+          ../../deploy.sh
