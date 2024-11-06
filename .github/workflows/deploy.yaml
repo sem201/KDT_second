@@ -6,9 +6,17 @@ jobs:
   deploy:
     name: build
     runs-on: ubuntu-latest
-
     steps:
-      - name: run delploy.sh
-        run: |
-          chmod +x ../../deploy.sh
-          ../../deploy.sh
+      - name: run ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ~/moim
+            git pull origin main
+            npm i
+            pm2 kill
+            pm2 start app.js
