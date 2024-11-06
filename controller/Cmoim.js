@@ -7,16 +7,18 @@ const {
   DibsMoim,
 } = require("../models/index");
 
+exports.MoimList_GET = async (req, res) => {
+  res.render("moim_list");
+}
+
 exports.Moims_GET = async (req, res) => {
   try {
     const data = await Moim.findAll();
-
-    res.render("moim_list", { data: data });
-  } catch (error) {
-    res.json({
-      result: true,
-      Message: "모임 정보 불러오기에 실패하였습니다!!!",
-    });
+    console.log(data);
+    
+    res.json({ data: data });
+  } catch(error){
+    res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
   }
 };
 
@@ -202,7 +204,13 @@ exports.Moims_POST = async (req, res) => {
 // 모임 디테일 페이지 렌더링
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
-  res.render("moim_detail");
+  try {
+    const data = await Moim.findOne({where: {moim_id: req.params.moimid}});
+    // const detail = await MoimDetail.findOne({where: {moim_id: req.params.moim_id}})
+    res.render("moim_detail", {data});
+  } catch(error){
+    res.json({ result: true, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+  }
 };
 
 exports.moimlist = async (req, res) => {
