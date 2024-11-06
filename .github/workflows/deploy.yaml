@@ -8,15 +8,16 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - name: Debug PORT value
-        run: echo "PORT : ${{ secrets.PORT }}"
+      # - name: Debug PORT value
+      # run: echo "PORT : ${{ secrets.PORT }}"
       - name: run ssh commands
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
+          # port: ${{ secrets.PORT }}
+          port: 22
           passphrase: ${{ secrets.PASSWORD}}
           script: |
             cd ~/moim
