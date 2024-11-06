@@ -7,13 +7,11 @@ const ReviewModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "review",
     {
-      moim_id: {
+      id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: "moim_set",
-          key: "moim_id",
-        },
+        primaryKey: true,
+        autoIncrement: true,
       },
       reviewer_id: {
         type: DataTypes.STRING(20),

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>모임 모집글 작성</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fff952;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background: #b7e9ff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="datetime-local"],
+      select[id="location"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: white;
+        color: black;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #ff8989;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>모임 모집글 작성</h1>
+      <form id="recruitment-form">
+        <div class="form-group">
+          <label for="group-name">모임 이름:</label>
+          <input type="text" id="group-name" required />
+        </div>
+        <div class="form-group">
+          <label for="goal">모임 목표:</label>
+          <textarea id="goal" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="date-time">모임 일정:</label>
+          <input type="datetime-local" id="date-time" required />
+        </div>
+        <div class="form-group">
+          <label for="location">장소:</label>
+          <select id="location" required>
+            <option value="">장소를 선택하세요</option>
+            <option value="서울특별시">서울특별시</option>
+            <option value="부산광역시">부산광역시</option>
+            <option value="대구광역시">대구광역시</option>
+            <option value="인천광역시">인천광역시</option>
+            <option value="광주광역시">광주광역시</option>
+            <option value="대전광역시">대전광역시</option>
+            <option value="울산광역시">울산광역시</option>
+            <option value="세종특별자치시">세종특별자치시</option>
+            <option value="경기도">경기도</option>
+            <option value="강원도">강원도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="제주특별자치도">제주특별자치도</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="participation-method">참여 방법:</label>
+          <textarea id="participation-method" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="special-notes">특별한 사항:</label>
+          <textarea id="special-notes" rows="4"></textarea>
+        </div>
+        <button type="submit">모집글 작성</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    document
+      .getElementById("recruitment-form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const groupName = document.getElementById("group-name").value;
+        const goal = document.getElementById("goal").value;
+        const dateTime = document.getElementById("date-time").value;
+        const location = document.getElementById("location").value;
+        const participationMethod = document.getElementById(
+          "participation-method"
+        ).value;
+        const specialNotes = document.getElementById("special-notes").value;
+
+        const recruitmentPost = `
+        **${groupName} 모집합니다!**
+        
+        **모임 목표:** ${goal}
+        
+        **모임 일정:** ${dateTime}
+        
+        **장소:** ${location}
+        
+        **참여 방법:** ${participationMethod}
+        
+        **특별한 사항:** ${specialNotes}
+    `;
+
+        console.log(recruitmentPost);
+        alert("모집글이 작성되었습니다! ");
+      });
+  </script>
+</html>

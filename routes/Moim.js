@@ -8,7 +8,7 @@ router.get("/moims/get", controller.Moims_GET); //모임 정보 불러오기
 
 router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
 
-// router.post("/moimlist", controller.moimlist); // moimlist 페이지 이동
+router.post("/moimlist", controller.moimlist); // moimlist 페이지 이동
 
 router.patch("/moims", controller.Moim_UPDATE); //모임 정보 업데이트 - 완료
 
@@ -26,9 +26,10 @@ router.patch("/moimset", controller.Moimset_patch); //가입한 사용자의 별
 router.delete("/moimset", controller.MoimSet_detory); // 모임 set 테이블의 정보를 삭제함.
 
 // 상세 모임 화며 조회
-router.get("/:moimid", controller.MoimDetail_render);
+//router.get("/:moimid", controller.MoimDetail_render);
 
 router.get("/moim_insert", controller.moim_insert);
 
-module.exports = router;
+router.get("/moimlist", controller.moimlist); // moimlist 페이지 이동
 
+module.exports = router;
