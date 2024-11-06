@@ -16,15 +16,20 @@
       <!-- 로고 -->
       <a href="/">MOiM</a>
     </div>
-    <div class="categorize">
-        <!-- 위치 정보 불러오기 -->
-        <p>in <span class="location" onclick="selectLocation()">WHERE?
-        </span></p>
-      <p>about <span class="category" onclick="selectCategory()">WHAT?
-          <!-- 관심사 정보 불러오기 -->
-        </span></p>
-    </div>
+    <div class="setting">
+      <div>
+          <span onclick="location.href='/'">←</span>
+      </div>
+  </div>
   </header>
+  <div class="categorize">
+    <!-- 위치 정보 불러오기 -->
+    <p>in <span class="location" onclick="selectLocation()">WHERE?
+    </span></p>
+  <p>about <span class="category" onclick="selectCategory()">WHAT?
+      <!-- 관심사 정보 불러오기 -->
+    </span></p>
+</div>
   <section>
       <div class="onOff">
         <button type="button" onclick="filterMoim('all')">전체</button>
@@ -35,27 +40,7 @@
       <div class="moim_table">
         <table>
           <tbody>
-            <% for( let i = 0; i < data.length; i++ ) { %>
-              <tr onclick="location.href='/moim/moim_detail'">
-                <td>
-                  <div class="moim_infoBox">
-                    <!-- 모임 제목 & 남은 인원-->
-                    <div class="moim_title">
-                      <span style="font-size: 20px; font-weight: 700;"><%= data[i].title %></span><br>
-                      <span>(3/10)</span>
-                    </div>
-                    <!-- 장소 & 날짜-->
-                    <div class="locationDate">
-                      <span><%= data[i].location %></span>
-                      <span><br><%= data[i].even_date %></span>
-                    </div>
-                  </div>
-                  <div class="moim_imgBox">
-                    <img src=`<%= data[i].represent_img %>` alt="" id="moim_img" name=`img_<%= i %>`>
-                  </div>
-                </td>
-              </tr>
-            <% } %>
+            
             
           </tbody>
         </table>
@@ -63,7 +48,8 @@
   </section>
     
   <script>
-
+    // 페이지 로드 시 전체 모임 목록 불러오기
+    document.addEventListener("DOMContentLoaded", () => showMoim("WHERE?"));
   </script>
 
 </body>

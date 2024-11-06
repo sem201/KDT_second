@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controller/Cmoim");
 
-router.get("/moims", controller.Moims_GET); //모임 사이토 진입
+router.get("/moims", controller.MoimList_GET); //모임 사이트 진입
+
+router.get("/moims/get", controller.Moims_GET); //모임 정보 불러오기
 
 router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
-
-router.post("/moimlist", controller.moimlist); // moimlist 페이지 이동
 
 router.patch("/moims", controller.Moim_UPDATE); //모임 정보 업데이트 - 완료
 
@@ -28,6 +28,6 @@ router.delete("/moimset", controller.MoimSet_detory); // 모임 set 테이블의
 
 router.get("/moim_insert", controller.moim_insert);
 
-router.get("/moimlist", controller.moimlist); // moimlist 페이지 이동
+router.get("/moim_list", controller.moimlist); // moimlist 페이지 이동
 
 module.exports = router;

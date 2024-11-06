@@ -14,6 +14,15 @@
     font-family: 'GmarketSansMedium';
 }
 
+header {
+    width: 100%;
+}
+
+body {
+    justify-content: center;
+    margin: 0;
+}
+
 .logo {
     margin: 10px;
 }
