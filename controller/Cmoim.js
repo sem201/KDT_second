@@ -212,6 +212,71 @@ exports.MoimDetail_render = async (req, res) => {
   res.render("moim_detail");
 };
 
+//모임 리스트 별 장소 Select
+exports.moimlistSelect = async (req, res) => {
+  let moimlocation = req.params.location;
+
+  if (req.session.userInfo) {
+    try {
+      const data = await Moim.findAll(
+        {
+          attributes: [
+            "title",
+            "on_line",
+            "max_people",
+            "location",
+            "represent_img",
+            "user_id",
+            "category",
+            [
+              sequelize.fn(
+                "date_format",
+                sequelize.col("expiration_date"),
+                "%Y-%d-%m %H:%i"
+              ),
+              "expiration_date",
+            ],
+            [
+              sequelize.fn(
+                "date_format",
+                sequelize.col("even_date"),
+                "%Y-%d-%m %H:%i"
+              ),
+              "even_date",
+            ],
+          ],
+        },
+        {
+          where: {
+            location: moimlocation,
+          },
+        }
+      );
+      const moimset = await MoimSet.findAll({
+        attributes: [
+          "moim_id",
+          [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+        ],
+        group: "moim_id",
+      });
+      let moimcount = [];
+      for (let i = 0; i < moimset.length; i++) {
+        moimcount.push(moimset[i].dataValues);
+      }
+      if (data) {
+        res.render("moimlist", { data, moimcount });
+      } else {
+        alert("모임 리스트 출력 실패");
+        res.redirect("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    res.redirect("/login");
+  }
+};
+
 exports.moimlist = async (req, res) => {
   if (req.session.userInfo) {
     try {

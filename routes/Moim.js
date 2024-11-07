@@ -28,8 +28,6 @@ router.delete("/moims", controller.Moim_destory); //모임 정보 삭제, 모임
 // 상세 모임 화며 조회
 router.get("/moim_detail/:moimid", controller.MoimDetail_render);
 
-router.get("/moimlist/:moimid", controller.Moimlist_GET);
-
 router.get("/moim_insert", controller.moim_insert);
 
 router.get("/moim_list", controller.moimlist); // moimlist 페이지 이동
