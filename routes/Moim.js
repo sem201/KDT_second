@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controller/Cmoim");
 
-router.get("/moims", controller.Moims_GET); //모임 사이토 진입
+router.get("/moims", controller.MoimList_GET); //모임 사이트 진입
+
+router.get("/moims/get", controller.Moims_GET); //모임 정보 불러오기
 
 router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
 

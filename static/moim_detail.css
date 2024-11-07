@@ -60,7 +60,7 @@ section {
     justify-items: center;
 }
 
-.moim>h3, .moim>h4, .moim>p, .locationDate {
+.moim>h3 {
     width: 80vw;
     text-align: start;
 }
@@ -70,6 +70,12 @@ section {
     height: 200px;
     max-width: 430px;
     padding: 10px;
+}
+
+.dibsMoim {
+    background-color: rgb(0, 0, 0, 0);
+    border: none;
+    font-size: 25px;
 }
 
 .moim_info {
@@ -124,6 +130,22 @@ td>button {
     height: 30px;
     border-radius: 100%;
     border: none;
+}
+
+.listOfppl {
+    position: fixed;
+    width: 70vw;
+    height: 50vh;
+    bottom: 25vh;
+    background-color: aqua;
+    z-index: 1;
+}
+
+.turnOff {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
 }
 
 .apply {

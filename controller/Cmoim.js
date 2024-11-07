@@ -7,13 +7,19 @@ const {
   DibsMoim,
 } = require("../models/index");
 
+exports.MoimList_GET = async (req, res) => {
+  res.render("moim_list");
+};
+
 exports.Moims_GET = async (req, res) => {
   try {
     const data = await Moim.findAll();
-    res.render("moim_list", { data: data });
+    console.log(data);
+
+    res.json({ data: data });
   } catch (error) {
     res.json({
-      result: true,
+      result: false,
       Message: "모임 정보 불러오기에 실패하였습니다!!!",
     });
   }
@@ -203,156 +209,7 @@ exports.Moims_POST = async (req, res) => {
 // 모임 디테일 페이지 렌더링
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
-  if (req.session.userInfo) {
-    try {
-      const data = await Moim.findOne(
-        {
-          attributes: [
-            "moim_id",
-            "title",
-            "on_line",
-            "max_people",
-            "location",
-            "represent_img",
-            "user_id",
-            "category",
-            [
-              sequelize.fn(
-                "date_format",
-                sequelize.col("expiration_date"),
-                "%Y-%m-%d %H:%i"
-              ),
-              "expiration_date",
-            ],
-            [
-              sequelize.fn(
-                "date_format",
-                sequelize.col("even_date"),
-                "%Y-%m-%d %H:%i"
-              ),
-              "even_date",
-            ],
-          ],
-        },
-        { where: { moim_id: req.params.moimid } }
-      );
-      const moimset = await MoimSet.findAll(
-        {
-          attributes: [
-            "moim_id",
-            [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
-          ],
-          group: "moim_id",
-        },
-        { where: { moim_id: req.params.moimid } }
-      );
-      let moimcount = [];
-      for (let i = 0; i < moimset.length; i++) {
-        moimcount.push(moimset[i].dataValues);
-      }
-      console.log(moimset);
-
-      if (moimset == null) {
-        console.log("ddasdf");
-        res.render("moim_detail", {
-          moim: data,
-          moimcount: moimcount,
-        });
-      } else {
-        console.log("dfafafd");
-        const Moimdetail = await MoimDetail.findOne({
-          where: { moim_id: req.params.moimid },
-        });
-
-        res.render("moim_detail", {
-          moim: data,
-          moimcount: moimcount,
-          MoimDetail: Moimdetail,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    res.redirect("/login");
-  }
-};
-
-exports.Moimlist_GET = (req, res) => {
-  if (req.session.userInfo) {
-    try {
-      let Moimlist = MoimDetail.findOne({
-        where: {
-          moim_id: req.params.moimid,
-        },
-      });
-      res.json({ Moimlist: Moimlist });
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    res.redirect("/login");
-  }
-};
-
-exports.moimlistSelect = async (req, res) => {
-  //모임리스트의 장소 관련 코드 - 적용 여부 미정
-  if (req.session.userInfo) {
-    try {
-      let location = req.params;
-      const data = await Moim.findAll(
-        {
-          attributes: [
-            "title",
-            "on_line",
-            "max_people",
-            "location",
-            "represent_img",
-            "user_id",
-            "category",
-            [
-              sequelize.fn(
-                "date_format",
-                sequelize.col("expiration_date"),
-                "%Y-%d-%m %H:%i"
-              ),
-              "expiration_date",
-            ],
-            [
-              sequelize.fn(
-                "date_format",
-                sequelize.col("even_date"),
-                "%Y-%d-%m %H:%i"
-              ),
-              "even_date",
-            ],
-          ],
-        },
-        { where: { location: location } }
-      );
-      const moimset = await MoimSet.findAll({
-        attributes: [
-          "moim_id",
-          [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
-        ],
-        group: "moim_id",
-      });
-      let moimcount = [];
-      for (let i = 0; i < moimset.length; i++) {
-        moimcount.push(moimset[i].dataValues);
-      }
-      if (data) {
-        res.json({ moim: data, moimcount: moimcount });
-      } else {
-        alert("모임 리스트 출력 실패");
-        res.redirect("/");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    res.redirect("/login");
-  }
+  res.render("moim_detail");
 };
 
 exports.moimlist = async (req, res) => {
