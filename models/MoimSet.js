@@ -14,10 +14,10 @@ const MoimSetModel = (Sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
-      user_id: {
-        type: DataTypes.STRING(20),
-        primaryKey: true,
+      nickname: {
+        type: DataTypes.STRING(10),
         allowNull: false,
+        primaryKey: true,
       },
       user_review: {
         type: DataTypes.INTEGER,
