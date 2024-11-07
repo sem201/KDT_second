@@ -206,10 +206,108 @@ exports.Moims_POST = async (req, res) => {
   }
 };
 
-// 모임 디테일 페이지 렌더링
+// 모임 디테일 페이지 렌더링(가입 여부 적용)
 exports.MoimDetail_render = async (req, res) => {
-  console.log(req.params.moimid);
-  res.render("moim_detail");
+  let userInfo = req.session.userInfo;
+  console.log(userInfo);
+  if (req.session.userInfo) {
+    try {
+      const moim = await Moim.findAll({
+        attributes: [
+          "moim_id",
+          "title",
+          "on_line",
+          "max_people",
+          "location",
+          "represent_img",
+          "user_id",
+          "category",
+          [
+            sequelize.fn(
+              "date_format",
+              sequelize.col("expiration_date"),
+              "%Y-%d-%m %H:%i"
+            ),
+            "expiration_date",
+          ],
+          [
+            sequelize.fn(
+              "date_format",
+              sequelize.col("even_date"),
+              "%Y-%d-%m %H:%i"
+            ),
+            "even_date",
+          ],
+        ],
+        where: { moim_id: Number(req.params.moimid) },
+      });
+      let { userid } = req.session.userInfo;
+      if (moim !== null) {
+        let moim_setup = await MoimSet.findOne({
+          where: {
+            user_id: userid,
+            moim_id: req.params.moimid,
+          },
+        }); // 현재 session 사용자가 가입한 모임인지를 알아냄.
+        const moimset = await MoimSet.findAll({
+          attributes: [
+            "moim_id",
+            [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+          ],
+          group: "moim_id",
+          where: {
+            moim_id: req.params.moimid,
+          },
+        });
+        let moimcount = [];
+        for (let i = 0; i < moimset.length; i++) {
+          moimcount.push(moimset[i].dataValues);
+        }
+        const user = { moim_id: req.params.moimid, moim_count: 0 };
+
+        if (moimcount.length == 0) {
+          console.log("모임에 정보가 없으니 0으로 출력합니다.");
+          moimcount.push(user);
+        }
+        let detail = await MoimDetail.findAll({
+          where: { moim_id: req.params.moimid },
+        });
+        if (moim_setup !== null) {
+          console.log("모임에 가입되어 있는 사용자입니다.");
+          console.log(detail);
+          res.render("moim_detail", {
+            moim,
+            moimcount,
+            detail,
+            accession: true,
+            user: userInfo,
+          });
+        } else {
+          console.log("모임에 가입되지 않은 사용자입니다.");
+          console.log(detail);
+          res.render("moim_detail", {
+            moim,
+            moimcount,
+            detail,
+            accession: false,
+            user: userInfo,
+          });
+        }
+      } else {
+        if (typeof window !== "undefined") {
+          alert("현재 삭제된 모임이거나 개설되지 않은 번호 입니다.");
+        }
+        redirect("/moim_list");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    if (typeof window !== "undefined") {
+      alert("현재 로그인이 되어 있지 않습니다.");
+    }
+    res.redirect("/login");
+  }
 };
 
 //모임 리스트 별 장소 Select
