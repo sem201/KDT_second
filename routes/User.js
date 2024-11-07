@@ -18,6 +18,9 @@ router.post("/register", userController.postUser);
 // 로그인
 router.post("/login", userController.loginUser);
 
+// 프로필 페이지 렌더링
+router.get("/profile", userController.userInformation);
+
 // 회원정보 확인
 router.post("/check-pw", userController.userPasswordConfirm);
 
@@ -30,9 +33,6 @@ router.delete("/delete", userController.userDelete);
 // user가 상세 모임에서 찜하기
 router.post("/dibs/:moimid", userController.dibsMoim);
 
-// 프로필 테스트
-router.get("/profile", userController.profile);
-
 // 리뷰 테스트
 router.get("/review", userController.review);
 
@@ -40,6 +40,9 @@ router.get("/review", userController.review);
 router.get("/meeting", userController.meeting);
 
 router.get("/info", userController.userInformation);
+
+// 회원정보 수정 페이지 렌더링
+router.get("/editprofile", userController.editProfilePage);
 
 //user 리뷰 페이지 렌더링
 router.get("/review", userController.review);

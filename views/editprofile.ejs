@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필 수정</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h3>정보 수정</h3>
+    <form name="update-user-form">
+      <input
+        type="text"
+        id="nickname"
+        placeholder="새 닉네임을 입력해주세요."
+      /><br />
+      <input
+        type="password"
+        id="pw"
+        placeholder="새 비밀번호를 입력해주세요."
+      /><br />
+      <button type="button" onclick="updateUser()">정보 수정</button>
+    </form>
+
+    <script>
+      function updateUser() {
+        const form = document.forms["update-user-form"];
+        const updateData = {
+          nickname: form.nickname.value || null,
+          pw: form.pw.value || null,
+        };
+
+        axios
+          .patch("/user/update", updateData)
+          .then((res) => {
+            if (res.data.result) {
+              alert("정보가 성공적으로 수정되었습니다.");
+              document.location.href = "/login";
+            } else {
+              alert("정보 변경에 실패했습니다.");
+            }
+          })
+          .catch((error) =>
+            console.error("Update user information error", error)
+          );
+      }
+    </script>
+
+    <h3>회원탈퇴</h3>
+    <button type="button" onclick="deleteUser()">계정 삭제</button>
+
+    <script>
+      function deleteUser() {
+        if (confirm("정말 계정을 삭제하시겠습니까?")) {
+          axios
+            .delete("/user/delete")
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.result) {
+                alert("계정이 성공적으로 삭제되었습니다.");
+                document.location.href = "/login";
+              } else {
+                alert("계정 삭제에 실패하였습니다.");
+              }
+            })
+            .catch((error) =>
+              console.error("Delete user account error", error)
+            );
+        }
+      }
+    </script>
+  </body>
+</html>
