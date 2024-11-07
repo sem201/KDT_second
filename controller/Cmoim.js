@@ -11,12 +11,75 @@ exports.MoimList_GET = async (req, res) => {
   res.render("moim_list");
 }
 
-exports.Moims_GET = async (req, res) => {
+
+exports.MoimList_POST = async (req, res) => {
   try {
-    const data = await Moim.findAll();
-    console.log(data);
+    const {location, category, on_line} = req.body;
+
     
-    res.json({ data: data });
+    
+    let whereConditions = {};
+    if (location && location !== "*") whereConditions.location = location;
+    if (category && category !== "*") whereConditions.category = category;
+    if (on_line && on_line !== "*"){
+      whereConditions.on_line = JSON.parse(on_line);
+      
+      console.log(typeof(whereConditions.on_line));
+    }
+
+    const data = await Moim.findAll({
+      attributes: [
+        "moim_id",
+        "title",
+        "on_line",
+        "max_people",
+        "location",
+        "represent_img",
+        "user_id",
+        "category",
+        [
+          sequelize.fn(
+            "date_format",
+            sequelize.col("expiration_date"),
+            "%Y-%d-%m %H:%i"
+          ),
+          "expiration_date",
+        ],
+        [
+          sequelize.fn(
+            "date_format",
+            sequelize.col("even_date"),
+            "%Y-%d-%m %H:%i"
+          ),
+          "even_date",
+        ],
+      ],
+      where: whereConditions, 
+    });
+    const moimset = await MoimSet.findAll({
+      attributes: [
+        "moim_id",
+        [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+      ],
+      group: "moim_id",
+    });
+    let moimcount = [];
+  for (let i = 0; i < moimset.length; i++) {
+    moimcount.push(moimset[i].dataValues);
+  }
+
+  console.log("whereConditions: ", whereConditions);
+  
+  // console.log(data);
+  // console.log(moimcount);
+  
+  
+  if (data) {
+    res.json({ data:data, moimcount: moimcount });
+  } else {
+    alert("모임 리스트 출력 실패");
+    res.redirect("/");
+  }
   } catch(error){
     res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
   }
@@ -207,11 +270,50 @@ exports.Moims_POST = async (req, res) => {
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
   try {
-    const data = await Moim.findOne({where: {moim_id: req.params.moimid}});
-    // const detail = await MoimDetail.findOne({where: {moim_id: req.params.moim_id}})
-    res.render("moim_detail", {data});
+    const data = await Moim.findOne({
+      attributes: [
+        "moim_id",
+        "title",
+        "on_line",
+        "max_people",
+        "location",
+        "represent_img",
+        "user_id",
+        "category",
+        [
+          sequelize.fn(
+            "date_format",
+            sequelize.col("expiration_date"),
+            "%Y-%d-%m %H:%i"
+          ),
+          "expiration_date",
+        ],
+        [
+          sequelize.fn(
+            "date_format",
+            sequelize.col("even_date"),
+            "%Y-%d-%m %H:%i"
+          ),
+          "even_date",
+        ],
+      ],
+    }, {where: {moim_id: req.params.moimid}});
+    const moimset = await MoimSet.findOne({
+      attributes: [
+        "moim_id",
+        [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+      ],
+      group: "moim_id",
+    }, {where: {moim_id: req.params.moimid}});
+    
+  const detail = await MoimDetail.findOne({where: {moim_id: req.params.moim_id}});
+
+  console.log(data, detail, moimset);
+
+    res.render("moim_detail", {data, detail, moimset});
   } catch(error){
-    res.json({ result: true, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+    console.error(error);
+    res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
   }
 };
 

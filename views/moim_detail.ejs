@@ -46,7 +46,9 @@
             </tr>
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span>5 ~ <%= data.max_people %> </span><button type="button" onclick="showPPL()">👥</button></td>
+                <td id="col2"><span><% if (moimset.moim_id === data.moim_id) { %>
+                    <%= moimset.moim_count %>
+                <% } else %><%= 0 %> ~ <%= data.max_people %> </span><button type="button" onclick="showPPL()">👥</button></td>
             </tr>
             <tr>
                 <!-- 참여하는 경우 detail 정보 추가 -->
