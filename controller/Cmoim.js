@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 const {
   Moim,
@@ -267,6 +268,14 @@ exports.MoimDetail_render = async (req, res) => {
             moim_id: req.params.moimid,
           },
         });
+        // 현재 session 사용자가 찜한 모입인지 확인.
+        let isDibs = (await DibsMoim.findOne({
+          where: {
+            [Op.or]: [{ moim_id: req.params.moimid }, { user_id: userid }],
+          },
+        }))
+          ? true
+          : false;
         let moimcount = [];
         for (let i = 0; i < moimset.length; i++) {
           moimcount.push(moimset[i].dataValues);
@@ -289,6 +298,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: true,
             user: userInfo,
+            idDibs: isDibs,
           });
         } else {
           console.log("모임에 가입되지 않은 사용자입니다.");
@@ -435,5 +445,18 @@ exports.moimlist = async (req, res) => {
     }
   } else {
     res.redirect("/login");
+  }
+};
+
+// 추천 moim list 출력
+exports.RecommendMoim = async (req, res) => {
+  if (req.session.userInfo) {
+    try {
+    } catch (error) {
+      console.log("모임리스트 불러오는데 실패했음");
+    }
+  } else {
+    console.log("세션정보 없음");
+    res.send({ message: "로그인을 다시 확인해주세요!" });
   }
 };
