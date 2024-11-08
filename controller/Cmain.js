@@ -11,7 +11,7 @@ exports.index = (req, res) => {
 };
 
 exports.index_get = (req, res) => {
-  const 
+  
 }
 
 exports.login = (req, res) => {
