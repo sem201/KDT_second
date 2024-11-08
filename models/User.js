@@ -9,7 +9,6 @@ const UserModel = (Sequelize, DataTypes) => {
     {
       user_id: {
         type: DataTypes.STRING(20),
-        primaryKey: true,
         allowNull: false,
       },
       pw: {
@@ -18,6 +17,7 @@ const UserModel = (Sequelize, DataTypes) => {
       },
       nickname: {
         type: DataTypes.STRING(10),
+        primaryKey: true,
         allowNull: false,
         unique: true,
       },

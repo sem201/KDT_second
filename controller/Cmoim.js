@@ -26,10 +26,10 @@ exports.Moims_GET = async (req, res) => {
 };
 
 exports.Moim_destory = async (req, res) => {
-  const { user_id, moim_id } = req.body;
+  const { moim_id } = req.body;
   try {
     await Moim.destroy({
-      where: { user_id, moim_id },
+      where: { nickname: req.session.userInfo.nickname, moim_id },
     });
     res.json({ result: true });
   } catch (error) {
@@ -43,13 +43,13 @@ exports.moim_insert = (req, res) => {
 
 exports.Moimset_patch = async (req, res) => {
   try {
-    const { user_review, moim_id, user_id, updatereview } = req.body;
+    const { user_review, moim_id, nickname, updatereview } = req.body;
     console.log(
-      `User ID: ${user_id}, Moim ID: ${moim_id}, New Review Score: ${updatereview}`
+      `User ID: ${nickname}, Moim ID: ${moim_id}, New Review Score: ${updatereview}`
     );
     await MoimSet.update(
       { user_review: updatereview },
-      { where: { user_id, moim_id } }
+      { where: { nickname, moim_id } }
     );
 
     res.send({
@@ -68,8 +68,8 @@ exports.Moimset_patch = async (req, res) => {
 exports.MoimSet_detory = async (req, res) => {
   if (req.session.userInfo) {
     try {
-      const { user_review, moim_id, user_id } = req.body;
-      await MoimSet.destroy({ where: { moim_id, user_id } });
+      const { moim_id, nickname } = req.body;
+      await MoimSet.destroy({ where: { moim_id, nickname } });
       res.json({ result: true, Message: "모임 가입을 취소하였습니다." });
     } catch (error) {
       res.send({
@@ -86,7 +86,7 @@ exports.MoimSet_POST = async (req, res) => {
   if (req.session.userInfo) {
     try {
       const { moim_id } = req.body;
-      MoimSet.create({ moim_id, user_id: req.session.userInfo.userid });
+      MoimSet.create({ moim_id, nickname: req.session.userInfo.nickname });
       res.json({
         result: true,
         Message: "모임에 가입해주신 것을 환영합니다.",
@@ -177,10 +177,10 @@ exports.Moims_POST = async (req, res) => {
         even_date,
         location,
         represent_img,
-        user_id,
       } = req.body;
 
       console.log(req.body);
+
       const date = await Moim.create({
         title,
         category,
@@ -190,9 +190,17 @@ exports.Moims_POST = async (req, res) => {
         even_date,
         location,
         represent_img,
-        user_id,
+        nickname: req.session.userInfo.nickname,
       });
-      res.json({ result: true, userInfo: date });
+      console.log(date);
+
+      if (date !== null) {
+        const moimset = MoimSet.create({
+          nickname: req.session.userInfo.nickname,
+          moim_id: date.moim_id,
+        });
+        res.json({ result: true, userInfo: date });
+      }
     } catch (error) {
       console.error(error);
       res.send({
@@ -220,7 +228,7 @@ exports.MoimDetail_render = async (req, res) => {
           "max_people",
           "location",
           "represent_img",
-          "user_id",
+          "nickname",
           "category",
           [
             sequelize.fn(
@@ -241,18 +249,18 @@ exports.MoimDetail_render = async (req, res) => {
         ],
         where: { moim_id: Number(req.params.moimid) },
       });
-      let { userid } = req.session.userInfo;
+      let { nickname } = req.session.userInfo;
       if (moim !== null) {
         let moim_setup = await MoimSet.findOne({
           where: {
-            user_id: userid,
+            nickname,
             moim_id: req.params.moimid,
           },
         }); // 현재 session 사용자가 가입한 모임인지를 알아냄.
         const moimset = await MoimSet.findAll({
           attributes: [
             "moim_id",
-            [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+            [sequelize.fn("COUNT", sequelize.col("nickname")), "moim_count"],
           ],
           group: "moim_id",
           where: {
@@ -324,7 +332,7 @@ exports.moimlistSelect = async (req, res) => {
             "max_people",
             "location",
             "represent_img",
-            "user_id",
+            "nickname",
             "category",
             [
               sequelize.fn(
@@ -353,7 +361,7 @@ exports.moimlistSelect = async (req, res) => {
       const moimset = await MoimSet.findAll({
         attributes: [
           "moim_id",
-          [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+          [sequelize.fn("COUNT", sequelize.col("nickname")), "moim_count"],
         ],
         group: "moim_id",
       });
@@ -385,7 +393,7 @@ exports.moimlist = async (req, res) => {
           "max_people",
           "location",
           "represent_img",
-          "user_id",
+          "nickname",
           "category",
           [
             sequelize.fn(
@@ -408,7 +416,7 @@ exports.moimlist = async (req, res) => {
       const moimset = await MoimSet.findAll({
         attributes: [
           "moim_id",
-          [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+          [sequelize.fn("COUNT", sequelize.col("nickname")), "moim_count"],
         ],
         group: "moim_id",
       });
