@@ -189,22 +189,21 @@ exports.userInformation = async (req, res) => {
 
 // review 페이지 렌더링
 exports.review = async (req, res) => {
-  res.render("review");
+  console.log(req.session.userInfo.nickname, "test");
+  res.render("review", {
+    nickname: req.session.userInfo.nickname,
+  });
 };
 
 // review 점수 주기
 exports.postReview = async (req, res) => {
-  const { moim_id, nickname, score } = req.body;
-  const reviewer_id = req.session.userInfo.userid;
-  const reviewee_id = await User.findOne({
-    where: { nickname: nickname },
-  });
-  console.log(reviewee_id.dataValues.user_id);
+  const { moim_id, reviewee_nickname, score } = req.body;
+  const reviewer_nickname = req.session.userInfo.nickname;
   try {
     await Review.create({
       moim_id,
-      reviewer_id,
-      reviewee_id: reviewee_id.dataValues.user_id,
+      reviewer_nickname,
+      reviewee_nickname,
       score,
     });
     res.send({ result: "suceess", message: "리뷰 작성이 완료되었습니다." });
@@ -212,11 +211,6 @@ exports.postReview = async (req, res) => {
     console.log("리뷰 작성 실패", error);
     res.send({ result: "fail", message: "리뷰 작성에 실패했습니다." });
   }
-};
-
-// review 테스트
-exports.review = async (req, res) => {
-  res.render("review");
 };
 
 // 모집글 테스트
