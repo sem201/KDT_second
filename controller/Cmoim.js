@@ -270,6 +270,8 @@ exports.Moims_POST = async (req, res) => {
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
   try {
+    let moim_id = req.params.moimid;
+
     const data = await Moim.findOne({
       attributes: [
         "moim_id",
@@ -296,24 +298,33 @@ exports.MoimDetail_render = async (req, res) => {
           ),
           "even_date",
         ],
-      ],
-    }, {where: {moim_id: req.params.moimid}});
-    const moimset = await MoimSet.findOne({
+      ], where: {
+        moim_id: moim_id
+      }
+    });
+
+    const moimset = await MoimSet.findAll({
       attributes: [
         "moim_id",
-        [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+        // [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+        "user_id"
       ],
-      group: "moim_id",
-    }, {where: {moim_id: req.params.moimid}});
+      // group: "moim_id",
+      where: {
+        moim_id: moim_id
+      }
+    });
+
     
-  const detail = await MoimDetail.findOne({where: {moim_id: req.params.moim_id}});
+    
+  const detail = await MoimDetail.findOne({where: {moim_id: moim_id}});
 
-  console.log(data, detail, moimset);
+  console.log(data, moimset, detail);
 
-    res.render("moim_detail", {data, detail, moimset});
+    res.render("moim_detail", {data, moimset, detail});
   } catch(error){
     console.error(error);
-    res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+    res.send({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
   }
 };
 

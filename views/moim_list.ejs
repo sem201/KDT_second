@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<link rel="stylesheet" href="/static/style.css" type="text/css" />
 <link rel="stylesheet" href="/static/moim_list.css" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="/static/moim_list.js"></script>
@@ -49,7 +50,14 @@
     
   <script>
     // 페이지 로드 시 전체 모임 목록 불러오기
-    document.addEventListener("DOMContentLoaded", showMoim());
+    document.addEventListener("DOMContentLoaded", () => {
+      let is_online = "*";
+      document.querySelector(".onOff").childNodes[1].style.backgroundColor = "#d3d3d3";  // 클릭된 버튼 색상 변경
+
+      console.log(document.querySelector(".onOff").childNodes[1]);
+      
+      showMoim();
+    });
   </script>
 
 </body>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>상세페이지</title>
 </head>
+<link rel="stylesheet" href="/static/style.css" type="text/css" />
 <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="/static/moim_detail.js"></script>
@@ -46,9 +47,7 @@
             </tr>
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><% if (moimset.moim_id === data.moim_id) { %>
-                    <%= moimset.moim_count %>
-                <% } else %><%= 0 %> ~ <%= data.max_people %> </span><button type="button" onclick="showPPL()">👥</button></td>
+                <td id="col2"><span><%= detail.min_people %> ~ <%= data.max_people %> </span><button type="button" onclick="showPPL()">👥</button></td>
             </tr>
             <tr>
                 <!-- 참여하는 경우 detail 정보 추가 -->

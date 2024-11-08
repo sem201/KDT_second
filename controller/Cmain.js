@@ -10,6 +10,10 @@ exports.index = (req, res) => {
   res.render("index");
 };
 
+exports.index_get = (req, res) => {
+  const 
+}
+
 exports.login = (req, res) => {
   res.render("login");
 };
