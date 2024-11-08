@@ -77,9 +77,8 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-// User 정보 확인
+// User 비밀번호 확인
 exports.userPasswordConfirm = async (req, res) => {
-  console.log("user 세션 확인", req.session.userInfo);
   const { pw } = req.body;
 
   try {
@@ -88,13 +87,19 @@ exports.userPasswordConfirm = async (req, res) => {
     });
     if (userIsExist && compareFunc(pw, userIsExist.dataValues.pw)) {
       console.log("user 정보 확인 성공");
-      res.send("성공");
+      res.send({ result: true, message: "비밀번호가 확인되었습니다." });
     } else {
       console.log("user 정보 다시 확인");
+      res.send({ result: false, message: "비밀번호를 다시 확인해주세요" });
     }
   } catch (error) {
     console.log(error);
   }
+};
+
+// 프로필 수정 페이지
+exports.editProfilePage = (req, res) => {
+  res.render("editprofile");
 };
 
 // User 정보 수정
@@ -111,7 +116,13 @@ exports.updateUser = async (req, res) => {
     await User.update(updateData, {
       where: { user_id: req.session.userInfo.userid },
     });
-    res.send("성공");
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        res.send({ result: false });
+      }
+      res.send({ result: true });
+    });
   } catch (error) {
     console.log("User 정보 수정 DB 에러 발생", error);
   }
@@ -124,9 +135,9 @@ exports.userDelete = async (req, res) => {
       where: { user_id: req.session.userInfo.userid },
       // where: { user_id: "1234" },
     });
-    res.send("user 삭제됨");
+    res.send({ result: true });
   } catch (error) {
-    console.log("user 삭제 실패", error);
+    console.log({ result: false });
   }
 };
 
@@ -164,25 +175,14 @@ exports.dibsMoim = async (req, res) => {
   }
 };
 
-// profile 테스트
-exports.profile = async (req, res) => {
-  res.render("profile");
-};
-
-// review 테스트
-exports.review = async (req, res) => {
-  res.render("review");
-};
-
-// 모집글 테스트
-exports.meeting = async (req, res) => {
-  res.render("meeting");
-};
-
 // user 정보 페이지 렌더링
 exports.userInformation = async (req, res) => {
-  res.render("userinfo", {
-    nickname: req.session.userIfo.nickname,
+  const { review } = await User.findOne({
+    where: { user_id: req.session.userInfo.userid },
+  });
+  res.render("profile", {
+    review,
+    nickname: req.session.userInfo.nickname,
     user_id: req.session.userInfo.userid,
   });
 };
@@ -212,4 +212,14 @@ exports.postReview = async (req, res) => {
     console.log("리뷰 작성 실패", error);
     res.send({ result: "fail", message: "리뷰 작성에 실패했습니다." });
   }
+};
+
+// review 테스트
+exports.review = async (req, res) => {
+  res.render("review");
+};
+
+// 모집글 테스트
+exports.meeting = async (req, res) => {
+  res.render("meeting");
 };
