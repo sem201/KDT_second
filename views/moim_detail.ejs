@@ -101,13 +101,25 @@
               <td id="col2"><%= detail[0].content %></td>
             </tr>
             <% if (moim[0].nickname == user.nickname ) { %>
-            <button class="apply1" onclick="moimset()">모임 삭제</button>
+            <button
+              class="apply1"
+              onclick="moim_distory('<%=moim[0].nickname%>', '<%=moim[0].moim_id%>')"
+            >
+              모임 삭제
+            </button>
             <button class="apply2" onclick="moimset()">모임 수정</button>
             <% } else { %>
-            <button class="apply" onclick="moimset()">모임 탈퇴</button>
-            <% } %> <% } else { %>
-            <button class="apply" onclick="moimset()">참여하기</button>
-            <% } %>
+            <button class="apply" onclick="moimset_dis('<%=moim[0].moim_id%>')">
+              모임 탈퇴
+            </button>
+            <% } %> <% } else { %> <% if (moimcount[0].moim_count <
+            moim[0].max_people) { %>
+            <button class="apply" onclick="moimset('<%=moim[0].moim_id%>')">
+              참여하기
+            </button>
+            <% } else {%>
+            <div class="apply">정원 초과</div>
+            <% } %> <% } %>
           </tbody>
         </table>
         <br />
@@ -118,7 +130,49 @@
     </section>
 
     <script>
-      function moimset() {}
+      async function moimset(moim_id) {
+        //완성
+        let { data } = await axios({
+          method: "POST",
+          url: "/moim/moimset",
+          data: { moim_id },
+        });
+        if (data.result) {
+          alert("모임에 참여해주셔서 감사합니다.");
+          window.location.reload();
+        } else {
+          alert("모임에 가입할 수 없습니다.");
+        }
+      }
+      async function moimset_dis(moim_id) {
+        if (confirm("정말, 모임에서 탈퇴하실 겁니까?")) {
+          let { data } = await axios({
+            method: "DELETE",
+            url: "/moim/moimset",
+            data: { moim_id },
+          });
+
+          if (data.result) {
+            alert("다음번엔 함께 해주셨으면 좋겠습니다ㅠㅠㅠㅠㅠ");
+            window.location.reload();
+          } else {
+            alert("모임을 탈퇴할 수 없습니다.");
+          }
+        }
+      }
+      async function moim_distory(nickname, moim_id) {
+        if (confirm("정말, 모임을 삭제하실 겁니까?")) {
+          let { data } = await axios({
+            method: "DELETE",
+            url: "/moim/moims",
+            data: { nickname, moim_id },
+          });
+          if (data.result) {
+            alert("모임이 정상적으로 삭제되었습니다.");
+            window.location.href = "/moim/moim_list";
+          }
+        }
+      }
     </script>
   </body>
 </html>

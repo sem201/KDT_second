@@ -8,7 +8,11 @@ const {
 } = require("../models/index");
 
 exports.MoimList_GET = async (req, res) => {
-  res.render("moim_list");
+  if (req.session.userInfo) {
+    res.render("moim_list");
+  } else {
+    res.redirect("/login");
+  }
 };
 
 exports.Moims_GET = async (req, res) => {
@@ -28,17 +32,21 @@ exports.Moims_GET = async (req, res) => {
 exports.Moim_destory = async (req, res) => {
   const { moim_id } = req.body;
   try {
-    await Moim.destroy({
+    let destroy = await Moim.destroy({
       where: { nickname: req.session.userInfo.nickname, moim_id },
     });
     res.json({ result: true });
   } catch (error) {
-    res.json({ result: true, Message: "모임 정보 삭제에 실패하였습니다!!!" });
+    res.json({ result: false, Message: "모임 정보 삭제에 실패하였습니다!!!" });
   }
 };
 
 exports.moim_insert = (req, res) => {
-  res.render("moiminsert"); // 모임 추가 창으로 가는 코드
+  if (req.session.userInfo) {
+    res.render("moiminsert"); // 모임 추가 창으로 가는 코드
+  } else {
+    res.redirect("/login");
+  }
 };
 
 exports.Moimset_patch = async (req, res) => {
@@ -68,13 +76,14 @@ exports.Moimset_patch = async (req, res) => {
 exports.MoimSet_detory = async (req, res) => {
   if (req.session.userInfo) {
     try {
-      const { moim_id, nickname } = req.body;
-      await MoimSet.destroy({ where: { moim_id, nickname } });
-      res.json({ result: true, Message: "모임 가입을 취소하였습니다." });
+      const { moim_id } = req.body;
+      await MoimSet.destroy({
+        where: { moim_id, nickname: req.session.userInfo.nickname },
+      });
+      res.json({ result: true });
     } catch (error) {
       res.send({
         result: false,
-        Message: "에러 발생!! 모임 가입을 해제할 수 없습니다.",
       });
     }
   } else {
@@ -84,17 +93,16 @@ exports.MoimSet_detory = async (req, res) => {
 
 exports.MoimSet_POST = async (req, res) => {
   if (req.session.userInfo) {
+    const { moim_id } = req.body;
+
     try {
-      const { moim_id } = req.body;
       MoimSet.create({ moim_id, nickname: req.session.userInfo.nickname });
       res.json({
         result: true,
-        Message: "모임에 가입해주신 것을 환영합니다.",
       });
     } catch (error) {
       res.json({
         result: false,
-        Message: `${error} 에러 발생!! 모임에 가입할 수 없습니다.`,
       });
     }
   } else {
