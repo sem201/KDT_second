@@ -53,9 +53,8 @@ section {
 
 .categorize {
     position: fixed;
-    top: -10px;
     left: 120px;
-    margin: 10px;
+    margin: 15px;
 }
 
 .categorize>p {
