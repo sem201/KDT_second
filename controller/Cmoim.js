@@ -14,17 +14,17 @@ exports.MoimList_GET = async (req, res) => {
 
 exports.MoimList_POST = async (req, res) => {
   try {
-    const {location, category, on_line} = req.body;
+    const { location, category, on_line } = req.body;
 
-    
-    
+
+
     let whereConditions = {};
     if (location && location !== "*") whereConditions.location = location;
     if (category && category !== "*") whereConditions.category = category;
-    if (on_line && on_line !== "*"){
+    if (on_line && on_line !== "*") {
       whereConditions.on_line = JSON.parse(on_line);
-      
-      console.log(typeof(whereConditions.on_line));
+
+      console.log(typeof (whereConditions.on_line));
     }
 
     const data = await Moim.findAll({
@@ -54,7 +54,7 @@ exports.MoimList_POST = async (req, res) => {
           "even_date",
         ],
       ],
-      where: whereConditions, 
+      where: whereConditions,
     });
     const moimset = await MoimSet.findAll({
       attributes: [
@@ -64,23 +64,23 @@ exports.MoimList_POST = async (req, res) => {
       group: "moim_id",
     });
     let moimcount = [];
-  for (let i = 0; i < moimset.length; i++) {
-    moimcount.push(moimset[i].dataValues);
-  }
+    for (let i = 0; i < moimset.length; i++) {
+      moimcount.push(moimset[i].dataValues);
+    }
 
-  console.log("whereConditions: ", whereConditions);
-  
-  // console.log(data);
-  // console.log(moimcount);
-  
-  
-  if (data) {
-    res.json({ data:data, moimcount: moimcount });
-  } else {
-    alert("모임 리스트 출력 실패");
-    res.redirect("/");
-  }
-  } catch(error){
+    console.log("whereConditions: ", whereConditions);
+
+    // console.log(data);
+    // console.log(moimcount);
+
+
+    if (data) {
+      res.json({ data: data, moimcount: moimcount });
+    } else {
+      alert("모임 리스트 출력 실패");
+      res.redirect("/");
+    }
+  } catch (error) {
     res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
   }
 };
@@ -170,7 +170,7 @@ exports.moim_detail_UPDATE = async (req, res) => {
       result: true,
       Message: "moim 정보 업데이트에 성공하셨습니다.",
     });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.Moim_UPDATE = async (req, res) => {
@@ -269,64 +269,171 @@ exports.Moims_POST = async (req, res) => {
 // 모임 디테일 페이지 렌더링
 exports.MoimDetail_render = async (req, res) => {
   console.log(req.params.moimid);
-  try {
-    let moim_id = req.params.moimid;
+  // try {
+  //   let moim_id = req.params.moimid;
 
-    const data = await Moim.findOne({
-      attributes: [
-        "moim_id",
-        "title",
-        "on_line",
-        "max_people",
-        "location",
-        "represent_img",
-        "user_id",
-        "category",
-        [
-          sequelize.fn(
-            "date_format",
-            sequelize.col("expiration_date"),
-            "%Y-%d-%m %H:%i"
-          ),
-          "expiration_date",
+  //   const data = await Moim.findOne({
+  //     attributes: [
+  //       "moim_id",
+  //       "title",
+  //       "on_line",
+  //       "max_people",
+  //       "location",
+  //       "represent_img",
+  //       "user_id",
+  //       "category",
+  //       [
+  //         sequelize.fn(
+  //           "date_format",
+  //           sequelize.col("expiration_date"),
+  //           "%Y-%d-%m %H:%i"
+  //         ),
+  //         "expiration_date",
+  //       ],
+  //       [
+  //         sequelize.fn(
+  //           "date_format",
+  //           sequelize.col("even_date"),
+  //           "%Y-%d-%m %H:%i"
+  //         ),
+  //         "even_date",
+  //       ],
+  //     ], where: {
+  //       moim_id: moim_id
+  //     }
+  //   });
+
+  //   const moimset = await MoimSet.findAll({
+  //     attributes: [
+  //       "moim_id",
+  //       // [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+  //       "user_id"
+  //     ],
+  //     // group: "moim_id",
+  //     where: {
+  //       moim_id: moim_id
+  //     }
+  //   });
+
+
+
+  // const detail = await MoimDetail.findOne({where: {moim_id: moim_id}});
+
+  // console.log(data, moimset, detail);
+
+  //   res.render("moim_detail", {data, moimset, detail});
+  // } catch(error){
+  //   console.error(error);
+  //   res.send({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+  // }
+
+
+  let userInfo = req.session.userInfo;
+  console.log(userInfo);
+  if (req.session.userInfo) {
+    try {
+      const moim = await Moim.findAll({
+        attributes: [
+          "moim_id",
+          "title",
+          "on_line",
+          "max_people",
+          "location",
+          "represent_img",
+          "user_id",
+          "category",
+          [
+            sequelize.fn(
+              "date_format",
+              sequelize.col("expiration_date"),
+              "%Y-%d-%m %H:%i"
+            ),
+            "expiration_date",
+          ],
+          [
+            sequelize.fn(
+              "date_format",
+              sequelize.col("even_date"),
+              "%Y-%d-%m %H:%i"
+            ),
+            "even_date",
+          ],
         ],
-        [
-          sequelize.fn(
-            "date_format",
-            sequelize.col("even_date"),
-            "%Y-%d-%m %H:%i"
-          ),
-          "even_date",
-        ],
-      ], where: {
-        moim_id: moim_id
+        where: { moim_id: Number(req.params.moimid) },
+      });
+      let { userid } = req.session.userInfo;
+      if (moim !== null) {
+        let moim_setup = await MoimSet.findOne({
+          where: {
+            user_id: userid,
+            moim_id: req.params.moimid,
+          },
+        }); // 현재 session 사용자가 가입한 모임인지를 알아냄.
+        const moimset = await MoimSet.findAll({
+          attributes: [
+            "moim_id",
+            [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+          ],
+          group: "moim_id",
+          where: {
+            moim_id: req.params.moimid,
+          },
+        });
+        let moimcount = [];
+        for (let i = 0; i < moimset.length; i++) {
+          moimcount.push(moimset[i].dataValues);
+        }
+        const user = { moim_id: req.params.moimid, moim_count: 0 };
+
+        if (moimcount.length == 0) {
+          console.log("모임에 정보가 없으니 0으로 출력합니다.");
+          moimcount.push(user);
+        }
+        let detail = await MoimDetail.findAll({
+          where: { moim_id: req.params.moimid },
+        });
+
+        console.log(moim, moimcount, detail, user, moim_setup);
+        
+
+        if (moim_setup !== null) {
+          console.log("모임에 가입되어 있는 사용자입니다.");
+          console.log(detail);
+          res.render("moim_detail", {
+            moim,
+            moimcount,
+            detail,
+            accession: true,
+            user: userInfo,
+          });
+        } else {
+          console.log("모임에 가입되지 않은 사용자입니다.");
+          console.log(detail);
+          res.render("moim_detail", {
+            moim,
+            moimcount,
+            detail,
+            accession: false,
+            user: userInfo,
+          });
+        }
+      } else {
+        if (typeof window !== "undefined") {
+          alert("현재 삭제된 모임이거나 개설되지 않은 번호 입니다.");
+        }
+        redirect("/moim_list");
       }
-    });
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    if (typeof window !== "undefined") {
+      alert("현재 로그인이 되어 있지 않습니다.");
+    }
+    res.redirect("/login");
+  };
 
-    const moimset = await MoimSet.findAll({
-      attributes: [
-        "moim_id",
-        // [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
-        "user_id"
-      ],
-      // group: "moim_id",
-      where: {
-        moim_id: moim_id
-      }
-    });
-
-    
-    
-  const detail = await MoimDetail.findOne({where: {moim_id: moim_id}});
-
-  console.log(data, moimset, detail);
-
-    res.render("moim_detail", {data, moimset, detail});
-  } catch(error){
-    console.error(error);
-    res.send({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
-  }
-};
+}
 
 exports.moimlist = async (req, res) => {
   const data = await Moim.findAll({

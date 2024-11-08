@@ -126,10 +126,11 @@ td {
 }
 
 td>button {
-    width: 30px;
+    /* width: 30px; */
     height: 30px;
-    border-radius: 100%;
+    border-radius: 10%;
     border: none;
+    margin: 0 5px;
 }
 
 .listOfppl {

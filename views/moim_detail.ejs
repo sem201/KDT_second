@@ -28,26 +28,26 @@
     <div class="moim">
       <img src="#" alt=""><br>
       <div style="width: 80vw; display: flex; justify-content: space-between;">
-      <h3><%= data.title %></h3>
+      <h3><%= moim[0].title %></h3>
       <button class="dibsMoim" onclick="DibsMoim()">♡</button>
         </div>
       <table>
         <tbody>
             <tr>
                 <td id="col1">장소</td>
-                <td id="col2"><%= data.location %></td>
+                <td id="col2"><%= moim[0].location %></td>
             </tr>
             <tr>
                 <td id="col1">일시</td>
-                <td id="col2"><%= data.even_date %></td>
+                <td id="col2"><%= moim[0].even_date %></td>
             </tr>
             <tr>
                 <td id="col1">모집 기간</td>
-                <td id="col2"><%= data.expiration_date %></td>
+                <td id="col2"><%= moim[0].expiration_date %></td>
             </tr>
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><%= detail.min_people %> ~ <%= data.max_people %> </span><button type="button" onclick="showPPL()">👥</button></td>
+                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
             </tr>
             <tr>
                 <!-- 참여하는 경우 detail 정보 추가 -->
@@ -60,6 +60,10 @@
       <span>참여하기</span>
     </div>
   </section>
+  <script>
+    console.log(moim, moimcount, detail, user, moim_setup);
+    
+  </script>
 </body>
 
 </html>
