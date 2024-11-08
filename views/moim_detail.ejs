@@ -27,80 +27,66 @@
   <script src="/static/moim_list.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-  <body>
-    <header>
-      <div class="logo">
-        <!-- 로고 -->
-        <a href="/">MOiM</a>
-      </div>
-      <div class="setting">
-        <div><span>×</span></div>
-      </div>
-    </header>
-    <section>
-      <div class="moim">
-        <img src="#" alt="" /><br />
-        <h3>모임 제목 : <%= moim[0].title %></h3>
-        <!-- <div class="moim_info">
-        <div class="element">
-            <div>장소</div>
-            <div>일시</div>
-            <div>모집 기간</div>
-            <div>인원</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상세페이지</title>
+</head>
+<link rel="stylesheet" href="/static/style.css" type="text/css" />
+<link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="/static/moim_detail.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<body>
+  <header>
+    <div class="logo">
+      <!-- 로고 -->
+      <a href="/">MOiM</a>
+    </div>
+    <div class="setting">
+        <div>
+            <span onclick="location.href='/moim/moims'">←</span>
         </div>
-        <div class="content">
-            <div>인천광역시</div>
-            <div>2024.11.15</div>
-          <div>2024.11.01 ~ 2024.11.10</div>
-          <div>3/10</div>
+    </div>
+  </header>
+  <section>
+    <div class="moim">
+      <img src="#" alt=""><br>
+      <div style="width: 80vw; display: flex; justify-content: space-between;">
+      <h3><%= moim[0].title %></h3>
+      <button class="dibsMoim" onclick="DibsMoim()">♡</button>
         </div>
-      </div> -->
+      </div>
         <table>
           <tbody>
             <tr>
-              <td id="col1">장소</td>
-              <td id="col2"><%= moim[0].location %></td>
+                <td id="col1">장소</td>
+                <td id="col2"><%= moim[0].location %></td>
             </tr>
             <tr>
-              <td id="col1">주제</td>
-              <td id="col2"><%= moim[0].category %></td>
+                <td id="col1">일시</td>
+                <td id="col2"><%= moim[0].even_date %></td>
             </tr>
             <tr>
-              <td id="col1">온라인 여부</td>
-              <td id="col2">
-                <% if (moim[0].on_line == true) { %> 온라인 <% } %> <% if
-                (moim[0].on_line == false) { %> 오프라인 <% } %>
-              </td>
+                <td id="col1">모집 기간</td>
+                <td id="col2"><%= moim[0].expiration_date %></td>
             </tr>
 
             <tr>
-              <td id="col1">일시</td>
-              <td id="col2"><%= moim[0].even_date %></td>
-            </tr>
-            <tr>
-              <td id="col1">모집 기간</td>
-              <td id="col2"><%= moim[0].expiration_date %> 까지 모집합니다.</td>
-            </tr>
-            <tr>
-              <td id="col1">모집 인원</td>
-              <td id="col2">
-                <span>
-                  <%= moimcount[0].moim_count %> /<%= moim[0].max_people
-                  %></span
-                ><button type="button" onclick="showPPL()">👥</button>
-              </td>
+                <td id="col1">모집 인원</td>
+                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
             </tr>
             <!-- 참여하는 경우 detail 정보 추가 -->
             <% if (accession == true) { %>
             <tr>
-              <td id="col1">모임이 진행되는 최소 인원 수</td>
-              <td id="col2"><%= detail[0].min_people %></td>
-            </tr>
-            <tr>
               <td id="col1">내용</td>
               <td id="col2"><%= detail[0].content %></td>
             </tr>
-            <% if (moim[0].nickname == user.nickname ) { %>
+          </tbody>
+        </table>
+        <!-- <div class="apply"> -->
+          <% if (moim[0].nickname == user.nickname ) { %>
             <button class="apply1" onclick="moimset()">모임 삭제</button>
             <button class="apply2" onclick="moimset()">모임 수정</button>
             <% } else { %>
@@ -108,15 +94,19 @@
             <% } %> <% } else { %>
             <button class="apply" onclick="moimset()">참여하기</button>
             <% } %>
-          </tbody>
-        </table>
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-    </section>
+        <!-- </div> -->
 
+    </div>
+
+    <!-- <div class="apply" onclick="apply()">
+      <span>참여하기</span>
+    </div> -->
+  </section>
+  <script>
+    console.log(moim, moimcount, detail, user, moim_setup);
+    
+  </script>
+</body>
     <script>
       function moimset() {}
     </script>

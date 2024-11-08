@@ -20,15 +20,16 @@ body {
   justify-content: center;
 }
 
-.logo {
-  margin: 10px;
+/* .logo {
+    margin: 10px;
 }
 
-.logo > a {
-  text-decoration: none;
-  color: black;
-  font-size: 30px;
-}
+.logo>a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+} */
+
 
 .setting > div {
   width: 50px;
@@ -41,14 +42,15 @@ body {
   font-size: 35px;
 }
 
-header {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.5);
-}
+/* header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.500);
+} */
+
 
 section {
   position: absolute;
@@ -56,8 +58,7 @@ section {
 }
 
 .moim {
-  margin: 10px;
-  justify-items: center;
+    justify-items: center;
 }
 
 .moim > h3 {
@@ -101,12 +102,13 @@ section {
 }
 
 table {
-  border-collapse: collapse;
+    border-collapse: collapse;
+    width: 80vw;
 }
 
 tbody {
-  width: 80vw;
-  border-top: 2px solid black;
+    /* width: 80vw; */
+    border-top: 2px solid black
 }
 
 tr {
@@ -126,11 +128,13 @@ td {
   width: 60%;
 }
 
-td > button {
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  border: none;
+
+td>button {
+    /* width: 30px; */
+    height: 30px;
+    border-radius: 10%;
+    border: none;
+    margin: 0 5px;
 }
 
 .listOfppl {
