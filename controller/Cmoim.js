@@ -1,4 +1,5 @@
 const { Op } = require("sequelize");
+const db = require("../models");
 const sequelize = require("sequelize");
 const {
   Moim,
@@ -448,15 +449,47 @@ exports.moimlist = async (req, res) => {
   }
 };
 
-// 추천 moim list 출력
-exports.RecommendMoim = async (req, res) => {
+// 찜한 moim list 출력
+exports.DibsMoim = async (req, res) => {
   if (req.session.userInfo) {
     try {
+      const data = await Moim.findAll({
+        include: [
+          {
+            model: DibsMoim,
+            where: { "dibs_moim.user_id": "4444" },
+          },
+        ],
+      });
+      res.send({ data: data });
     } catch (error) {
       console.log("모임리스트 불러오는데 실패했음");
     }
   } else {
     console.log("세션정보 없음");
     res.send({ message: "로그인을 다시 확인해주세요!" });
+  }
+};
+
+exports.RecommendMoim = async (req, res) => {
+  try {
+    const results = await db.sequelize.query(
+      `
+    SELECT moim.*
+  FROM moim
+  JOIN (
+    SELECT moim_id, COUNT(*) AS participant_count
+    FROM moim_set
+    GROUP BY moim_id
+  ) AS moim_participants ON moim.moim_id = moim_participants.moim_id
+  WHERE moim_participants.participant_count = moim.max_people - 1
+  `,
+      {
+        type: db.sequelize.QueryTypes.SELECT,
+      }
+    );
+    res.send({ results });
+  } catch (error) {
+    console.log("error", error);
   }
 };
