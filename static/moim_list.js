@@ -70,7 +70,7 @@ function selectLocation() {
             const text = document.querySelector(".location");
             text.innerHTML = location_list[selectedIndex];
 
-            showMoim(location_list[selectedIndex]);
+            showMoim();
         });
     });
 }
@@ -143,85 +143,136 @@ function selectCategory() {
             const selectedIndex = this.getAttribute("data-index");
             const text = document.querySelector(".category");
             text.innerHTML = category_list[selectedIndex];
+
+            showMoim();
         });
+
     });
 }
 
 
-async function showMoim(location) {
-    try {
-        const response = await axios({
-            method: "GET",
-            url: "/moim/moims/get"
-        });
-        // JSON 데이터를 받기 위한 요청
-        const data = response.data.data;
-        console.log(data);
+let is_online = '';
 
-        const tbody = document.querySelector("tbody");
-        let rows = '';  // 누적할 rows를 let으로 선언
+function selectOnOff() {
+    console.log(this.event.target.getAttribute("name"));
+    is_online = this.event.target.getAttribute("name");
 
-        if (location === "WHERE?") {
-            // 모든 모임을 표시
-            for (let i = 0; i < data.length; i++) {
-                rows += `
-                <tr onclick="location.href='/moim/${data[i].moim_id}'">
-                    <td>
-                        <div class="moim_infoBox">
-                            <div class="moim_title">
-                                <span style="font-size: 20px; font-weight: 700;">${data[i].title}</span><br>
-                                <span>(3/10)</span>
-                            </div>
-                            <div class="locationDate">
-                                <span>${data[i].location}</span>
-                                <span><br>${data[i].even_date}</span>
-                            </div>
-                        </div>
-                        <div class="moim_imgBox">
-                            <img src="${data[i].represent_img}" alt="" id="moim_img" name="img_${i}">
-                        </div>
-                    </td>
-                </tr>`;
-            }
-        } else {
-            // 특정 location의 모임만 표시
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].location === location) {
-                    rows += `
-                    <tr onclick="location.href='/moim/${data[i].moim_id}'">
-                        <td>
-                            <div class="moim_infoBox">
-                                <div class="moim_title">
-                                    <span style="font-size: 20px; font-weight: 700;">${data[i].title}</span><br>
-                                    <span>(3/10)</span>
-                                </div>
-                                <div class="locationDate">
-                                    <span>${data[i].location}</span>
-                                    <span><br>${data[i].even_date}</span>
-                                </div>
-                            </div>
-                            <div class="moim_imgBox">
-                                <img src="${data[i].represent_img}" alt="" id="moim_img" name="img_${i}">
-                            </div>
-                        </td>
-                    </tr>`;
-                }
-            }
-        }
-
-        // tbody에 HTML 할당
-        tbody.innerHTML = rows;
-
-    } catch (error) {
-        console.error("모임 정보를 불러오는데 실패했습니다:", error);
-    }
-
+    document.querySelectorAll(".is_online").forEach((el) => el.style.backgroundColor = "");  // 이전 버튼 색상 초기화
+    this.event.target.style.backgroundColor = "#d3d3d3";  // 클릭된 버튼 색상 변경
+    showMoim();
 }
 
+async function showMoim() {
+    try {
+        let location = document.querySelector(".location").innerText;
+        let category = document.querySelector(".category").innerText;
+        let categorize = [];
+    
+        // onOffline.forEach((button) => {
+        //     button.addEventListener("click", () => {
+        //         onOffline.forEach((el) => el.style.backgroundColor = "");  // 이전 버튼 색상 초기화
+        //         button.style.backgroundColor = "#d3d3d3";  // 클릭된 버튼 색상 변경
 
+        //         is_online = button.getAttribute("name");
+        //         fetchData();
+        //     });
+        // });
+    
+        // document.querySelector(".location").addEventListener("change", (event) => {
+        //     location = event.target.innerText;
+        //     fetchData();
+        // });
+    
+        // document.querySelector(".category").addEventListener("change", (event) => {
+        //     category = event.target.innerText;
+        //     fetchData();
+        // });
+    
+        async function fetchData() {
+            // categorize = [location, category, is_online];
+            
+            if (location === "WHERE?") {
+                categorize[0] = "*";
+            } else {
+                categorize[0] = location;
+            }
+            if (category === "WHAT?") {
+                categorize[1] = "*";
+            } else {
+                categorize[1] = category;
+            }
 
-// 온라인, 오프라인 필터링하여 보여주는 함수
-function filterMoim(onOff) {
-    console.log(`${onOff}`);
+            categorize[2] = is_online;
+    
+            console.log(location, category, is_online, categorize);
+    
+            try {
+                const response = await axios({
+                    method: "POST",  // Use POST since we're sending a request body
+                    url: "/moim/moims/get",
+                    data: {
+                        location: categorize[0],
+                        category: categorize[1],
+                        on_line: categorize[2],
+                    }
+                });
+    
+                
+    
+                console.log(response);
+    
+                const data = response.data.data;
+                const moimcount = response.data.moimcount;
+                console.log(data, moimcount);
+    
+                const tbody = document.querySelector("tbody");
+                let rows = '';
+    
+                for (let i = 0; i < data.length; i++) {
+                    let count = 0;
+                        for (let j = 0; j < moimcount.length; j++) {
+                            if (moimcount[j].moim_id === data[i].moim_id) {
+                                count = moimcount[j].moim_count;
+                            }
+                        }
+    
+                        rows += `
+                        <tr id="${data[i].moim_id}" onclick="location.href='/moim/${data[i].moim_id}'">
+                            <td>
+                                <div class="moim_infoBox">
+                                    <div class="moim_title">
+                                        <span style="font-size: 20px; font-weight: 700;">${data[i].title}</span><br>
+                                        <span>(${count}/${data[i].max_people})</span>
+                                    </div>
+                                    <div class="locationDate">
+                                        <span>${data[i].location}</span>
+                                        <span><br>${data[i].even_date}</span>
+                                    </div>
+                                </div>
+                                <div class="moim_imgBox">
+                                    <img src="${data[i].represent_img}" alt="" id="moim_img" name="img_${i}">
+                                    <div class="online_${data[i].on_line}">on</div>
+                                </div>
+                            </td>
+                        </tr>`;
+    
+                        count = 0;
+                    
+                }
+    
+                tbody.innerHTML = rows;
+    
+            } catch (error) {
+                console.error("Failed to load meeting information:", error);
+            }
+        }
+    
+        // Initial fetch on page load
+        fetchData();
+    
+    } catch (error) {
+        console.error("Error initializing the script:", error);
+    }
+    
 
 }
