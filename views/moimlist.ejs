@@ -19,7 +19,9 @@
       <% for( let i = 0; i < data.length; i++ ) { %>
       <tr>
         <!-- 모임 iD를 통한 세부 내역 테이블 이동 -->
-        <td><a href="/moim/:<%=data[i].moim_id %>"><%= i+1 %></a></td>
+        <td>
+          <a href="/moim/moim_detail/<%=data[i].moim_id %>"><%= i+1 %></a>
+        </td>
         <td><%= data[i].location %></td>
         <td><%= data[i].category %></td>
         <td><img src="<%= data[i].represent_img %>" alt="" /></td>
