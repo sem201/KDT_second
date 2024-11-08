@@ -27,17 +27,17 @@ Moim.hasOne(MoimDetail, {
 MoimDetail.belongsTo(Moim, { foreignKey: "moim_id" });
 // //1 : 1
 
-User.hasMany(Moim, { foreignKey: "user_id" });
-Moim.belongsTo(User, { foreignKey: "user_id" });
+User.hasMany(Moim, { foreignKey: "nickname" });
+Moim.belongsTo(User, { foreignKey: "nickname" });
 
 Moim.belongsToMany(User, { through: "moim_set", foreignKey: "moim_id" });
-User.belongsToMany(Moim, { through: "moim_set", foreignKey: "user_id" });
+User.belongsToMany(Moim, { through: "moim_set", foreignKey: "nickname" });
 
 Moim.hasMany(DibsMoim, { foreignKey: "moim_id" });
 DibsMoim.belongsTo(Moim, { foreignKey: "moim_id" });
 
-User.hasMany(DibsMoim, { foreignKey: "user_id" });
-DibsMoim.belongsTo(User, { foreignKey: "user_id" });
+User.hasMany(DibsMoim, { foreignKey: "nickname" });
+DibsMoim.belongsTo(User, { foreignKey: "nickname" });
 
 Moim.hasMany(Review, { foreignKey: "moim_id" });
 Review.belongsTo(Moim, { foreignKey: "moim_id" });

@@ -1,0 +1,25 @@
+name: remote ssh command for deploy
+on:
+  push:
+    branches: "main"
+jobs:
+  deploy:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Debug PORT value
+      # run: echo "PORT : ${{ secrets.PORT }}"
+      - name: run ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          passphrase: ${{ secrets.PASSWORD}}
+          script: |
+            cd ~/moim
+            git pull origin main
+            npm i
+            pm2 kill
+            pm2 start app.js

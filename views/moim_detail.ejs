@@ -1,5 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상세페이지</title>
+  </head>
+  <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+  <script src="/static/moim_detail.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상세페이지</title>
+  </head>
+  <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+  <script src="/static/moim_list.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <head>
   <meta charset="UTF-8">
@@ -31,8 +57,9 @@
       <h3><%= moim[0].title %></h3>
       <button class="dibsMoim" onclick="DibsMoim()">♡</button>
         </div>
-      <table>
-        <tbody>
+      </div>
+        <table>
+          <tbody>
             <tr>
                 <td id="col1">장소</td>
                 <td id="col2"><%= moim[0].location %></td>
@@ -45,25 +72,43 @@
                 <td id="col1">모집 기간</td>
                 <td id="col2"><%= moim[0].expiration_date %></td>
             </tr>
+
             <tr>
                 <td id="col1">모집 인원</td>
                 <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
             </tr>
+            <!-- 참여하는 경우 detail 정보 추가 -->
+            <% if (accession == true) { %>
             <tr>
-                <!-- 참여하는 경우 detail 정보 추가 -->
+              <td id="col1">내용</td>
+              <td id="col2"><%= detail[0].content %></td>
             </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+        <!-- <div class="apply"> -->
+          <% if (moim[0].nickname == user.nickname ) { %>
+            <button class="apply1" onclick="moimset()">모임 삭제</button>
+            <button class="apply2" onclick="moimset()">모임 수정</button>
+            <% } else { %>
+            <button class="apply" onclick="moimset()">모임 탈퇴</button>
+            <% } %> <% } else { %>
+            <button class="apply" onclick="moimset()">참여하기</button>
+            <% } %>
+        <!-- </div> -->
+
     </div>
 
-    <div class="apply" onclick="apply()">
+    <!-- <div class="apply" onclick="apply()">
       <span>참여하기</span>
-    </div>
+    </div> -->
   </section>
   <script>
     console.log(moim, moimcount, detail, user, moim_setup);
     
   </script>
 </body>
-
+    <script>
+      function moimset() {}
+    </script>
+  </body>
 </html>
