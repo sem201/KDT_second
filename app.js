@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const schedule = require("node-schedule");
 const session = require("express-session");
 dotenv.config();
 const db = require("./models");
@@ -7,6 +8,7 @@ const app = express();
 const router = require("./routes/main");
 const userrouter = require("./routes/User");
 const moimrouter = require("./routes/Moim");
+const updateReview = require("./controller/Cuser");
 
 const PORT = process.env.PORT;
 
@@ -34,6 +36,11 @@ app.use("/moim", moimrouter);
 
 app.get("*", (req, res) => {
   res.render("404");
+});
+
+schedule.scheduleJob("0 0 * * *", async () => {
+  console.log("Scheduled task executed at 00:00");
+  await updateReview(); // updateReview 함수 호출
 });
 
 db.sequelize.sync({ force: false }).then(() => {

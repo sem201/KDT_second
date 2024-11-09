@@ -49,4 +49,7 @@ router.get("/review", userController.review);
 
 // user에 대한 리뷰
 router.post("/review", userController.postReview);
+
+// review점수 테스트
+router.get("/testpage", userController.updateReview);
 module.exports = router;
