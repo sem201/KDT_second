@@ -5,69 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>별점 리뷰 등록</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-      }
-
-      h2 {
-        text-align: center;
-        color: #333;
-      }
-
-      .container {
-        width: 80%;
-        max-width: 600px;
-        margin: 50px auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .star-rating {
-        direction: rtl;
-        display: flex;
-        justify-content: flex-end;
-        display: flex;
-        justify-content: space-evenly;
-        margin: 10px 0;
-      }
-
-      .star-rating input {
-        display: none;
-      }
-
-      .star-rating label {
-        font-size: 2rem;
-        color: #ddd;
-        cursor: pointer;
-      }
-
-      .star-rating input:checked ~ label,
-      .star-rating label:hover,
-      .star-rating label:hover ~ label {
-        color: #ffc107;
-      }
-
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #0078ff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-
-      button:hover {
-        background-color: #0056b3;
-      }
-    </style>
+    <link rel="stylesheet" href="/static/review.css" />
   </head>
 
   <body>
@@ -91,41 +29,6 @@
       </div>
       <button onclick="submitReview()">리뷰 제출</button>
     </div>
-
-    <!-- <script>
-      function submitReview() {
-        const ratingElement = document.querySelector(
-          'input[name="rating"]:checked'
-        );
-        const reviewTextElement = document.getElementById("review");
-
-        if (!ratingElement) {
-          alert("별점을 선택해주세요.");
-          return;
-        }
-
-        const reviewText = reviewTextElement ? reviewTextElement.value : "";
-
-        const reviewData = {
-          rating: ratingElement.value,
-          review: reviewText,
-        };
-
-        axios
-          .post("/api/review/submit", reviewData)
-          .then((response) => {
-            alert("리뷰가 제출되었습니다.");
-
-            ratingElement.checked = false;
-            if (reviewTextElement) reviewTextElement.value = "";
-          })
-          .catch((error) => {
-            console.error("리뷰 제출 에러", error);
-            alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
-          });
-      }
-    </script> -->
-
     <script>
       function submitReview() {
         const ratingElement = document.querySelector(
@@ -143,8 +46,25 @@
           return;
         }
 
-        const ratingValue = ratingElement.value;
-        console.log(`Selected Rating: ${ratingValue}`);
+        const score = ratingElement.value;
+        // 앞에서 moim_id는 가져와야함
+        // reviewee_nickname도 앞에서 선택으로 가져와야함
+
+        data = {
+          moim_id: moim_id,
+          reviewee_nickname: reviewee_nickname,
+          score: score,
+        };
+        axios({
+          method: "post",
+          url: "/user/review",
+          data: data,
+        }).then((res) => {
+          if ((res.data.result = true)) {
+            alert("리뷰 작성이 완료되었습니다.");
+            document.location.href = "/moim/moims";
+          }
+        });
       }
     </script>
   </body>
