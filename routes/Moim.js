@@ -36,4 +36,6 @@ router.get("/moim_insert", controller.moim_insert);
 
 router.get("/moim_list", controller.moimlist);
 
+router.get("/moim_correction/:moimid", controller.moim_correction);
+
 module.exports = router;

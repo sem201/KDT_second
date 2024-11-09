@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>모임 전체 리스트 호출 페이지</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/static/moim.js"></script>
   </head>
   <style>
     table,
@@ -17,10 +18,11 @@
     <% let count = 0 %>
     <table>
       <% for( let i = 0; i < data.length; i++ ) { %>
+
       <tr>
         <!-- 모임 iD를 통한 세부 내역 테이블 이동 -->
         <td>
-          <a href="/moim/moim_detail/<%=data[i].moim_id %>"><%= i+1 %></a>
+          <a href="#" onclick="move('<%=data[i].moim_id %>');"> <%= i+1 %></a>
         </td>
         <td><%= data[i].location %></td>
         <td><%= data[i].category %></td>
