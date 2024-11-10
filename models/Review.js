@@ -13,12 +13,12 @@ const ReviewModel = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      reviewer_id: {
-        type: DataTypes.STRING(20),
+      reviewer_nickname: {
+        type: DataTypes.STRING(10),
         allowNull: false,
       },
-      reviewee_id: {
-        type: DataTypes.STRING(20),
+      reviewee_nickname: {
+        type: DataTypes.STRING(10),
         allowNull: false,
       },
       score: {

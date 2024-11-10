@@ -6,6 +6,10 @@ router.get("/moims", controller.MoimList_GET); //모임 사이트 진입
 
 router.post("/moims/post", controller.MoimList_POST); //모임 정보 불러오기
 
+router.get("/moims/dibs", controller.DibsMoim); // 찜한 모임 불러오기
+
+router.get("/moims/recommend", controller.RecommendMoim); //추천 모임 불러오기
+
 router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
 
 router.get("/moims/:location", controller.moimlistSelect); //모임 table에서 지역 별로 정보를 가져오기 위한 코드
@@ -25,11 +29,13 @@ router.patch("/moimset", controller.Moimset_patch); //가입한 사용자의 별
 router.delete("/moimset", controller.MoimSet_detory); // 모임 set 테이블의 정보를 삭제함.
 router.delete("/moims", controller.Moim_destory); //모임 정보 삭제, 모임 detail 테이블은 casecade 규칙에 따라 삭제 됨 - 완료
 
-// 상세 모임 화며 조회
+// 상세 모임 화면 조회
 router.get("/moim_detail/:moimid", controller.MoimDetail_render);
 
 router.get("/moim_insert", controller.moim_insert);
 
 router.get("/moim_list", controller.moimlist);
+
+router.get("/moim_correction/:moimid", controller.moim_correction);
 
 module.exports = router;
