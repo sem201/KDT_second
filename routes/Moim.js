@@ -4,7 +4,7 @@ const controller = require("../controller/Cmoim");
 
 router.get("/moims", controller.MoimList_GET); //모임 사이트 진입
 
-router.post("/moims/get", controller.MoimList_POST); //모임 정보 불러오기
+router.post("/moims/post", controller.MoimList_POST); //모임 정보 불러오기
 
 router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
 
