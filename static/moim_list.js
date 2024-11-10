@@ -96,9 +96,9 @@ function selectCategory() {
     });
 
     let category_list = [
-        "WHAT?", "취미 & 여가", "운동 & 레저", "문화 & 예술",
-        "학습 & 자기개발", "사회 & 네트워킹", "음식 & 요리",
-        "환경 & 지속 가능성", "반려동물"
+        "WHAT?", "취미•여가", "운동•레저", "문화•예술",
+        "학습•자기개발", "사회•네트워킹", "음식•요리",
+        "환경•지속 가능성", "반려동물"
     ];
 
     let category = ``;
@@ -209,7 +209,7 @@ async function showMoim() {
             try {
                 const response = await axios({
                     method: "POST",  // Use POST since we're sending a request body
-                    url: "/moim/moims/get",
+                    url: "/moim/moims/post",
                     data: {
                         location: categorize[0],
                         category: categorize[1],
@@ -237,7 +237,7 @@ async function showMoim() {
                         }
     
                         rows += `
-                        <tr id="${data[i].moim_id}" onclick="location.href='/moim/${data[i].moim_id}'">
+                        <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
                             <td>
                                 <div class="moim_infoBox">
                                     <div class="moim_title">

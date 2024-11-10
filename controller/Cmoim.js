@@ -38,7 +38,7 @@ exports.MoimList_POST = async (req, res) => {
         "max_people",
         "location",
         "represent_img",
-        "user_id",
+        "nickname",
         "category",
         [
           sequelize.fn(
@@ -62,7 +62,7 @@ exports.MoimList_POST = async (req, res) => {
     const moimset = await MoimSet.findAll({
       attributes: [
         "moim_id",
-        [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+        [sequelize.fn("COUNT", sequelize.col("nickname")), "moim_count"],
       ],
       group: "moim_id",
     });

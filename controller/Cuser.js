@@ -59,7 +59,7 @@ exports.loginUser = async (req, res) => {
           nickname: isExist.dataValues.nickname,
         };
         console.log("세션 생성", req.session.userInfo);
-        res.send({ result: true, message: "로그인 성공" });
+        res.send({ result: true, message: "로그인 성공", nickname: req.session.userInfo.nickname });
       } else {
         console.log("로그인 실패");
         res.send({
@@ -70,7 +70,7 @@ exports.loginUser = async (req, res) => {
     } else {
       console.log("로그인 실패");
       res.send({
-        result: true,
+        result: false,
         message: "로그인 실패 아이디를 확인해주세요",
       });
     }

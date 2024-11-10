@@ -4,9 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원가입</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link rel="stylesheet" href="/static/login.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
+    <header>
+      <div class="logo">
+        <!-- 로고 -->
+        <a href="/home">MOiM</a>
+      </div>
+      <div class="setting">
+        <div>
+            <span onclick="location.href='/home'">←</span>
+        </div>
+    </div>
+    </header>
+    <div></div>
+    <div>
     <h2>회원가입</h2>
     <form name="signup-form">
       <input type="text" name="username" placeholder="닉넥임(1~10자)" /><br />
@@ -23,8 +38,8 @@
       /><br />
       <button type="button" onclick="signup()">회원가입하기</button>
     </form>
-
-    <p><a href="/login">로그인 </a></p>
+  </div>
+  <p><a href="/">로그인 </a></p>
 
     <script>
       async function signup() {
@@ -46,7 +61,7 @@
           console.log("res", res);
           if (res.data.result) {
             alert("회원가입이 완료되었습니다. 로그인해주세요.");
-            document.location.href = "login";
+            document.location.href = "/";
           } else {
             alert("회원가입에 실패했습니다. 다시 시도해주세요.");
             form.reset();
