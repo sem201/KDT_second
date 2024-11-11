@@ -16,12 +16,12 @@
   </header>
   <div class="main_content">
     <div class="row1">
-      <div class="my_page" onclick="location.href='/'">
+      <div class="my_page" onclick="location.href='/user/profile'">
         <!-- 프로필사진 -->
-        <img src="" alt="" id="profile_img">
+        <img src="/static/upload/star_imgs/<%= img_link %>" alt="" id="profile_img">
         <!-- <div id="profile_img"></div> -->
         <!-- 닉네임 -->
-        <div id="name">닉네임</div>
+        <div id="name"><%= nickname %></div>
         <!-- + 버튼 -->
         <div id="more_info">+</div>
       </div>
@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="recommend">
-      <h3>HELLO님을 위한 추천</h3>
+      <h3><%= nickname %>님을 위한 추천</h3>
       <!-- + 버튼 -->
       <div id="more_info">+</div>
       <div class="contents_scroll">
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="attending">
-      <h3>_____님이 참여중인 모임</h3>
+      <h3><%= nickname %>님이 참여중인 모임</h3>
       <!-- + 버튼 -->
       <div id="more_info">+</div>
       <div class="contents_scroll">

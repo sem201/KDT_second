@@ -57,7 +57,6 @@ exports.loginUser = async (req, res) => {
         req.session.userInfo = {
           userid: isExist.dataValues.user_id,
           nickname: isExist.dataValues.nickname,
-          id: isExist.dataValues.id,
         };
         console.log("세션 생성", req.session.userInfo);
         res.send({ result: true, message: "로그인 성공", nickname: req.session.userInfo.nickname });
