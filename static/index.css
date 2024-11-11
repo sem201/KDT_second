@@ -4,6 +4,13 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 /* 로고 
 - 위치 고정
 - 폰트 설정
@@ -35,6 +42,7 @@ body {
 }
 
 .logo>a {
+    font-family: 'PartialSansKR-Regular';
     text-decoration: none;
     color: black;
     font-size: 30px;
@@ -46,7 +54,7 @@ body {
     height: 150px;
     min-width: 170px;
     min-height: 150px;
-    background-color: #F6F7C4;
+    background-color: #f7f99f;
     border-radius: 25px;
     margin: 5px;
     box-shadow: 0px 4px 5px 2px rgba(128, 128, 128, 0.3);
@@ -63,6 +71,7 @@ body {
     position: relative;
     left: 20px;
     top: 20px;
+    border: 0.5px solid black;
 }
 
 #name {
