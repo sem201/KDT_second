@@ -50,4 +50,6 @@ router.get("/review", userController.review);
 // user에 대한 리뷰
 router.post("/review", userController.postReview);
 
+// user 로그아웃
+router.get("/logout", userController.logout);
 module.exports = router;
