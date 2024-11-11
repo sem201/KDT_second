@@ -17,7 +17,6 @@ const {
 exports.postUser = async (req, res) => {
   try {
     const { userid, pw, nickname } = req.body;
-    console.log("userid:", userid);
     const isduplicate = await User.findOne({
       where: {
         [Op.or]: [{ user_id: userid }, { nickname: nickname }],
@@ -25,7 +24,6 @@ exports.postUser = async (req, res) => {
     });
     if (!isduplicate) {
       const hash = bcryptPassword(pw);
-      console.log("사용자 생성됨");
       await User.create({
         user_id: userid,
         pw: hash,
@@ -33,7 +31,6 @@ exports.postUser = async (req, res) => {
       });
       res.send({ result: true, message: "계정이 생성되었습니다." });
     } else {
-      console.log("중복 사용자 존재");
       res.send({ result: false, message: "중복된 사용자가 있습니다." });
     }
   } catch (error) {
@@ -52,24 +49,23 @@ exports.loginUser = async (req, res) => {
       const hashedPw = isExist.dataValues.pw;
       const isMatch = bcrypt.compareSync(pw, hashedPw);
       if (isMatch) {
-        console.log("로그인 성공");
-        console.log(isExist.dataValues);
         req.session.userInfo = {
           userid: isExist.dataValues.user_id,
           nickname: isExist.dataValues.nickname,
           id: isExist.dataValues.id,
         };
-        console.log("세션 생성", req.session.userInfo);
-        res.send({ result: true, message: "로그인 성공", nickname: req.session.userInfo.nickname });
+        res.send({
+          result: true,
+          message: "로그인 성공",
+          nickname: req.session.userInfo.nickname,
+        });
       } else {
-        console.log("로그인 실패");
         res.send({
           result: true,
           message: "로그인 실패 비밀번호를 확인해주세요",
         });
       }
     } else {
-      console.log("로그인 실패");
       res.send({
         result: false,
         message: "로그인 실패 아이디를 확인해주세요",
@@ -89,10 +85,8 @@ exports.userPasswordConfirm = async (req, res) => {
       where: { user_id: req.session.userInfo.userid },
     });
     if (userIsExist && compareFunc(pw, userIsExist.dataValues.pw)) {
-      console.log("user 정보 확인 성공");
       res.send({ result: true, message: "비밀번호가 확인되었습니다." });
     } else {
-      console.log("user 정보 다시 확인");
       res.send({ result: false, message: "비밀번호를 다시 확인해주세요" });
     }
   } catch (error) {
@@ -121,7 +115,6 @@ exports.updateUser = async (req, res) => {
     });
     req.session.destroy((err) => {
       if (err) {
-        console.log(err);
         res.send({ result: false });
       }
       res.send({ result: true });
@@ -139,7 +132,7 @@ exports.userDelete = async (req, res) => {
     });
     res.send({ result: true });
   } catch (error) {
-    console.log({ result: false });
+    res.send({ result: false });
   }
 };
 
@@ -182,16 +175,26 @@ exports.userInformation = async (req, res) => {
   const { review } = await User.findOne({
     where: { user_id: req.session.userInfo.userid },
   });
+  let review_ = Math.round(review);
   res.render("profile", {
-    review,
+    review: review_,
     nickname: req.session.userInfo.nickname,
     user_id: req.session.userInfo.userid,
   });
 };
 
+// user 로그아웃
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.send("fail");
+    }
+    res.send("true");
+  });
+};
+
 // review 페이지 렌더링
 exports.review = async (req, res) => {
-  console.log(req.session.userInfo.nickname, "test");
   res.render("review", {
     nickname: req.session.userInfo.nickname,
   });
@@ -210,7 +213,6 @@ exports.postReview = async (req, res) => {
     });
     res.send({ result: "suceess", message: "리뷰 작성이 완료되었습니다." });
   } catch (error) {
-    console.log("리뷰 작성 실패", error);
     res.send({ result: "fail", message: "리뷰 작성에 실패했습니다." });
   }
 };
@@ -231,7 +233,6 @@ exports.updateReview = async (req, res) => {
         replacements: { currentDate: currentDate.toISOString().split("T")[0] },
       }
     );
-    console.log(result);
     for (const item of result) {
       let scoreChange = 0;
       const avgScore = parseFloat(item.avg_score); // avg_score 값을 숫자로 변환
@@ -258,6 +259,7 @@ exports.updateReview = async (req, res) => {
     "review 점수 불러오기 실패", error;
   }
 };
+
 // 모집글 테스트
 exports.meeting = async (req, res) => {
   res.render("meeting");
