@@ -52,7 +52,6 @@ exports.loginUser = async (req, res) => {
         req.session.userInfo = {
           userid: isExist.dataValues.user_id,
           nickname: isExist.dataValues.nickname,
-          id: isExist.dataValues.id,
         };
         res.send({
           result: true,
