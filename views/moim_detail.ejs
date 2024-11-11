@@ -70,13 +70,18 @@
         <!-- <div class="apply"> -->
           <% if (moim[0].nickname == user.nickname ) 
           { %>
-            <button class="apply1" onclick="moimset('<%= moim[0].moim_id %>')">모임 삭제</button>
+            <button class="apply1" onclick="moim_distory('<%= moim[0].moim_id %>')">모임 삭제</button>
             <button class="apply2" onclick="moim_correction('<%= moim[0].moim_id %>')">모임 수정</button>
        <% } else { %>
             <button class="apply" onclick="moimset_dis('<%= moim[0].moim_id %>')">모임 탈퇴</button>
         <% } %> 
       <% } else { %>
-        <button class="apply" onclick="moim_distory('<%= moim[0].moim_id %>')">참여하기</button>
+             <% if (moimcount[0].moim_count < moim[0].max_people) { %>
+              <button class="apply" onclick="moimset('<%= moim[0].moim_id %>')">참여하기</button>
+             <% } else { %>
+              <button class="apply3" onclick="alert('아쉽게도, 정원이 초과되었습니다.')">정원 초과</button>
+              <!-- 대기기능 추가할 수 있으면 하기로 함 -->
+            <% } %>
       <% } %>
         <!-- </div> -->
     </div>

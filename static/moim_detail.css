@@ -30,7 +30,6 @@ body {
     font-size: 30px;
 } */
 
-
 .setting > div {
   width: 50px;
   height: 100%;
@@ -51,7 +50,6 @@ body {
     background-color: rgba(255, 255, 255, 0.500);
 } */
 
-
 section {
   position: absolute;
   top: 60px;
@@ -61,7 +59,7 @@ section {
 }
 
 .moim {
-    justify-items: center;
+  justify-items: center;
 }
 
 .moim > h3 {
@@ -105,13 +103,13 @@ section {
 }
 
 table {
-    border-collapse: collapse;
-    width: 80vw;
+  border-collapse: collapse;
+  width: 80vw;
 }
 
 tbody {
-    /* width: 80vw; */
-    border-top: 2px solid black
+  /* width: 80vw; */
+  border-top: 2px solid black;
 }
 
 tr {
@@ -131,13 +129,12 @@ td {
   width: 60%;
 }
 
-
-td>button {
-    /* width: 30px; */
-    height: 30px;
-    border-radius: 10%;
-    border: none;
-    margin: 0 5px;
+td > button {
+  /* width: 30px; */
+  height: 30px;
+  border-radius: 10%;
+  border: none;
+  margin: 0 5px;
 }
 
 .listOfppl {
@@ -166,6 +163,18 @@ td>button {
   text-align: center;
   line-height: 60px;
   background-color: #88d66c;
+}
+
+.apply3 {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 60px;
+  background-color: gray;
 }
 
 .apply1 {
