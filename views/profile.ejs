@@ -1,46 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>moim</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-    <p><%=nickname%></p>
-    <p><%=user_id%></p>
-    <button onclick="createModal()">프로필 수정</button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>moim</title>
+  <link rel="stylesheet" href="/static/style.css" type="text/css" />
+  <link rel="stylesheet" href="/static/profile.css" type="text/css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!-- <script src="/static/my_page.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://kit.fontawesome.com/b9cc1d7a42.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <!-- 로고 -->
+      <a href="/">MOiM</a>
+    </div>
+    <div class="setting">
+      <div>
+        <span onclick="location.href='/'">←</span>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="content-box">
+      <div class="userInfo">
+        <div class="profile">
+          <img src="" alt="" name="rank-img">
+          <div>
+            <span class="nickname"><%=nickname%>(<%=user_id%>)</span>
+            <span class="rank">★★★★★</span>
+          </div>
+        </div>
+        <div class="menu">
+          <span class="logout"><i class=" fas fa-regular fa-arrow-right-from-bracket"></i></span>
+          <span class="edit-profile" onclick="createModal()"><i class="fas fa-light fa-pen-to-square"></i></span>
+        </div>
+      </div>
+      <div class="button-box">
+        <div class="dibs_moim" onclick="selectMoim(this)">찜</div>
+        <div class="attending" onclick="selectMoim(this)">참여중</div>
+        <div class="attended" onclick="selectMoim(this)">참여완료</div>
+      </div>
+      <div class="moim_table">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div class="content">
+                  <div class="title">제목</div>
+                  <img src="" alt="">
+                </div>
+              </td>
+              <td>
+                <div class="content">
+                  <div class="title">제목</div>
+                  <img src="" alt="">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="form-box">
+    <div class="disappear" onclick="disappearModal()">×</div>
     <form name="confirm-password-form">
-      <input
-        type="password"
-        name="pw"
-        placeholder="비밀번호를 입력해주세요."
-      /><br />
+      <h3>비밀번호 확인</h3>
+      <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." />
       <button type="button" onclick="confirmPassword()">확인</button>
     </form>
-    <script>
-      const form = document.forms["confirm-password-form"];
-      function createModal() {
-        form.style.display = "block";
-      }
-      function confirmPassword() {
-        axios.post("/user/check-pw", { pw: form.pw.value }).then((res) => {
-          console.log(res.data);
-          if (res.data.result) {
-            document.location.href = "/user/editprofile";
-          } else {
-            console.log(res.data.message);
-          }
-        });
-      }
-    </script>
-  </body>
-  <style>
-    form {
-      display: none;
-      position: absolute;
-      top: 50%;
-      margin: 0 auto;
+  </div>
+  <script>
+    const form = document.forms["confirm-password-form"];
+    const formBox = document.querySelector(".form-box");
+
+    function createModal() {
+      formBox.style.display = "block";
     }
-  </style>
+
+    function disappearModal() {
+      formBox.style.display = "none";
+    }
+
+    function confirmPassword() {
+      axios.post("/user/check-pw", {
+        pw: form.pw.value
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.result) {
+          document.location.href = "/user/editprofile";
+        } else {
+          console.log(res.data.message);
+        }
+      });
+    }
+
+    function selectMoim(src) {
+      console.log(src.className);
+
+
+    }
+  </script>
+</body>
+
 </html>
