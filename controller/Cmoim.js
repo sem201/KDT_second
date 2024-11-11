@@ -106,7 +106,7 @@ exports.moim_insert = (req, res) => {
   if (req.session.userInfo) {
     res.render("moiminsert"); // 모임 추가 창으로 가는 코드
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -148,7 +148,7 @@ exports.MoimSet_detory = async (req, res) => {
       });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -167,7 +167,7 @@ exports.MoimSet_POST = async (req, res) => {
       });
     }
   } else {
-    req.redirect("/login");
+    req.redirect("/");
   }
 };
 
@@ -192,7 +192,7 @@ exports.Moim_UPDATE = async (req, res) => {
       even_date,
       location,
       represent_img,
-      user_id,
+      nickname,
       moim_id,
     } = req.body;
     await Moim.update(
@@ -204,7 +204,7 @@ exports.Moim_UPDATE = async (req, res) => {
         even_date,
         location,
         represent_img,
-        user_id,
+        nickname,
       },
       { where: { moim_id } }
     );
@@ -213,7 +213,7 @@ exports.Moim_UPDATE = async (req, res) => {
       Message: "moim 정보 업데이트 1단계에 성공하셨습니다.",
     });
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -230,7 +230,7 @@ exports.MoimDetail_POST = async (req, res) => {
       res.send({ result: false, Message: "모임 개설에 실패하였습니다." });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -279,7 +279,7 @@ exports.Moims_POST = async (req, res) => {
       });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -398,7 +398,7 @@ exports.MoimDetail_render = async (req, res) => {
     if (typeof window !== "undefined") {
       alert("현재 로그인이 되어 있지 않습니다.");
     }
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -463,7 +463,7 @@ exports.moimlistSelect = async (req, res) => {
       console.error(error);
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -518,7 +518,7 @@ exports.moimlist = async (req, res) => {
       console.error(error);
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -623,6 +623,6 @@ exports.moim_correction = async (req, res) => {
       });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
