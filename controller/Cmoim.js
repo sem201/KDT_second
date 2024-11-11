@@ -17,12 +17,9 @@ exports.MoimList_GET = async (req, res) => {
   }
 };
 
-
 exports.MoimList_POST = async (req, res) => {
   try {
     const { location, category, on_line } = req.body;
-
-
 
     let whereConditions = {};
     if (location && location !== "*") whereConditions.location = location;
@@ -30,7 +27,7 @@ exports.MoimList_POST = async (req, res) => {
     if (on_line && on_line !== "*") {
       whereConditions.on_line = JSON.parse(on_line);
 
-      console.log(typeof (whereConditions.on_line));
+      console.log(typeof whereConditions.on_line);
     }
 
     const data = await Moim.findAll({
@@ -41,7 +38,7 @@ exports.MoimList_POST = async (req, res) => {
         "max_people",
         "location",
         "represent_img",
-        "user_id",
+        "nickname",
         "category",
         [
           sequelize.fn(
@@ -65,7 +62,7 @@ exports.MoimList_POST = async (req, res) => {
     const moimset = await MoimSet.findAll({
       attributes: [
         "moim_id",
-        [sequelize.fn("COUNT", sequelize.col("user_id")), "moim_count"],
+        [sequelize.fn("COUNT", sequelize.col("nickname")), "moim_count"],
       ],
       group: "moim_id",
     });
@@ -79,7 +76,6 @@ exports.MoimList_POST = async (req, res) => {
     // console.log(data);
     // console.log(moimcount);
 
-
     if (data) {
       res.json({ data: data, moimcount: moimcount });
     } else {
@@ -87,7 +83,10 @@ exports.MoimList_POST = async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
-    res.json({ result: false, Message: "모임 정보 불러오기에 실패하였습니다!!!" });
+    res.json({
+      result: false,
+      Message: "모임 정보 불러오기에 실패하였습니다!!!",
+    });
   }
 };
 
@@ -107,7 +106,7 @@ exports.moim_insert = (req, res) => {
   if (req.session.userInfo) {
     res.render("moiminsert"); // 모임 추가 창으로 가는 코드
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -149,7 +148,7 @@ exports.MoimSet_detory = async (req, res) => {
       });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -168,7 +167,7 @@ exports.MoimSet_POST = async (req, res) => {
       });
     }
   } else {
-    req.redirect("/login");
+    req.redirect("/");
   }
 };
 
@@ -180,7 +179,7 @@ exports.moim_detail_UPDATE = async (req, res) => {
       result: true,
       Message: "moim 정보 업데이트에 성공하셨습니다.",
     });
-  } catch (error) { }
+  } catch (error) {}
 };
 
 exports.Moim_UPDATE = async (req, res) => {
@@ -193,7 +192,7 @@ exports.Moim_UPDATE = async (req, res) => {
       even_date,
       location,
       represent_img,
-      user_id,
+      nickname,
       moim_id,
     } = req.body;
     await Moim.update(
@@ -205,7 +204,7 @@ exports.Moim_UPDATE = async (req, res) => {
         even_date,
         location,
         represent_img,
-        user_id,
+        nickname,
       },
       { where: { moim_id } }
     );
@@ -214,7 +213,7 @@ exports.Moim_UPDATE = async (req, res) => {
       Message: "moim 정보 업데이트 1단계에 성공하셨습니다.",
     });
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -231,7 +230,7 @@ exports.MoimDetail_POST = async (req, res) => {
       res.send({ result: false, Message: "모임 개설에 실패하였습니다." });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -280,13 +279,12 @@ exports.Moims_POST = async (req, res) => {
       });
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
 // 모임 디테일 페이지 렌더링(가입 여부 적용)
 exports.MoimDetail_render = async (req, res) => {
-
   let userInfo = req.session.userInfo;
   console.log(userInfo);
   if (req.session.userInfo) {
@@ -342,7 +340,10 @@ exports.MoimDetail_render = async (req, res) => {
         // 현재 session 사용자가 찜한 모입인지 확인.
         let isDibs = (await DibsMoim.findOne({
           where: {
-            [Op.or]: [{ moim_id: req.params.moimid }, { user_id: userid }],
+            [Op.or]: [
+              { moim_id: req.params.moimid },
+              { nickname: req.session.userInfo.nickname },
+            ],
           },
         }))
           ? true
@@ -397,7 +398,7 @@ exports.MoimDetail_render = async (req, res) => {
     if (typeof window !== "undefined") {
       alert("현재 로그인이 되어 있지 않습니다.");
     }
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -462,16 +463,16 @@ exports.moimlistSelect = async (req, res) => {
       console.error(error);
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
-
 
 exports.moimlist = async (req, res) => {
   if (req.session.userInfo) {
     try {
       const data = await Moim.findAll({
         attributes: [
+          "moim_id",
           "title",
           "on_line",
           "max_people",
@@ -511,14 +512,13 @@ exports.moimlist = async (req, res) => {
       if (data) {
         res.render("moimlist", { data, moimcount });
       } else {
-        alert("모임 리스트 출력 실패");
         res.redirect("/");
       }
     } catch (error) {
       console.error(error);
     }
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -564,5 +564,65 @@ exports.RecommendMoim = async (req, res) => {
     res.send({ results });
   } catch (error) {
     console.log("error", error);
+  }
+};
+
+exports.moim_correction = async (req, res) => {
+  if (req.session.userInfo) {
+    let moim_id = Number(req.params.moimid);
+
+    const moim = await Moim.findOne({
+      attributes: [
+        "moim_id",
+        "title",
+        "on_line",
+        "max_people",
+        "location",
+        "represent_img",
+        "nickname",
+        "category",
+        [
+          sequelize.fn(
+            "date_format",
+            sequelize.col("expiration_date"),
+            "%Y-%m-%dT%H:%i:%s"
+          ),
+          "expiration_date",
+        ],
+        [
+          sequelize.fn(
+            "date_format",
+            sequelize.col("even_date"),
+            "%Y-%m-%dT%H:%i:%s"
+          ),
+          "even_date",
+        ],
+      ],
+      where: { moim_id },
+    });
+
+    if (moim) {
+      console.log(req.session.userInfo.nickname);
+      console.log(moim);
+      if (req.session.userInfo.nickname == moim.nickname) {
+        const detail = await MoimDetail.findOne({
+          where: { moim_id },
+        });
+        console.log(detail);
+        res.render("moim_correction", { moim, detail });
+      } else {
+        res.render("MoimNot", {
+          result: false,
+          Message: "해당 정보의 moim은 접근 권한이 없거나 찾을 수 없습니다.",
+        });
+      }
+    } else {
+      res.render("MoimNot", {
+        result: false,
+        Message: "해당 정보의 moim은 접근 권한이 없거나 찾을 수 없습니다.",
+      });
+    }
+  } else {
+    res.redirect("/");
   }
 };

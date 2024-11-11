@@ -1,0 +1,168 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    margin: 0;
+}
+
+section {
+    margin-top: 60px;
+}
+
+.content-box {
+    border-radius: 25px;
+    width: 90vw;
+    height: 85vh;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.userInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+    border-bottom: 1px solid black;
+}
+
+.profile>img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    /* background-color: aqua; */
+    border: 1px solid black;
+}
+
+.profile {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 20px;
+}
+
+.profile>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.menu>span {
+    font-family: none;
+    padding: 5px;
+}
+
+.menu {
+    position: relative;
+    top: 0;
+    right: 0;
+    padding: 0 20px;
+}
+
+.button-box {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0;
+}
+
+.button-box>div {
+    font-size: 15px;
+    text-align: center;
+    line-height: 22px;
+    width: 80px;
+    height: 20px;
+    background-color: #7BD3EA;
+    border-radius: 5px;
+    border: 0.5px solid black;
+    margin: 5px;
+}
+
+.moim-contents {
+    height: calc(100% - 170px);
+    overflow-y: hidden;
+}
+
+.moims_list {
+    max-height: 600px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+}
+
+/* .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+} */
+
+table {
+    width: 100%;
+}
+
+tr {
+    margin: 10px 0;
+}
+
+td {
+    width: 50%;
+    height: 150px;
+}
+
+.content>img {
+    width: 80%;
+    height: 70%;
+    background-color: #7BD3EA;
+}
+
+.title {
+    width: 80%;
+    text-align: start;
+    margin: 5px 0;
+}
+
+.content {
+    /* width: 100%; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.moim_table {
+    width: 100%;
+    height: calc(100% - 180px);
+    overflow-y: scroll;
+}
+
+.form-box {
+    width: 60vw;
+    height: 20vh;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 25vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form>h3 {
+    text-align: center;
+}
+
+.disappear {
+    position: absolute;
+    right: 10px;
+    font-size: 20px;
+}

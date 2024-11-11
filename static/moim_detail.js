@@ -17,12 +17,12 @@ function showPPL() {
     setting.style.cssText = "pointer-events: none;"
     apply.style.cssText = "pointer-events: none;"
 
-    listOfppl.onclick = () => {
-        listOfppl.remove();
-        button.style.cssText = "pointer-events: all;"
-        setting.style.cssText = "pointer-events: all;"
-        apply.style.cssText = "pointer-events: all;"
-    }
+    listOfppl.onclick(() => {
+      listOfppl.remove();
+      button.style.cssText = "pointer-events: all;"
+      setting.style.cssText = "pointer-events: all;"
+      apply.style.cssText = "pointer-events: all;"
+  });
 }
 
 function DibsMoim() {

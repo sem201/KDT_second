@@ -4,7 +4,7 @@ const controller = require("../controller/Cmoim");
 
 router.get("/moims", controller.MoimList_GET); //모임 사이트 진입
 
-router.post("/moims/get", controller.MoimList_POST); //모임 정보 불러오기
+router.post("/moims/post", controller.MoimList_POST); //모임 정보 불러오기
 
 router.get("/moims/dibs", controller.DibsMoim); // 찜한 모임 불러오기
 
@@ -35,5 +35,7 @@ router.get("/moim_detail/:moimid", controller.MoimDetail_render);
 router.get("/moim_insert", controller.moim_insert);
 
 router.get("/moim_list", controller.moimlist);
+
+router.get("/moim_correction/:moimid", controller.moim_correction);
 
 module.exports = router;

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="/static/moim.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <form name="moim-correction">
+      <fieldset>
+        <!-- 동작 확인 후 세션에서 정보를 받는 걸로 수정 예정 -->
+        <label for="title">제목</label>
+        <input type="text" id="title" value="<%= moim.title %>" /> <br /><br />
+        <label for="category">장르</label>
+        <input type="text" id="category" value="<%= moim.category %>" />
+        <br /><br />
+        <label for="on_line">온라인 여부</label>
+        <% if (moim.on_line == true) { %>
+        <input type="radio" name="on_line" id="on_line" value="true" checked />
+        온라인
+        <input type="radio" name="on_line" id="on_line" value="false" />
+        오프라인 <% } else { %>
+        <input type="radio" name="on_line" id="on_line" value="true" /> 온라인
+        <input type="radio" name="on_line" id="on_line" value="false" checked />
+        오프라인 <% } %>
+        <br />
+        <br />
+        <label for="min_people">최소 인원수(수정 불가)</label>
+        <% if (detail.min_people != null) { %>
+        <input
+          type="text"
+          name="min_people"
+          id="min_people"
+          value="<%= detail.min_people %>"
+          readonly
+        />
+        <% } else { %>
+        <input
+          type="text"
+          name="min_people"
+          id="min_people"
+          value="설정하지 않음"
+          readonly
+        />
+        <% } %>
+        <label for="max_people">최대 인원수(수정 불가)</label>
+
+        <% if (moim.max_people != 0) { %>
+        <input
+          type="text"
+          name="max_people"
+          id="max_people"
+          value="<%= moim.max_people %>"
+          readonly
+        />
+        <% } else { %>
+        <input
+          type="text"
+          name="max_people"
+          id="max_people"
+          value="무제한"
+          readonly
+        />
+        <% } %>
+        <br />
+        <br />
+        <label for="expiration_date">모집 마감 시한</label>
+        <input
+          type="datetime-local"
+          id="expiration_date"
+          name="expiration_date"
+          max="2054-11-20T21:00"
+          min="2024-11-20T21:00"
+          value="<%= moim.expiration_date %>"
+        />
+
+        <br /><br />
+        <label for="even_date ">이벤트 진행 날짜</label>
+        <input
+          type="datetime-local"
+          id="even_date"
+          name="even_date"
+          max="2054-11-20T21:00"
+          min="2024-11-20T21:00"
+          value="<%= moim.even_date %>"
+        />
+
+        <br /><br />
+        <label for="location">모임을 개설할 지역</label>
+        <input type="text" id="location" value="<%= moim.location %>" />
+        <br /><br />
+
+        <label for="represent_img">모집 공고 이미지</label>
+        <input
+          type="file"
+          id="represent_img"
+          name="represent_img"
+          accept="image/gif, image/jpeg, image/png"
+        />
+        <br />
+        <br />
+        <img src="<%= moim.represent_img %>" alt="<%= moim.represent_img %>" />
+        <br /><br />
+        <textarea
+          id="content"
+          name="content"
+          rows="20"
+          cols="100"
+          placeholder="내용을 입력해주세요?"
+        >
+        <%= detail.content %>
+        </textarea>
+      </fieldset>
+      <button type="button" onclick="moim_correction()">모임 수정</button>
+      <button type="button" onclick="move('<%= moim.moim_id %>')">
+        개설 취소
+      </button>
+    </form>
+    <script>
+      async function moim_correction() {
+        //아직 함수만 건드림, router 설계가 맞는지 확인 필요
+        let form = document.forms["moim-correction"];
+        let data = await axios({
+          method: "PATCH",
+          url: "molm/moims",
+          data: {
+            moim_id: moimid,
+            title: form.title.value,
+            on_line: form.on_line.value,
+            max_people: form.max_people.value,
+            location: form.location.value,
+            represent_img: form.represent_img.value,
+            category: form.category.value,
+            expiration_date: form.expiration_date.value,
+            even_date: form.even_date.value,
+            content: form.content.value,
+          },
+        });
+
+        if (data.result) {
+          alert(`${data.message}`);
+          const user = "/moim/moim_detail/" + moim_id;
+          window.location.href = user;
+        }
+      }
+    </script>
+  </body>
+</html>
