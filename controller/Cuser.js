@@ -253,8 +253,6 @@ exports.updateReview = async (req, res) => {
       );
     }
     res.send("리뷰 업데이트 완료");
-
-    // await User.update({});
   } catch (error) {
     "review 점수 불러오기 실패", error;
   }
