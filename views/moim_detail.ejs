@@ -75,7 +75,7 @@
 
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><%= detail[0].min %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
+                <td id="col2"><span><%= detail[0].min %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
             </tr>
             <!-- 참여하는 경우 detail 정보 추가 -->
             <% if (accession == true) { %>
