@@ -1,20 +1,11 @@
-const {
-  Moim,
-  User,
-  MoimDetail,
-  MoimSet,
-  DibsMoim,
-} = require("../models/index");
-
 exports.index = (req, res) => {
   res.render("index");
 };
 
-exports.index_get = (req, res) => {
-  
-}
-
 exports.login = (req, res) => {
+  if (req.session.userInfo) {
+    return res.redirect("/home");
+  }
   res.render("login");
 };
 
