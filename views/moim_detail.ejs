@@ -75,7 +75,7 @@
 
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><%= detail[0].min %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
+                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
 
             </tr>
             <!-- 참여하는 경우 detail 정보 추가 -->
@@ -88,12 +88,12 @@
         </table>
         <!-- <div class="apply"> -->
           <% if (moim[0].nickname == user.nickname ) { %>
-            <button class="apply1" onclick="moimset()">모임 삭제</button>
-            <button class="apply2" onclick="moimset()">모임 수정</button>
+            <button class="apply1" onclick="moimset('<%= moim[0].moim_id %>')">모임 삭제</button>
+            <button class="apply2" onclick="moim_correction('<%= moim[0].moim_id %>')">모임 수정</button>
             <% } else { %>
-            <button class="apply" onclick="moimset()">모임 탈퇴</button>
+            <button class="apply" onclick="moimset_dis('<%= moim[0].moim_id %>')">모임 탈퇴</button>
             <% } %> <% } else { %>
-            <button class="apply" onclick="moimset()">참여하기</button>
+            <button class="apply" onclick="moim_distory('<%= moim[0].moim_id %>')">참여하기</button>
             <% } %>
         <!-- </div> -->
 
