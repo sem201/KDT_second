@@ -190,8 +190,8 @@ li {
     background-color: green;
     position: relative;
     /* z-index: 10; */
-    left: 70px;
-    bottom: 40px;
+    left: 65px;
+    top: 35px;
     line-height: 40px;
     font-size: 25px;
     display: flex;

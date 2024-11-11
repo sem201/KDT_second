@@ -24,7 +24,7 @@
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"
   ></script>
-  <script src="/static/moimdetail.js"></script>
+  <script src="/static/moim_list.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <head>
@@ -75,7 +75,7 @@
 
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><%= detail[0].min %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
+                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
             </tr>
             <!-- 참여하는 경우 detail 정보 추가 -->
             <% if (accession == true) { %>
@@ -83,37 +83,34 @@
               <td id="col1">내용</td>
               <td id="col2"><%= detail[0].content %></td>
             </tr>
-
-            <% if (moim[0].nickname == user.nickname ) { %>
-            <button
-              class="apply1"
-              onclick="moim_distory('<%=moim[0].nickname%>', '<%=moim[0].moim_id%>')"
-            >
-              모임 삭제
-            </button>
-            <button class="apply2" onclick="moim_correction('<%=moim[0].moim_id%>')">모임 수정</button>
-            <% } else { %>
-            <button class="apply" onclick="moimset_dis('<%=moim[0].moim_id%>')">
-              모임 탈퇴
-            </button>
-            <% } %> <% } else { %> <% if (moimcount[0].moim_count <
-            moim[0].max_people) { %>
-            <button class="apply" onclick="moimset('<%=moim[0].moim_id%>')">
-              참여하기
-            </button>
-            <% } else {%>
-            <div class="apply">정원 초과</div>
-            <% } %> <% } %>
           </tbody>
         </table>
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
+        <!-- <div class="apply"> -->
+          <% if (moim[0].nickname == user.nickname ) { %>
+            <button class="apply1" onclick="moimset()">모임 삭제</button>
+            <button class="apply2" onclick="moimset()">모임 수정</button>
+            <% } else { %>
+            <button class="apply" onclick="moimset()">모임 탈퇴</button>
+            <% } %> <% } else { %>
+            <button class="apply" onclick="moimset()">참여하기</button>
+            <% } %>
+        <!-- </div> -->
+
+    </div>
+
+    <!-- <div class="apply" onclick="apply()">
+      <span>참여하기</span>
+    </div> -->
   </section>
+  <script>
+    console.log(moim, moimcount, detail, user, moim_setup);
+    
+  </script>
 </body>
     <script>
+      function moimset() {
+        
+      }
     </script>
   </body>
 </html>
