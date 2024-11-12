@@ -28,7 +28,7 @@ exports.index = async (req, res) => {
 };
 
 exports.index_get = async (req, res) => {
-  const moims = await MoimtSet.findAll({
+  const moims = await MoimSet.findAll({
     where: { user_id: req.session.userInfo.userid },
     group: "user_id",
   });
