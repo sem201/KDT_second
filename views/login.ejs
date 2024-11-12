@@ -26,19 +26,28 @@
   <div>
     <h2>Login</h2>
     <form name="login-form">
-      <input type="text" id="id" placeholder="아이디를 입력해주세요." /><br />
-      <input type="password" id="pw" placeholder="비밀번호를 입력해주세요." /><br />
+      <input type="text" id="id" placeholder="아이디를 입력해주세요." oninput="checkFormFilled()"/><br />
+      <input type="password" id="pw" placeholder="비밀번호를 입력해주세요." " oninput="checkFormFilled()"/><br />
       <span></span>
-      <button type="button" class="btn" onclick="login()">로그인하기</button>
+      <button type="button" name='btn' class="btn" onclick="login()" disabled>로그인하기</button>
     </form>
     
     <!-- <p><a href="/profile">회원정보수정</a></p> -->
   </div>
   <p><a href="/signup">회원가입</a></p>
   <script>
+    function checkFormFilled() {
+      const form = document.forms["login-form"];
+      const idFilled = form.id.value.trim() !== "";
+      const pwFilled = form.pw.value.trim() !== "";
+
+      // 모든 필드가 채워져 있는 경우에만 버튼 활성화
+      form.btn.disabled = !(idFilled && pwFilled);
+    }
     function login() {
       const form = document.forms["login-form"];
-      axios({
+        form.button.disabled = true;
+        axios({
         method: "post",
         url: "/user/login",
         data: {
@@ -58,7 +67,8 @@
           form.reset();
         }
       });
-    }
+      }
+
   </script>
 </body>
     <script>
