@@ -39,18 +39,20 @@ async function showPPL(moimid) {
   });
 }
 
-function DibsMoim() {
+async function DibsMoim() {
   const pathParts = window.location.pathname.split("/");
   const moimid = pathParts[pathParts.length - 1];
   console.log(moimid);
-  axios({
+  const { data } = await axios({
     method: "post",
     url: `/user/dibs/${moimid}`,
   });
   console.log("클릭 실행됨");
-
   const button = document.querySelector(".dibsMoim");
 
-  window.location.reload();
+  if (data.result == true) {
+    button.innerHTML = "♥";
+  } else {
+    button.innerHTML = "♡";
+  }
 }
-
