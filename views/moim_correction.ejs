@@ -6,66 +6,116 @@
     <title>Document</title>
     <script src="/static/moim.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/static/moim_insert.css" type="text/css" />
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
   </head>
   <body>
-    <form name="moim-correction">
-      <fieldset>
-        <!-- 동작 확인 후 세션에서 정보를 받는 걸로 수정 예정 -->
-        <label for="title">제목</label>
-        <input type="text" id="title" value="<%= moim.title %>" /> <br /><br />
-        <label for="category">장르</label>
-        <input type="text" id="category" value="<%= moim.category %>" />
-        <br /><br />
-        <label for="on_line">온라인 여부</label>
-        <% if (moim.on_line == true) { %>
-        <input type="radio" name="on_line" id="on_line" value="true" checked />
-        온라인
-        <input type="radio" name="on_line" id="on_line" value="false" />
-        오프라인 <% } else { %>
-        <input type="radio" name="on_line" id="on_line" value="true" /> 온라인
-        <input type="radio" name="on_line" id="on_line" value="false" checked />
-        오프라인 <% } %>
-        <br />
-        <br />
-        <label for="min_people">최소 인원수(수정 불가)</label>
-        <% if (detail.min_people != null) { %>
-        <input
-          type="text"
-          name="min_people"
-          id="min_people"
-          value="<%= detail.min_people %>"
-          readonly
-        />
-        <% } else { %>
-        <input
-          type="text"
-          name="min_people"
-          id="min_people"
-          value="설정하지 않음"
-          readonly
-        />
-        <% } %>
-        <label for="max_people">최대 인원수(수정 불가)</label>
+    <header>
+      <div><span>모임 등록하기</span></div>
+      <div>
+        <span onclick="location.href='/moim/moims'">×</span>
+      </div>
+    </header>
+    <section>
+      <% const category_list = [
+            "취미•여가", "운동•레저", "문화•예술",
+            "학습•자기개발", "사회•네트워킹", "음식•요리",
+            "환경•지속 가능성", "반려동물"
+        ]; %>
+    
+      <% const location_list = [
+      "서울특별시", "부산광역시", "대구광역시", "인천광역시",
+      "광주광역시", "대전광역시", "울산광역시", "세종특별자치시",
+      "경기도", "강원도", "충청북도", "충청남도",
+      "전라북도", "전라남도", "경상북도", "경상남도", "제주특별자치도"
+    ]; %>
 
+    <form name="moim-correction" enctype="multipart/form-data">
+      <div class="form-content">
+      <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" value="<%= moim.title %>" />
+      </div>
+      <div>
+        <label for="on_line">모임 형식</label>
+        <% if (moim.on_line == true) { %>
+          <input type="radio" name="on_line" id="on_line" value="true" onchange="showLocation('online')" checked />
+          온라인
+          <input type="radio" name="on_line" id="on_line" value="false"  onchange="showLocation('offline')" />
+          오프라인 <% } else { %>
+          <input type="radio" name="on_line" id="on_line" value="true" onchange="showLocation('online')" /> 온라인
+          <input type="radio" name="on_line" id="on_line" value="false"  onchange="showLocation('offline')" checked />
+          오프라인 <% } %>   
+      </div>
+      <div>
+        <label for="category">카테고리</label>
+        <select id="category" required>
+        <% for( let i = 0; i < category_list.length; i++ ) 
+        { %>
+            <% if (category_list[i] == moim.category) { %>
+              <option value= <%= category_list[i] %> selected><%= category_list[i] %></option>
+              <% } else { %>
+                <option value= <%= category_list[i] %>><%= category_list[i] %></option>
+            <% } %>
+      <% } %>
+        </select>
+      </div>
+
+      <div class="location_select">
+        <label for="location">위치</label>
+        <select id="location" required>
+          <% for( let i = 0; i < location_list.length; i++ ) { %>
+           <% if(location_list[i] == moim.location) { %>
+           <option value=<%= location_list[i] %> selected><%= location_list[i] %></option>
+           <% } else { %>
+          <option value=<%= location_list[i] %>><%= location_list[i] %></option>
+          <% } %>
+          <%} %>
+        </select>
+      </div>
+      <div>
+        <label for="min_people">최소 인원수</label>
+        <% if (detail.min_people != null) { %>
+          <input
+            type="text"
+            name="min_people"
+            id="min_people"
+            value="<%= detail.min_people %>"
+            readonly
+          />
+          <% } else { %>
+          <input
+            type="text"
+            name="min_people"
+            id="min_people"
+            value="설정하지 않음"
+            readonly
+          />
+          <% } %>
+      </div>
+  
+      <div>
+        <label for="max_people">최대 인원수</label>
         <% if (moim.max_people != 0) { %>
-        <input
-          type="text"
-          name="max_people"
-          id="max_people"
-          value="<%= moim.max_people %>"
-          readonly
-        />
-        <% } else { %>
-        <input
-          type="text"
-          name="max_people"
-          id="max_people"
-          value="무제한"
-          readonly
-        />
-        <% } %>
-        <br />
-        <br />
+          <input
+            type="text"
+            name="max_people"
+            id="max_people"
+            value="<%= moim.max_people %>"
+            readonly
+          />
+          <% } else { %>
+          <input
+            type="text"
+            name="max_people"
+            id="max_people"
+            value="무제한"
+            readonly
+          />
+          <% } %>
+      </div>
+      
+      <div>
         <label for="expiration_date">모집 마감 시한</label>
         <input
           type="datetime-local"
@@ -75,8 +125,8 @@
           min="2024-11-20T21:00"
           value="<%= moim.expiration_date %>"
         />
-
-        <br /><br />
+      </div>
+      <div>
         <label for="even_date ">이벤트 진행 날짜</label>
         <input
           type="datetime-local"
@@ -86,12 +136,8 @@
           min="2024-11-20T21:00"
           value="<%= moim.even_date %>"
         />
-
-        <br /><br />
-        <label for="location">모임을 개설할 지역</label>
-        <input type="text" id="location" value="<%= moim.location %>" />
-        <br /><br />
-
+      </div>
+      <div>
         <label for="represent_img">모집 공고 이미지</label>
         <input
           type="file"
@@ -99,32 +145,39 @@
           name="represent_img"
           accept="image/gif, image/jpeg, image/png"
         />
-        <br />
-        <br />
-        <img src="<%= moim.represent_img %>" alt="<%= moim.represent_img %>" />
         <br /><br />
+        <img src="<%= moim.represent_img %>" alt="<%= moim.represent_img %>" />
+      </div>
+      <div>
+        <label for="detail_info">공지사항</label>
         <textarea
           id="content"
           name="content"
-          rows="20"
+          rows="10"
           cols="100"
           placeholder="내용을 입력해주세요?"
         >
         <%= detail.content %>
-        </textarea>
-      </fieldset>
-      <button type="button" onclick="moim_correction()">모임 수정</button>
+      </textarea>
+      </div>
+    </div>
+    <div class="button-box">
+      <button type="button" onclick="moim_correction('<%= moim.moim_id %>')">
+        모임 수정
+      </button>
       <button type="button" onclick="move('<%= moim.moim_id %>')">
         개설 취소
       </button>
+    </div>
     </form>
     <script>
-      async function moim_correction() {
+      async function moim_correction(moimid) {
         //아직 함수만 건드림, router 설계가 맞는지 확인 필요
         let form = document.forms["moim-correction"];
-        let data = await axios({
+        console.log(form);
+        let { data } = await axios({
           method: "PATCH",
-          url: "molm/moims",
+          url: "/moim/moims",
           data: {
             moim_id: moimid,
             title: form.title.value,
@@ -140,11 +193,26 @@
         });
 
         if (data.result) {
-          alert(`${data.message}`);
-          const user = "/moim/moim_detail/" + moim_id;
+          alert(data.Message);
+          const user = "/moim/moim_detail/" + moimid;
           window.location.href = user;
+        } else {
+          alert(data.Message);
+        }
+      }
+      function showLocation(onOffline) {
+        const location_select = document.querySelector(".location_select");
+
+        console.log(location_select);
+
+        if (onOffline === "offline") {
+          location_select.style.display = "block";
+        } else if (onOffline === "online") {
+          location_select.style.display = "none";
         }
       }
     </script>
+
   </body>
+
 </html>

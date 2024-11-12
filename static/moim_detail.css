@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "GmarketSansMedium";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
 }
+
 /* 로고 
 - 위치 고정
 - 폰트 설정
@@ -12,12 +12,18 @@
 */
 
 * {
-  font-family: "GmarketSansMedium";
+    font-family: "GmarketSansMedium";
 }
 
 body {
-  display: flex;
-  justify-content: center;
+    width: 100vw;
+    height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    position: fixed;
+    top: 60px;
+    left: 0;
 }
 
 /* .logo {
@@ -31,15 +37,15 @@ body {
 } */
 
 
-.setting > div {
-  width: 50px;
-  height: 100%;
-  text-align: center;
-  align-content: center;
-  /* position: fixed;
+.setting>div {
+    width: 50px;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+    /* position: fixed;
     top: 10px;
     right: 10px; */
-  font-size: 35px;
+    font-size: 35px;
 }
 
 /* header {
@@ -53,55 +59,65 @@ body {
 
 
 section {
-  position: absolute;
-  top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    position: absolute;
+    /* top: 70px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .moim {
     justify-items: center;
 }
 
-.moim > h3 {
-  width: 80vw;
-  text-align: start;
+.moim>div {
+    width: 80vw; 
+    height: 50px;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
 }
 
-.moim > img {
-  width: 80vw;
-  height: 200px;
-  max-width: 430px;
-  padding: 10px;
+.moim>h3 {
+    width: 80vw;
+    text-align: start;
+}
+
+.moim>img {
+    width: 80vw;
+    height: 200px;
+    max-width: 430px;
+    padding: 0 10px;
 }
 
 .dibsMoim {
-  background-color: rgb(0, 0, 0, 0);
-  border: none;
-  font-size: 25px;
+    background-color: rgb(0, 0, 0, 0);
+    border: none;
+    font-size: 25px;
 }
 
 .moim_info {
-  display: flex;
-  flex-direction: row;
-  width: 80vw;
-  border-top: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+    border-top: 2px solid black;
 }
 
 .element {
-  width: 40%;
-  border-right: 1px solid black;
+    width: 40%;
+    border-right: 1px solid black;
 }
 
 .content {
-  width: 60%;
+    width: 60%;
 }
 
-.element > div,
-.content > div {
-  border-bottom: 2px solid black;
-  padding: 5px;
+.element>div,
+.content>div {
+    border-bottom: 2px solid black;
+    padding: 5px;
 }
 
 table {
@@ -115,20 +131,20 @@ tbody {
 }
 
 tr {
-  border-bottom: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
 td {
-  padding: 10px 5px;
+    padding: 10px 5px;
 }
 
 #col1 {
-  width: 40%;
-  border-right: 1px solid black;
+    width: 40%;
+    border-right: 1px solid black;
 }
 
 #col2 {
-  width: 60%;
+    width: 60%;
 }
 
 
@@ -141,53 +157,53 @@ td>button {
 }
 
 .listOfppl {
-  position: fixed;
-  width: 70vw;
-  height: 50vh;
-  bottom: 25vh;
-  background-color: aqua;
-  z-index: 1;
+    position: fixed;
+    width: 70vw;
+    height: 50vh;
+    bottom: 25vh;
+    background-color: aqua;
+    z-index: 1;
 }
 
 .turnOff {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 25px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
 }
 
 .apply {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 60px;
-  font-size: 20px;
-  text-align: center;
-  line-height: 60px;
-  background-color: #88d66c;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #88d66c;
 }
 
 .apply1 {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 50%;
-  height: 60px;
-  font-size: 20px;
-  text-align: center;
-  line-height: 60px;
-  background-color: #88d66c;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    height: 60px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #88d66c;
 }
 
 .apply2 {
-  position: fixed;
-  width: 50%;
-  bottom: 0;
-  left: 0;
-  height: 60px;
-  font-size: 20px;
-  text-align: center;
-  line-height: 60px;
-  background-color: #88d66c;
+    position: fixed;
+    width: 50%;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #88d66c;
 }

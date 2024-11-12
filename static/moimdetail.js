@@ -13,7 +13,7 @@ async function moimset(moim_id) {
   }
 }
 async function moimset_dis(moim_id) {
-  if (confirm("정말, 모임에서 탈퇴하실 겁니까?")) {
+  if (confirm("모임 탈퇴를 원하시는 경우 '확인'을 눌러주세요.")) {
     let { data } = await axios({
       method: "DELETE",
       url: "/moim/moimset",
@@ -21,23 +21,23 @@ async function moimset_dis(moim_id) {
     });
 
     if (data.result) {
-      alert("다음번엔 함께 해주셨으면 좋겠습니다ㅠㅠㅠㅠㅠ");
+      alert("다음 기회에 다시 만나요.");
       window.location.reload();
     } else {
       alert("모임을 탈퇴할 수 없습니다.");
     }
   }
 }
-async function moim_distory(nickname, moim_id) {
-  if (confirm("정말, 모임을 삭제하실 겁니까?")) {
+async function moim_distory(moim_id) {
+  if (confirm("모임 삭제를 원하시는 경우 '확인'을 눌러주세요.")) {
     let { data } = await axios({
       method: "DELETE",
       url: "/moim/moims",
-      data: { nickname, moim_id },
+      data: { moim_id },
     });
     if (data.result) {
       alert("모임이 정상적으로 삭제되었습니다.");
-      window.location.href = "/moim/moim_list";
+      window.location.href = "/moim/moims";
     }
   }
 }
