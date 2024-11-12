@@ -8,11 +8,11 @@ async function show_MoimSet() {
         const moims = data.data;
         let moim_content = '';
         for (let i = 0; i < moims.length; i++) {
-            moim_content += `<div class="moim_content" onclick='/moim/moim_detail/${moim[i].moim_id}'>
-          <!-- 모임명 -->
-          <p>${moims[i].title}</p>
+            moim_content += `<div class="moim_content" onclick="location.href='/moim/moim_detail/${moims[i].moim_id}'">
           <!-- 사진 -->
           <img src="${moims[i].represent_img}" alt="">
+          <!-- 모임명 -->
+          <p>${moims[i].title}</p>
         </div>`;
         }
         document.querySelector(".attending").lastElementChild.innerHTML = moim_content;
@@ -36,11 +36,11 @@ async function show_Recommend() {
         let moim_content = '';
 
         for (let i = 0; i < moims.length; i++) {
-            moim_content += `<div class="moim_content" onclick='/moim/moim_detail/${moim[i].moim_id}'>
-          <!-- 모임명 -->
-          <p>${moims[i].title}</p>
+            moim_content += `<div class="moim_content" onclick="location.href='/moim/moim_detail/${moims[i].moim_id}'">
           <!-- 사진 -->
           <img src="${moims[i].represent_img}" alt="">
+          <!-- 모임명 -->
+          <p>${moims[i].title}</p>
         </div>`;
         }
 
@@ -52,3 +52,5 @@ async function show_Recommend() {
 
 show_MoimSet();
 show_Recommend();
+
+
