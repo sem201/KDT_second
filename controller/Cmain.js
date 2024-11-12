@@ -1,3 +1,7 @@
+exports.index = (req, res) => {
+  res.render("index");
+};
+
 const {
   Moim,
   User,
@@ -7,8 +11,8 @@ const {
 } = require("../models/index");
 
 exports.index = async (req, res) => {
-  const {review} = await User.findOne({
-    where: {user_id: req.session.userInfo.userid},
+  const { review } = await User.findOne({
+    where: { user_id: req.session.userInfo.userid },
   });
 
   // console.log(review);
@@ -42,6 +46,9 @@ exports.index_POST = async (req, res) => {
 };
 
 exports.login = (req, res) => {
+  if (req.session.userInfo) {
+    return res.redirect("/home");
+  }
   res.render("login");
 };
 

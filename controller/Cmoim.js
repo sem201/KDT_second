@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const db = require("../models");
 const sequelize = require("sequelize");
+const multer = require("multer");
 const {
   Moim,
   User,
@@ -13,7 +14,7 @@ exports.MoimList_GET = async (req, res) => {
   if (req.session.userInfo) {
     res.render("moim_list");
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 
@@ -134,6 +135,28 @@ exports.Moimset_patch = async (req, res) => {
   }
 };
 
+exports.Moimset_count = async (req, res) => {
+  if (req.session.userInfo) {
+    try {
+      const { moim_id } = req.body;
+      const Set_list = await MoimSet.findAll({
+        where: { moim_id: Number(moim_id) },
+      });
+      console.log(Set_list);
+      console.log("정상송출!");
+      res.json({
+        result: true,
+        Message: "정상적으로 정보를 송출함",
+        list: Set_list,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    res.redirect("/");
+  }
+};
+
 exports.MoimSet_detory = async (req, res) => {
   if (req.session.userInfo) {
     try {
@@ -183,6 +206,7 @@ exports.moim_detail_UPDATE = async (req, res) => {
 };
 
 exports.Moim_UPDATE = async (req, res) => {
+  console.log(req.file);
   if (req.session.userInfo) {
     const {
       title,
@@ -193,9 +217,12 @@ exports.Moim_UPDATE = async (req, res) => {
       location,
       represent_img,
       nickname,
+      category,
       moim_id,
+      content,
     } = req.body;
-    await Moim.update(
+
+    let moim = await Moim.update(
       {
         title,
         on_line,
@@ -205,13 +232,37 @@ exports.Moim_UPDATE = async (req, res) => {
         location,
         represent_img,
         nickname,
+        category,
       },
       { where: { moim_id } }
     );
-    res.send({
-      result: true,
-      Message: "moim 정보 업데이트 1단계에 성공하셨습니다.",
-    });
+
+    if (moim != null) {
+      let moim_detail = MoimDetail.update(
+        {
+          content,
+        },
+        {
+          where: { moim_id },
+        }
+      );
+      if (moim_detail != null) {
+        res.json({
+          result: true,
+          Message: "moim 정보 업데이트에 성공하셨습니다.",
+        });
+      } else {
+        res.json({
+          result: false,
+          Message: "content 정보가 수정되지 않았습니다. 다시 시도해주세요.",
+        });
+      }
+    } else {
+      res.json({
+        result: false,
+        Message: "Moim 정보 수정이 이뤄지지 않았습니다.",
+      });
+    }
   } else {
     res.redirect("/");
   }
@@ -245,10 +296,10 @@ exports.Moims_POST = async (req, res) => {
         expiration_date,
         even_date,
         location,
-        represent_img,
       } = req.body;
 
       console.log(req.body);
+      console.log(req.file);
 
       const date = await Moim.create({
         title,
@@ -258,7 +309,6 @@ exports.Moims_POST = async (req, res) => {
         expiration_date,
         even_date,
         location,
-        represent_img,
         nickname: req.session.userInfo.nickname,
       });
       console.log(date);
