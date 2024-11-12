@@ -48,3 +48,8 @@ header {
     font-size: 35px
 
 }
+
+
+img {
+    object-fit:cover;
+}
