@@ -14,6 +14,18 @@ router.post("/moims", controller.Moims_POST); //모임 정보 추가 - 완료
 
 router.get("/moims/:location", controller.moimlistSelect); //모임 table에서 지역 별로 정보를 가져오기 위한 코드
 
+router.patch(
+  "/moims",
+  uploadDetail.single("represent_img"),
+  controller.Moim_UPDATE
+); //모임 정보 업데이트 - 완료
+
+router.patch(
+  "/moims/file",
+  uploadDetail.single("represent_img"),
+  controller.Moim_UPDATE_file
+); //모임 정보 업데이트 - 완료
+
 router.patch("/moimsdetail", controller.moim_detail_UPDATE);
 
 router.post("/moimsdetail", controller.MoimDetail_POST); // 모임 정보 테이블에 추가가 이뤄지면 모임 detail테이블의 정보 추가가 이뤄짐 - 완료

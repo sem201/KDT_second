@@ -3,6 +3,7 @@
  * @param {import('sequelize').DataTypes} DataTypes
  */
 
+const { text } = require("express");
 const { Sequelize } = require(".");
 
 const MoimDetailModel = (Sequelize, DataTypes) => {
@@ -15,7 +16,7 @@ const MoimDetailModel = (Sequelize, DataTypes) => {
         primaryKey: true,
       },
       content: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.TEXT("long"),
         allowNull: true,
       },
       min_people: {
