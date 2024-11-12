@@ -35,8 +35,8 @@
   </header>
   <section>
     <div class="moim">
-      <img src="#" alt=""><br>
-      <div style="width: 80vw; display: flex; justify-content: space-between;">
+      <img src="#" alt="">
+      <div>
       <h3><%= moim[0].title %></h3>
       <button class="dibsMoim" onclick="DibsMoim()">♡</button>
         </div>
@@ -47,6 +47,10 @@
                 <td id="col1">장소</td>
                 <td id="col2"><%= moim[0].location %></td>
             </tr>
+            <tr>
+              <td id="col1">카테고리</td>
+              <td id="col2"><%= moim[0].category %></td>
+          </tr>
             <tr>
                 <td id="col1">일시</td>
                 <td id="col2"><%= moim[0].even_date %></td>
@@ -76,6 +80,7 @@
             <button class="apply" onclick="moimset_dis('<%= moim[0].moim_id %>')">모임 탈퇴</button>
         <% } %> 
       <% } else { %>
+
              <% if (moimcount[0].moim_count < moim[0].max_people) { %>
               <button class="apply" onclick="moimset('<%= moim[0].moim_id %>')">참여하기</button>
              <% } else { %>

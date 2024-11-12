@@ -82,7 +82,7 @@ exports.MoimList_POST = async (req, res) => {
     } else {
       alert("모임 리스트 출력 실패");
       res.redirect("/");
-    }
+    }""
   } catch (error) {
     res.json({
       result: false,

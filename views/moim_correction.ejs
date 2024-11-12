@@ -53,9 +53,9 @@
         <% for( let i = 0; i < category_list.length; i++ ) 
         { %>
             <% if (category_list[i] == moim.category) { %>
-              <option value= '<%= category_list[i] %>' selected><%= category_list[i] %></option>
+              <option value= <%= category_list[i] %> selected><%= category_list[i] %></option>
               <% } else { %>
-                <option value= '<%= category_list[i] %>'><%= category_list[i] %></option>
+                <option value= <%= category_list[i] %>><%= category_list[i] %></option>
             <% } %>
       <% } %>
         </select>
@@ -66,9 +66,9 @@
         <select id="location" required>
           <% for( let i = 0; i < location_list.length; i++ ) { %>
            <% if(location_list[i] == moim.location) { %>
-           <option value=`<%= location_list[i] %>` selected><%= location_list[i] %></option>
+           <option value=<%= location_list[i] %> selected><%= location_list[i] %></option>
            <% } else { %>
-          <option value=`<%= location_list[i] %>`><%= location_list[i] %></option>
+          <option value=<%= location_list[i] %>><%= location_list[i] %></option>
           <% } %>
           <%} %>
         </select>
@@ -214,5 +214,4 @@
     </script>
 
   </body>
-
 </html>

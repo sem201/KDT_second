@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOME</title>
+  <script src="/static/index.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <link rel="stylesheet" href="/static/index.css" type="text/css" />
 
@@ -42,7 +45,7 @@
       <h3><%= nickname %>님을 위한 추천</h3>
       <!-- + 버튼 -->
       <div id="more_info">+</div>
-      <div class="contents_scroll">
+      <div class="contents_scroll recommend">
         <div class="moim_content">
           <!-- 모임명 -->
           <p>모임 제목</p>
@@ -79,39 +82,10 @@
       <h3><%= nickname %>님이 참여중인 모임</h3>
       <!-- + 버튼 -->
       <div id="more_info">+</div>
-      <div class="contents_scroll">
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
+      <div class="contents_scroll attending">
       </div>
     </div>
   </div>
 </body>
+
 </html>
