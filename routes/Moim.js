@@ -3,7 +3,7 @@ const multer = require("multer");
 const path = require("path"); // 경로에 관한 내장 모듈
 // multer 세부 설정
 
-const uploadDetail = multer({
+const uploadDetail1 = multer({
   // storage : 저장할 공간에 대한 정보
   storage: multer.diskStorage({
     // destination : 경로 설정
