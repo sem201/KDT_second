@@ -267,8 +267,26 @@ exports.updateReview = async (req, res) => {
 exports.participatingMoim = async (req, res) => {
   let result = await db.sequelize.query(
     `
-    select * from moim_set join moim on moim.moim_id = moim_set.moim_id 
-    where moim_set.nickname=:nickname and moim.even_date >now();
+    SELECT 
+      moim.moim_id,
+      moim.title,
+      moim.on_line,
+      moim.max_people,
+      moim.location,
+      moim.represent_img,
+      moim_set.nickname,
+      moim.category,
+      DATE_FORMAT(moim.expiration_date, '%Y-%d-%m %H:%i') AS expiration_date,
+      DATE_FORMAT(moim.even_date, '%Y-%d-%m %H:%i') AS even_date
+    FROM 
+      moim_set 
+    JOIN 
+      moim 
+    ON 
+      moim.moim_id = moim_set.moim_id 
+    WHERE 
+      moim_set.nickname = :nickname 
+      AND moim.even_date > NOW();
     `,
     {
       type: db.sequelize.QueryTypes.SELECT,
@@ -278,12 +296,31 @@ exports.participatingMoim = async (req, res) => {
   res.send(result);
 };
 
+
 // 참여한 모임 가져오기
 exports.participatedMoim = async (req, res) => {
   let result = await db.sequelize.query(
     `
-    select * from moim_set join moim on moim.moim_id = moim_set.moim_id 
-    where moim_set.nickname=:nickname and moim.even_date <now();
+    SELECT 
+      moim.moim_id,
+      moim.title,
+      moim.on_line,
+      moim.max_people,
+      moim.location,
+      moim.represent_img,
+      moim_set.nickname,
+      moim.category,
+      DATE_FORMAT(moim.expiration_date, '%Y-%d-%m %H:%i') AS expiration_date,
+      DATE_FORMAT(moim.even_date, '%Y-%d-%m %H:%i') AS even_date
+    FROM 
+      moim_set 
+    JOIN 
+      moim 
+    ON 
+      moim.moim_id = moim_set.moim_id 
+    WHERE 
+      moim_set.nickname = :nickname 
+      AND moim.even_date < NOW();
     `,
     {
       type: db.sequelize.QueryTypes.SELECT,
@@ -292,6 +329,7 @@ exports.participatedMoim = async (req, res) => {
   );
   res.send(result);
 };
+
 
 // 모집글 테스트
 exports.meeting = async (req, res) => {
