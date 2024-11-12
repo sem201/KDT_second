@@ -200,6 +200,10 @@
           }
         }
 
+        if(form.on_line.value == true){
+          form.location.value = null;
+        }
+
         const formData = new FormData();
         const file = document.querySelector("#represent_img");
         console.log(file);
