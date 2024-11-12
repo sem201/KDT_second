@@ -52,4 +52,11 @@ router.post("/review", userController.postReview);
 
 // user 로그아웃
 router.get("/logout", userController.logout);
+
+// user가 참여중인 모임 가져오기
+router.get("/participating", userController.participatingMoim);
+
+// user가 참여한 모임 가져오기
+router.get("/participated", userController.participatedMoim);
+
 module.exports = router;

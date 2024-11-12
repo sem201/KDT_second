@@ -102,11 +102,15 @@ exports.editProfilePage = (req, res) => {
 exports.updateUser = async (req, res) => {
   const { nickname, pw } = req.body;
   const updateData = {};
-  if (nickname != null) {
-    updateData.nickname = nickname;
-  }
-  if (pw != null) {
-    updateData.pw = bcryptPassword(pw);
+  if (nickname || pw) {
+    if (nickname != null) {
+      updateData.nickname = nickname;
+    }
+    if (pw != null) {
+      updateData.pw = bcryptPassword(pw);
+    }
+  } else {
+    return res.send("값을 입력해주세요");
   }
   try {
     await User.update(updateData, {
@@ -257,6 +261,36 @@ exports.updateReview = async (req, res) => {
   } catch (error) {
     "review 점수 불러오기 실패", error;
   }
+};
+
+// 참여중인 모임 가져오기
+exports.participatingMoim = async (req, res) => {
+  let result = await db.sequelize.query(
+    `
+    select * from moim_set join moim on moim.moim_id = moim_set.moim_id 
+    where moim_set.nickname=:nickname and moim.even_date >now();
+    `,
+    {
+      type: db.sequelize.QueryTypes.SELECT,
+      replacements: { nickname: req.session.userInfo.nickname },
+    }
+  );
+  res.send(result);
+};
+
+// 참여한 모임 가져오기
+exports.participatedMoim = async (req, res) => {
+  let result = await db.sequelize.query(
+    `
+    select * from moim_set join moim on moim.moim_id = moim_set.moim_id 
+    where moim_set.nickname=:nickname and moim.even_date <now();
+    `,
+    {
+      type: db.sequelize.QueryTypes.SELECT,
+      replacements: { nickname: req.session.userInfo.nickname },
+    }
+  );
+  res.send(result);
 };
 
 // 모집글 테스트
