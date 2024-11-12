@@ -3,41 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>상세페이지</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+      ></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+      ></script>
+      <script src="/static/moim_list.js"></script>
+      <script src="/static/moim_detail.js"></script>
+      <script src="/static/moimdetail.js"></script>
+      <link rel="stylesheet" href="/static/style.css" type="text/css" />
+      <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
+      <title>상세페이지</title>
   </head>
-  <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
-  <script
-    src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    crossorigin="anonymous"
-  ></script>
-  <script src="/static/moim_detail.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>상세페이지</title>
-  </head>
-  <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
-  <script
-    src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    crossorigin="anonymous"
-  ></script>
-  <script src="/static/moim_list.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>상세페이지</title>
-</head>
-<link rel="stylesheet" href="/static/style.css" type="text/css" />
-<link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="/static/moim_detail.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 <body>
   <header>
     <div class="logo">
@@ -72,13 +55,12 @@
                 <td id="col1">모집 기간</td>
                 <td id="col2"><%= moim[0].expiration_date %></td>
             </tr>
-
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL()">👥 <%= moimcount[0].moim_count %> </button></td>
+                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
             </tr>
             <!-- 참여하는 경우 detail 정보 추가 -->
-            <% if (accession == true) { %>
+        <% if (accession == true) { %>
             <tr>
               <td id="col1">내용</td>
               <td id="col2"><%= detail[0].content %></td>
@@ -86,31 +68,23 @@
           </tbody>
         </table>
         <!-- <div class="apply"> -->
-          <% if (moim[0].nickname == user.nickname ) { %>
-            <button class="apply1" onclick="moimset()">모임 삭제</button>
-            <button class="apply2" onclick="moimset()">모임 수정</button>
-            <% } else { %>
-            <button class="apply" onclick="moimset()">모임 탈퇴</button>
-            <% } %> <% } else { %>
-            <button class="apply" onclick="moimset()">참여하기</button>
+          <% if (moim[0].nickname == user.nickname ) 
+          { %>
+            <button class="apply1" onclick="moim_distory('<%= moim[0].moim_id %>')">모임 삭제</button>
+            <button class="apply2" onclick="moim_correction('<%= moim[0].moim_id %>')">모임 수정</button>
+       <% } else { %>
+            <button class="apply" onclick="moimset_dis('<%= moim[0].moim_id %>')">모임 탈퇴</button>
+        <% } %> 
+      <% } else { %>
+             <% if (moimcount[0].moim_count < moim[0].max_people) { %>
+              <button class="apply" onclick="moimset('<%= moim[0].moim_id %>')">참여하기</button>
+             <% } else { %>
+              <button class="apply3" onclick="alert('아쉽게도, 정원이 초과되었습니다.')">정원 초과</button>
+              <!-- 대기기능 추가할 수 있으면 하기로 함 -->
             <% } %>
+      <% } %>
         <!-- </div> -->
-
     </div>
-
-    <!-- <div class="apply" onclick="apply()">
-      <span>참여하기</span>
-    </div> -->
   </section>
-  <script>
-    console.log(moim, moimcount, detail, user, moim_setup);
-    
-  </script>
 </body>
-    <script>
-      function moimset() {
-        
-      }
-    </script>
-  </body>
 </html>

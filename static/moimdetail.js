@@ -28,12 +28,12 @@ async function moimset_dis(moim_id) {
     }
   }
 }
-async function moim_distory(nickname, moim_id) {
+async function moim_distory(moim_id) {
   if (confirm("정말, 모임을 삭제하실 겁니까?")) {
     let { data } = await axios({
       method: "DELETE",
       url: "/moim/moims",
-      data: { nickname, moim_id },
+      data: { moim_id },
     });
     if (data.result) {
       alert("모임이 정상적으로 삭제되었습니다.");

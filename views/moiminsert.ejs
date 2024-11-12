@@ -1,214 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/moim_insert.css" type="text/css" />
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <!-- <script src="../static/" defer></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="/static/moim_insert.css" type="text/css" />
-  <link rel="stylesheet" href="/static/style.css" type="text/css" />
-  <!-- <script src="../static/" defer></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-
-<body>
-
-  
+  <body>
     <header>
-    <div><span>모임 등록하기</span></div>
-    <div>
-      <span onclick="location.href='/moim/moims'">×</span>
-    </div>
-  </header>
-  <section>
-  <% const category_list = [
-        "취미•여가", "운동•레저", "문화•예술",
-        "학습•자기개발", "사회•네트워킹", "음식•요리",
-        "환경•지속 가능성", "반려동물"
-    ]; %>
+      <div><span>모임 등록하기</span></div>
+      <div>
+        <span onclick="location.href='/moim/moims'">×</span>
+      </div>
+    </header>
+    <section>
+      <% const category_list = [ "취미•여가", "운동•레저", "문화•예술",
+      "학습•자기개발", "사회•네트워킹", "음식•요리", "환경•지속 가능성",
+      "반려동물" ]; %> <% const location_list = [ "서울특별시", "부산광역시",
+      "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시",
+      "세종특별자치시", "경기도", "강원도", "충청북도", "충청남도", "전라북도",
+      "전라남도", "경상북도", "경상남도", "제주특별자치도" ]; %>
 
-  <% const location_list = [
-  "서울특별시", "부산광역시", "대구광역시", "인천광역시",
-  "광주광역시", "대전광역시", "울산광역시", "세종특별자치시",
-  "경기도", "강원도", "충청북도", "충청남도",
-  "전라북도", "전라남도", "경상북도", "경상남도", "제주특별자치도"
-]; %>
+      <form name="moim-insert" enctype="multipart/form-data">
+        <!-- 동작 확인 후 세션에서 정보를 받는 걸로 수정 예정 -->
+        <div class="form-content">
+          <div>
+            <label for="title">제목</label>
+            <input type="text" id="title" />
+          </div>
 
-  <form name="moim-insert">
-    <!-- 동작 확인 후 세션에서 정보를 받는 걸로 수정 예정 -->
-    <div class="form-content">
-    <div>
-      <label for="title">제목</label>
-      <input type="text" id="title" />
-    </div>
+          <div>
+            <label for="on_line">모임 형식</label>
+            <input
+              type="radio"
+              name="on_line"
+              id="on_line"
+              value="true"
+              onchange="showLocation('online')"
+            />
+            온라인
+            <input
+              type="radio"
+              name="on_line"
+              id="on_line"
+              value="false"
+              onchange="showLocation('offline')"
+              checked
+            />오프라인
+          </div>
 
-    <div>
-      <label for="on_line">모임 형식</label>
-      <input type="radio" name="on_line" id="on_line" value="true" onchange="showLocation('online')" /> 온라인
-      <input type="radio" name="on_line" id="on_line" value="false" onchange="showLocation('offline')" checked/>오프라인
-    </div>
+          <div>
+            <label for="category">카테고리</label>
+            <select id="category" required>
+              <% for( let i = 0; i < category_list.length; i++ ) { %>
+              <option value="<%= category_list[i] %>">
+                <%= category_list[i] %>
+              </option>
+              <% } %>
+            </select>
+          </div>
 
-    <div>
-      <label for="category">카테고리</label>
-      <select id="category" required>
-        <% for( let i = 0; i < category_list.length; i++ ) { %>
-        <option value=<%= category_list[i] %>><%= category_list[i] %></option>
-        <% } %>
-      </select>
-    </div>
+          <div class="location_select">
+            <label for="location">위치</label>
+            <select id="location" required>
+              <% for( let i = 0; i < location_list.length; i++ ) { %>
+              <option value="<%= location_list[i] %>">
+                <%= location_list[i] %>
+              </option>
+              <% } %>
+            </select>
+          </div>
 
-    <div class="location_select">
-      <label for="location">위치</label>
-      <select id="location" required>
-        <% for( let i = 0; i < location_list.length; i++ ) { %>
-        <option value=`<%= location_list[i] %>`><%= location_list[i] %></option>
-        <% } %>
-      </select>
-    </div>
+          <div>
+            <label for="min_people">최소 인원수</label>
+            <select id="min_people" required>
+              <option value="" selected>선택하지 않음</option>
+              <% for( let i = 0; i < 15; i++ ) { %>
+              <option value="<%= i %>"><%= i %></option>
+              <% } %>
+              <option value="X">무제한</option>
+            </select>
+          </div>
 
+          <div>
+            <label for="max_people">최대 인원수</label>
+            <select id="max_people" required>
+              <option value="" disabled selected>최대 인원수 선택</option>
+              <% for( let i = 0; i < 15; i++ ) { %>
+              <option value="<%= i %>"><%= i %></option>
+              <% } %>
+              <option value="X">무제한</option>
+            </select>
+          </div>
 
-    <div>
-      <label for="min_people">최소 인원수</label>
-      <select id="min_people" required>
-        <option value="" selected>선택하지 않음</option>
-        <% for( let i = 0; i < 15; i++ ) { %>
-        <option value="<%= i %>"><%= i %></option>
-        <% } %>
-        <option value="X">무제한</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="max_people">최대 인원수</label>
-      <select id="max_people" required>
-        <option value="" disabled selected>최대 인원수 선택</option>
-        <% for( let i = 0; i < 15; i++ ) { %>
-        <option value="<%= i %>"><%= i %></option>
-        <% } %>
-        <option value="X">무제한</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="expiration_date">모집 마감 시한</label>
-      <input type="datetime-local" id="expiration_date" name="expiration_date" />
-    </div>
-    <div>
-      <label for="even_date ">이벤트 진행 날짜</label>
-      <input type="datetime-local" id="even_date" name="even_date" />
-    </div>
-    <div>
-      <label for="represent_img">모집 공고 이미지</label><br>
-      <input type="file" id="represent_img" name="represent_img" />
-    </div>
-    <div>
-      <label for="detail_info">공지사항</label>
-      <textarea id="content" name="content" rows="10" cols="100" placeholder="내용을 입력해주세요?"></textarea>
-    </div>
-  </div>
-    <div class="button-box">
-    <button type="button" onclick="moim_insert()">모임 개설</button>
-    <button type="button" onclick="location.href= '/'">개설 취소</button>
-  </div>
-
-  </form>
-</section>
-  <script>
-    function showLocation(onOffline) {
-      const location_select = document.querySelector(".location_select")
-
-      console.log(location_select);
-
-      if (onOffline === "offline") {
-        location_select.style.display = "block";
-      } else if (onOffline === "online") {
-        location_select.style.display = "none";
+          <div>
+            <label for="expiration_date">모집 마감 시한</label>
+            <input
+              type="datetime-local"
+              id="expiration_date"
+              name="expiration_date"
+            />
+          </div>
+          <div>
+            <label for="even_date ">이벤트 진행 날짜</label>
+            <input type="datetime-local" id="even_date" name="even_date" />
+          </div>
+          <div>
+            <label for="represent_img">모집 공고 이미지</label><br />
+            <input type="file" id="represent_img" name="represent_img" />
+          </div>
+          <div>
+            <label for="detail_info">공지사항</label>
+            <textarea
+              id="content"
+              name="content"
+              rows="10"
+              cols="100"
+              placeholder="내용을 입력해주세요?"
+            ></textarea>
+          </div>
+        </div>
+        <div class="button-box">
+          <button type="button" onclick="moim_insert()">모임 개설</button>
+          <button type="button" onclick="moving()">개설 취소</button>
+        </div>
+      </form>
+    </section>
+    <script>
+      function moving() {
+        history.back();
       }
-    }
+      function showLocation(onOffline) {
+        const location_select = document.querySelector(".location_select");
 
+        console.log(location_select);
 
-    async function moim_insert() {
-      let form = document.forms["moim-insert"];
-      console.log(form.on_line.value);
-      const on_line = [];
-      form.on_line.forEach((element) => {
-        if (element.checked == true) {
-          on_line.push(element.value);
+        if (onOffline === "offline") {
+          location_select.style.display = "block";
+        } else if (onOffline === "online") {
+          location_select.style.display = "none";
         }
-      });
-
-      if (
-        form.title.value == null ||
-        form.on_line.value == null ||
-        form.expiration_date.value == null ||
-        form.even_date.value == null ||
-        form.location.value == null ||
-        form.category.value == null
-      ) {
-        alert(
-          "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
-        );
-        return;
       }
 
-      if (form.expiration_date.value >= form.even_date.value) {
-        alert("모임 가입 가능일은 모임 날짜를 초과하여 설정할 수 없습니다.");
-        return;
-      }
+      async function moim_insert() {
+        let form = document.forms["moim-insert"];
+        console.log(form.on_line.value);
+        const on_line = [];
+        form.on_line.forEach((element) => {
+          if (element.checked == true) {
+            on_line.push(element.value);
+          }
+        });
 
-      if (
-        form.max_people.value !== null &&
-        form.min_people.value !== null &&
-        form.max_people.value < form.min_people.value
-      ) {
-        alert(
-          "최소 인원수를 설정하였을 경우, 최대 인원수를 초과하여 설정할 수 없습니다."
-        );
-        return;
-      }
+        if (
+          form.title.value == null ||
+          form.on_line.value == null ||
+          form.expiration_date.value == null ||
+          form.even_date.value == null ||
+          form.location.value == null ||
+          form.category.value == null
+        ) {
+          alert(
+            "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
+          );
+          return;
+        }
 
-      const {
-        data
-      } = await axios({
-        method: "POST",
-        url: "/moim/moims",
-        data: {
-          title: form.title.value,
-          on_line: form.on_line.value,
-          max_people: form.max_people.value,
-          expiration_date: form.expiration_date.value,
-          even_date: form.even_date.value,
-          location: form.location.value,
-          represent_img: form.represent_img.value,
-          category: form.category.value,
-        },
-      });
-      const moim_id = data.userInfo.moim_id;
-      if (data.result) {
-        const {
-          data
-        } = await axios({
+        if (form.expiration_date.value >= form.even_date.value) {
+          alert("모임 가입 가능일은 모임 날짜를 초과하여 설정할 수 없습니다.");
+          return;
+        }
+
+        if (
+          form.max_people.value !== null &&
+          form.min_people.value !== null &&
+          form.max_people.value < form.min_people.value
+        ) {
+          alert(
+            "최소 인원수를 설정하였을 경우, 최대 인원수를 초과하여 설정할 수 없습니다."
+          );
+          return;
+        }
+        const formData = new FormData();
+        const file = document.querySelector("#represent_img");
+        console.log(file);
+        console.log(file.files);
+        formData.append("represent_img", file.files[0]);
+        formData.append("title", form.title.value);
+        formData.append("on_line", form.on_line.value);
+        formData.append("max_people", form.max_people.value);
+        formData.append("expiration_date", form.expiration_date.value);
+        formData.append("even_date", form.even_date.value);
+        formData.append("location", form.location.value);
+        formData.append("category", form.category.value);
+
+        const { data } = await axios({
           method: "POST",
-          url: "/moim/moimsdetail",
-          data: {
-            moim_id: moim_id,
-            content: form.content.value,
-            min_people: form.min_people.value,
+          url: "/moim/moims",
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
           },
         });
+
+        const moim_id = data.userInfo.moim_id;
         if (data.result) {
-          alert("모임 생성이 완료되었습니다");
-          window.location.href = "/moim/moims";
+          const { data } = await axios({
+            method: "POST",
+            url: "/moim/moimsdetail",
+            data: {
+              moim_id: moim_id,
+              content: form.content.value,
+              min_people: form.min_people.value,
+            },
+          });
+          if (data.result) {
+            alert("모임 생성이 완료되었습니다");
+            window.location.href = "/moim/moims";
+          } else {
+            alert("모임 생성에 실패하였습니다.");
+            location.reload();
+          }
         } else {
-          alert("모임 생성에 실패하였습니다.");
+          alert("모임 개설에 실패하였습니다. 다시 시도해주세요");
           location.reload();
         }
-      } else {
-        alert("모임 개설에 실패하였습니다. 다시 시도해주세요");
-        location.reload();
       }
-    }
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
