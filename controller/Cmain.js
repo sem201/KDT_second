@@ -1,7 +1,6 @@
-exports.index = (req, res) => {
-  res.render("index");
-};
-
+const { Op } = require("sequelize");
+const db = require("../models");
+const sequelize = require("sequelize");
 const {
   Moim,
   User,
@@ -11,8 +10,8 @@ const {
 } = require("../models/index");
 
 exports.index = async (req, res) => {
-  const { review } = await User.findOne({
-    where: { user_id: req.session.userInfo.userid },
+  const {review} = await User.findOne({
+    where: {user_id: req.session.userInfo.userid},
   });
 
   // console.log(review);
@@ -28,27 +27,54 @@ exports.index_POST = async (req, res) => {
   try {
     const nickname = req.session.userInfo.nickname;
 
+    const moimSet = await MoimSet.findAll({
+      where: {nickname: nickname},
+      // group: "nickname"
+    });
+    console.log(moimSet);
+
+    const moimId = [];
+    for(let i=0; i<moimSet.length; i++){
+      moimId.push(moimSet[i].moim_id);
+    }
+    
     const data = await Moim.findAll({
-      where: {nickname: nickname}
+      where: {moim_id: moimId}
     });
 
-    if(data) {
-      res.json({data: data});
+    const recommend = await db.sequelize.query(
+      `
+    SELECT moim.*
+  FROM moim
+  JOIN (
+    SELECT moim_id, COUNT(*) AS participant_count
+    FROM moim_set
+    GROUP BY moim_id
+  ) AS moim_participants ON moim.moim_id = moim_participants.moim_id
+  WHERE moim_participants.participant_count = moim.max_people - 1
+  `,
+      {
+        type: db.sequelize.QueryTypes.SELECT,
+      }
+    );
+
+    if(data && recommend) {
+      res.json({data: data, recommend: recommend});
     } else {
-      res.json({message: "참여중인 모임이 없습니다."});
+      res.json({message: "모임 정보가 없습니다."});
     }
   } catch (error) {
     res.json({
       result: false,
       Message: "모임 정보 불러오기에 실패하였습니다!",
     });
+    console.log(error);
+    
   }
 };
 
+
 exports.login = (req, res) => {
-  if (req.session.userInfo) {
-    return res.redirect("/home");
-  }
   res.render("login");
 };
 

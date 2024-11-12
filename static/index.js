@@ -1,33 +1,54 @@
 async function show_MoimSet() {
+    const { data } = await axios({
+        method: "POST",
+        url: "/home/post"
+    });
+
+    if (data) {
+        const moims = data.data;
+        let moim_content = '';
+        for (let i = 0; i < moims.length; i++) {
+            moim_content += `<div class="moim_content">
+          <!-- 모임명 -->
+          <p>${moims[i].title}</p>
+          <!-- 사진 -->
+          <img src="${moims[i].represent_img}" alt="">
+        </div>`;
+        }
+        document.querySelector(".attending").lastElementChild.innerHTML = moim_content;
+    } else {
+        document.querySelector(".attending").lastElementChild.innerHTML = '<span>참여중인 모임이 없습니다.</span>';
+    }
+
+}
+
+async function show_Recommend() {
     const {data} = await axios({
         method: "POST",
         url: "/home/post"
     });
 
-    console.log(data.data);
+    console.log(data.recommend);
+    const moims = data.recommend;    
 
-    const moimSet = data.data;
+    if (moims) {
+        
+        let moim_content = '';
 
-    const contents_scroll = document.querySelector(".contents_scroll attending");
-
-    const moim_content = document.createAttribute("div");
-    moim_content.className = "moim_content";
-
-    let innerHTML = '';
-
-    moimSet.forEach(moim => {
-        innerHTML = `<div class="moim_content">
+        for (let i = 0; i < moims.length; i++) {
+            moim_content += `<div class="moim_content">
           <!-- 모임명 -->
-          <p>${moim.title}</p>
+          <p>${moims[i].title}</p>
           <!-- 사진 -->
-          <img src="${moim.represent_img}" alt="">
-        </div>`
-        moim_content.innerHTML = innerHTML;
-        contents_scroll.append(moim_content)
-    });
+          <img src="${moims[i].represent_img}" alt="">
+        </div>`;
+        }
 
-    moim_content.innerHTML = innerHTML;
-
+        document.querySelector(".recommend").lastElementChild.innerHTML = moim_content;
+    } else {
+        document.querySelector(".recommend").lastElementChild.innerHTML = '<span>추천 모임이 없습니다.</span>';
+    }
 }
 
 show_MoimSet();
+show_Recommend();

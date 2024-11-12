@@ -184,6 +184,11 @@ h3{
     flex-direction: row;
 }
 
+.contents_scroll>span {
+    line-height: 120px;
+    margin: 0 20px;
+}
+
 .moim_content {
     width: 120px;
     height: 110px;
@@ -195,10 +200,12 @@ h3{
 
 .moim_content>p {
     width: 100px;
+    height: 20px;
     position: relative;
     margin: 3px 5px;
     font-weight: 500;
     font-size: 15px;
+    overflow: auto;
 }
 
 .moim_content>img {
