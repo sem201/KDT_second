@@ -44,48 +44,17 @@
     <div class="recommend">
       <h3><%= nickname %>님을 위한 추천</h3>
       <!-- + 버튼 -->
-      <div id="more_info">+</div>
-      <div class="contents_scroll recommend">
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
-        <div class="moim_content">
-          <!-- 모임명 -->
-          <p>모임 제목</p>
-          <!-- 사진 -->
-          <img src="" alt="">
-        </div>
+      <div id="more_info" onclick="location.href = '/moim/moims/recommend'">+</div>
+      <div class="contents_scroll">
       </div>
     </div>
     <div class="attending">
       <h3><%= nickname %>님이 참여중인 모임</h3>
       <!-- + 버튼 -->
-      <div id="more_info">+</div>
-      <div class="contents_scroll attending">
+      <div id="more_info" onclick="location.href='/user/profile'">+</div>
+      <div class="contents_scroll">
       </div>
     </div>
   </div>
 </body>
-
 </html>
