@@ -51,6 +51,6 @@ function DibsMoim() {
 
   const button = document.querySelector(".dibsMoim");
 
-  button.innerHTML = "♥︎";
+  window.location.reload();
 }
 

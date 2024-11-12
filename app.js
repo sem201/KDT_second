@@ -45,7 +45,7 @@ schedule.scheduleJob("0 0 * * *", async () => {
   await updateReview(); // updateReview 함수 호출
 });
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
   });
