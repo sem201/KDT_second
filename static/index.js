@@ -8,7 +8,7 @@ async function show_MoimSet() {
         const moims = data.data;
         let moim_content = '';
         for (let i = 0; i < moims.length; i++) {
-            moim_content += `<div class="moim_content">
+            moim_content += `<div class="moim_content" onclick='/moim/moim_detail/${moim[i].moim_id}'>
           <!-- 모임명 -->
           <p>${moims[i].title}</p>
           <!-- 사진 -->
@@ -36,7 +36,7 @@ async function show_Recommend() {
         let moim_content = '';
 
         for (let i = 0; i < moims.length; i++) {
-            moim_content += `<div class="moim_content">
+            moim_content += `<div class="moim_content" onclick='/moim/moim_detail/${moim[i].moim_id}'>
           <!-- 모임명 -->
           <p>${moims[i].title}</p>
           <!-- 사진 -->
