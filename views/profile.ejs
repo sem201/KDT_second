@@ -34,7 +34,7 @@
       <div class="content-box">
         <div class="userInfo">
           <div class="profile">
-            <img src="" alt="" name="rank-img" />
+            <img src="/static/upload/star_imgs/star<%= review %>.jpeg" alt="" />
             <div>
               <span class="nickname"><%=nickname%>(<%=user_id%>)</span>
               <span class="rank"></span>
@@ -107,11 +107,8 @@
             pw: form.pw.value,
           })
           .then((res) => {
-            console.log(res.data);
             if (res.data.result) {
               document.location.href = "/user/editprofile";
-            } else {
-              console.log(res.data.message);
             }
           });
       }
@@ -126,7 +123,6 @@
             method: "GET",
             url: "/user/logout",
           });
-          console.log(response);
           if (response.data) {
             alert("로그아웃 되었습니다.");
             document.location.href = "/";

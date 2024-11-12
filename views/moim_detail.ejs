@@ -54,6 +54,10 @@
                 <td id="col2"><%= moim[0].location %></td>
             </tr>
             <tr>
+              <td id="col1">카테고리</td>
+              <td id="col2"><%= moim[0].category %></td>
+          </tr>
+            <tr>
                 <td id="col1">일시</td>
                 <td id="col2"><%= moim[0].even_date %></td>
             </tr>
@@ -92,6 +96,7 @@
             <button class="apply" onclick="moimset_dis('<%= moim[0].moim_id %>')">모임 탈퇴</button>
         <% } %> 
       <% } else { %>
+
              <% if (moimcount[0].moim_count < moim[0].max_people) { %>
               <button class="apply" onclick="moimset('<%= moim[0].moim_id %>')">참여하기</button>
              <% } else { %>
