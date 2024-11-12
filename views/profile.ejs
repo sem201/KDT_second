@@ -17,6 +17,7 @@
       src="https://kit.fontawesome.com/b9cc1d7a42.js"
       crossorigin="anonymous"
     ></script>
+    <script src="/static/profile.js"></script>
   </head>
   <body>
     <header>
@@ -51,13 +52,13 @@
         </div>
         <div class="button-box">
           <div class="dibs_moim" onclick="selectMoim(this)">찜</div>
-          <div class="attending" onclick="selectMoim(this)">참여중</div>
+          <div class="attending" onclick="participatingMoim()">참여중</div>
           <div class="attended" onclick="selectMoim(this)">참여완료</div>
         </div>
         <div class="moim_table">
           <table>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td>
                   <div class="content">
                     <div class="title">제목</div>
@@ -70,7 +71,7 @@
                     <img src="" alt="" />
                   </div>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>

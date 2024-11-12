@@ -85,8 +85,8 @@ section {
 
 .moim>img {
     width: 80vw;
-    height: 200px;
-    max-width: 430px;
+    height: 40vh;
+    /* max-width: 430px; */
     padding: 0 10px;
 }
 
