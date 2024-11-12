@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <!-- <script src="../static/" defer></script> -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/moim.js" defer></script>
   </head>
 
   <body>
@@ -82,7 +88,6 @@
               <% for( let i = 0; i < 15; i++ ) { %>
               <option value="<%= i %>"><%= i %></option>
               <% } %>
-              <option value="X">무제한</option>
             </select>
           </div>
 
@@ -90,10 +95,10 @@
             <label for="max_people">최대 인원수</label>
             <select id="max_people" required>
               <option value="" disabled selected>최대 인원수 선택</option>
-              <% for( let i = 0; i < 15; i++ ) { %>
+              <% for( let i = 1; i < 15; i++ ) { %>
               <option value="<%= i %>"><%= i %></option>
               <% } %>
-              <option value="X">무제한</option>
+              <option value="0">무제한</option>
             </select>
           </div>
 
@@ -111,7 +116,15 @@
           </div>
           <div>
             <label for="represent_img">모집 공고 이미지</label><br />
-            <input type="file" id="represent_img" name="represent_img" />
+            <input
+              type="file"
+              id="represent_img"
+              name="represent_img"
+              accept="image/gif, image/jpeg, image/png"
+            />
+          </div>
+          <div>
+            <img src="" alt="" id="represent_before" />
           </div>
           <div>
             <label for="detail_info">공지사항</label>
@@ -157,12 +170,12 @@
         });
 
         if (
-          form.title.value == null ||
-          form.on_line.value == null ||
-          form.expiration_date.value == null ||
-          form.even_date.value == null ||
-          form.location.value == null ||
-          form.category.value == null
+          form.title.value == "" ||
+          form.on_line.value == "" ||
+          form.expiration_date.value == "" ||
+          form.even_date.value == "" ||
+          form.location.value == "" ||
+          form.category.value == ""
         ) {
           alert(
             "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
@@ -170,25 +183,28 @@
           return;
         }
 
-        if (form.expiration_date.value >= form.even_date.value) {
+        if (form.expiration_date.value > form.even_date.value) {
           alert("모임 가입 가능일은 모임 날짜를 초과하여 설정할 수 없습니다.");
           return;
         }
-
-        if (
-          form.max_people.value !== null &&
-          form.min_people.value !== null &&
-          form.max_people.value < form.min_people.value
-        ) {
-          alert(
-            "최소 인원수를 설정하였을 경우, 최대 인원수를 초과하여 설정할 수 없습니다."
-          );
-          return;
+        if (Number(form.max_people.value) != 0) {
+          if (
+            form.max_people.value !== "" &&
+            form.min_people.value !== "" &&
+            Number(form.max_people.value) < Number(form.min_people.value)
+          ) {
+            alert(
+              "최소 인원수를 설정하였을 경우, 최대 인원수를 초과하여 설정할 수 없습니다."
+            );
+            return;
+          }
         }
+
         const formData = new FormData();
         const file = document.querySelector("#represent_img");
         console.log(file);
         console.log(file.files);
+
         formData.append("represent_img", file.files[0]);
         formData.append("title", form.title.value);
         formData.append("on_line", form.on_line.value);
@@ -207,7 +223,9 @@
           },
         });
 
+        console.log(data);
         const moim_id = data.userInfo.moim_id;
+
         if (data.result) {
           const { data } = await axios({
             method: "POST",

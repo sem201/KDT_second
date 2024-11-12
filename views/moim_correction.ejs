@@ -4,12 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="/static/moim.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+    ></script>
+    <script src="/static/moim.js" defer></script>
     <link rel="stylesheet" href="/static/moim_insert.css" type="text/css" />
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
   </head>
   <body>
+    <% const img = "/" + moim.represent_img; %> 
     <header>
       <div><span>모임 등록하기</span></div>
       <div>
@@ -146,7 +152,8 @@
           accept="image/gif, image/jpeg, image/png"
         />
         <br /><br />
-        <img src="<%= moim.represent_img %>" alt="<%= moim.represent_img %>" />
+        <div>현재 설정한 이미지</div>
+        <img src="<%= img %>" alt="<%= moim.represent_img %>" id = "represent_before"/>
       </div>
       <div>
         <label for="detail_info">공지사항</label>
@@ -160,6 +167,7 @@
         <%= detail.content %>
       </textarea>
       </div>
+
     </div>
     <div class="button-box">
       <button type="button" onclick="moim_correction('<%= moim.moim_id %>')">
@@ -171,36 +179,90 @@
     </div>
     </form>
     <script>
-      async function moim_correction(moimid) {
+      async function moim_correction(moimid) 
+      {
         //아직 함수만 건드림, router 설계가 맞는지 확인 필요
         let form = document.forms["moim-correction"];
-        console.log(form);
-        let { data } = await axios({
-          method: "PATCH",
-          url: "/moim/moims",
-          data: {
-            moim_id: moimid,
-            title: form.title.value,
-            on_line: form.on_line.value,
-            max_people: form.max_people.value,
-            location: form.location.value,
-            represent_img: form.represent_img.value,
-            category: form.category.value,
-            expiration_date: form.expiration_date.value,
-            even_date: form.even_date.value,
-            content: form.content.value,
-          },
-        });
+        const formData = new FormData();
+        const file = document.querySelector("#represent_img");
+        console.log(file.files);
+        formData.append("moim_id", moimid);
+        formData.append("title", form.title.value);
+        formData.append("on_line", form.on_line.value);
+        formData.append("max_people", form.max_people.value);
+        formData.append("location", form.location.value);
+        formData.append("category", form.category.value);
+        formData.append("expiration_date", form.expiration_date.value);
+        formData.append("even_date", form.even_date.value);
+        formData.append("content", form.content.value);
+        
 
-        if (data.result) {
-          alert(data.Message);
-          const user = "/moim/moim_detail/" + moimid;
-          window.location.href = user;
-        } else {
-          alert(data.Message);
+        if (
+          form.title.value == "" ||
+          form.on_line.value == "" ||
+          form.expiration_date.value == "" ||
+          form.even_date.value == "" ||
+          form.location.value == "" ||
+          form.category.value == ""
+        ) {
+          alert(
+            "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
+          );
+          return;
         }
+
+        if (form.expiration_date.value > form.even_date.value) {
+          alert("모임 가입 가능일은 모임 날짜를 초과하여 설정할 수 없습니다.");
+          return;
+        }
+
+        if(form.represent_img.value != "")
+        {
+          alert("dfsafas");
+          formData.append("represent_img", file.files[0]);
+          let { data } = await axios({
+            method: "PATCH",
+            url: "/moim/moims/file",
+            data: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+    
+          if (data.result) {
+            alert(data.Message);
+            const user = "/moim/moim_detail/" + moimid;
+            window.location.href = user;
+          } else {
+            alert(data.Message);
+          }
+          
+        }
+        else
+        {
+          let { data } = await axios({
+            method: "PATCH",
+            url: "/moim/moims",
+            data: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+    
+          if (data.result) {
+            alert(data.Message);
+            const user = "/moim/moim_detail/" + moimid;
+            window.location.href = user;
+          } else {
+            alert(data.Message);
+          }
+        }
+        
+        
+        console.log(form);
       }
-      function showLocation(onOffline) {
+      function showLocation(onOffline) 
+      {
         const location_select = document.querySelector(".location_select");
 
         console.log(location_select);

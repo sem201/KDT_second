@@ -51,6 +51,12 @@ router.patch(
   controller.Moim_UPDATE
 ); //모임 정보 업데이트 - 완료
 
+router.patch(
+  "/moims/file",
+  uploadDetail.single("represent_img"),
+  controller.Moim_UPDATE_file
+); //모임 정보 업데이트 - 완료
+
 router.patch("/moimsdetail", controller.moim_detail_UPDATE);
 
 router.post("/moimsdetail", controller.MoimDetail_POST); // 모임 정보 테이블에 추가가 이뤄지면 모임 detail테이블의 정보 추가가 이뤄짐 - 완료

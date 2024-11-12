@@ -215,7 +215,6 @@ exports.Moim_UPDATE = async (req, res) => {
       expiration_date,
       even_date,
       location,
-      represent_img,
       nickname,
       category,
       moim_id,
@@ -230,8 +229,69 @@ exports.Moim_UPDATE = async (req, res) => {
         expiration_date,
         even_date,
         location,
-        represent_img,
         nickname,
+        category,
+      },
+      { where: { moim_id } }
+    );
+
+    if (moim != null) {
+      let moim_detail = MoimDetail.update(
+        {
+          content,
+        },
+        {
+          where: { moim_id },
+        }
+      );
+      if (moim_detail != null) {
+        res.json({
+          result: true,
+          Message: "moim 정보 업데이트에 성공하셨습니다.",
+        });
+      } else {
+        res.json({
+          result: false,
+          Message: "content 정보가 수정되지 않았습니다. 다시 시도해주세요.",
+        });
+      }
+    } else {
+      res.json({
+        result: false,
+        Message: "Moim 정보 수정이 이뤄지지 않았습니다.",
+      });
+    }
+  } else {
+    res.redirect("/");
+  }
+};
+
+exports.Moim_UPDATE_file = async (req, res) => {
+  console.log(req.file);
+  if (req.session.userInfo) {
+    const {
+      title,
+      on_line,
+      max_people,
+      expiration_date,
+      even_date,
+      location,
+      nickname,
+      category,
+      moim_id,
+      content,
+    } = req.body;
+
+    let moim = await Moim.update(
+      {
+        title,
+        on_line,
+        max_people,
+        expiration_date,
+        even_date,
+        location,
+        nickname,
+        represent_img: req.file.path,
         category,
       },
       { where: { moim_id } }
@@ -309,6 +369,7 @@ exports.Moims_POST = async (req, res) => {
         expiration_date,
         even_date,
         location,
+        represent_img: req.file.path,
         nickname: req.session.userInfo.nickname,
       });
       console.log(date);
