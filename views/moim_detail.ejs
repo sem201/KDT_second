@@ -20,6 +20,11 @@
       <link rel="stylesheet" href="/static/style.css" type="text/css" />
       <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
       <title>상세페이지</title>
+      <style>
+        body {    
+          overflow-x : auto;
+        }
+      </style>
   </head>
 <body>
   <header>
@@ -34,11 +39,18 @@
     </div>
   </header>
   <section>
+    <% const img = "/" + moim[0].represent_img; %> 
     <div class="moim">
-      <img src="#" alt=""><br>
+      <img src= <%=img %> alt="sdad"><br>
       <div style="width: 80vw; display: flex; justify-content: space-between;">
       <h3><%= moim[0].title %></h3>
-      <button class="dibsMoim" onclick="DibsMoim()">♡</button>
+      <button class="dibsMoim" onclick="DibsMoim()">
+          <% if(idDibs) { %>
+             ♥  
+          <% } else { %>
+            ♡
+          <% } %> 
+        </button>
         </div>
       </div>
         <table>
@@ -47,6 +59,10 @@
                 <td id="col1">장소</td>
                 <td id="col2"><%= moim[0].location %></td>
             </tr>
+            <tr>
+              <td id="col1">카테고리</td>
+              <td id="col2"><%= moim[0].category %></td>
+          </tr>
             <tr>
                 <td id="col1">일시</td>
                 <td id="col2"><%= moim[0].even_date %></td>
@@ -57,7 +73,12 @@
             </tr>
             <tr>
                 <td id="col1">모집 인원</td>
-                <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
+                <% if (Number(moim[0].max_people) != 0 ) { %>
+                  <td id="col2"><span><%= detail[0].min_people %> ~ <%= moim[0].max_people %></span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
+                <% } else { %>
+                  <td id="col2"><span><%= detail[0].min_people %> ~ 무제한</span><button type="button" onclick="showPPL('<%=moim[0].moim_id%>')">👥 <%= moimcount[0].moim_count %> </button></td>
+                <% } %>
+                
             </tr>
             <!-- 참여하는 경우 detail 정보 추가 -->
         <% if (accession == true) { %>
@@ -67,6 +88,11 @@
             </tr>
           </tbody>
         </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <!-- <div class="apply"> -->
           <% if (moim[0].nickname == user.nickname ) 
           { %>
@@ -76,6 +102,7 @@
             <button class="apply" onclick="moimset_dis('<%= moim[0].moim_id %>')">모임 탈퇴</button>
         <% } %> 
       <% } else { %>
+
              <% if (moimcount[0].moim_count < moim[0].max_people) { %>
               <button class="apply" onclick="moimset('<%= moim[0].moim_id %>')">참여하기</button>
              <% } else { %>
