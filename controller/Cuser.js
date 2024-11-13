@@ -60,7 +60,7 @@ exports.loginUser = async (req, res) => {
         });
       } else {
         res.send({
-          result: true,
+          result: false,
           message: "로그인 실패 비밀번호를 확인해주세요",
         });
       }

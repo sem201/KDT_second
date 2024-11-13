@@ -1,77 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인폼</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link rel="stylesheet" href="/static/login.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <style></style>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>로그인폼</title>
-  <link rel="stylesheet" href="/static/style.css" type="text/css" />
-<link rel="stylesheet" href="/static/login.css" type="text/css" />
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<style></style>
-
-<body>
-  <header>
-    <div class="logo">
-      <!-- 로고 -->
-      <a href="/home">MOiM</a>
-    </div>
-    <div class="setting">
-      <div>
-          <span onclick="location.href='/home'">←</span>
+  <body>
+    <header>
+      <div class="logo">
+        <!-- 로고 -->
+        <a href="/home">MOiM</a>
       </div>
-  </div>
-  </header>
-  <div>
-    <h2>Login</h2>
-    <form name="login-form">
-      <input type="text" id="id" placeholder="아이디를 입력해주세요." oninput="checkFormFilled()"/><br />
-      <input type="password" id="pw" placeholder="비밀번호를 입력해주세요." " oninput="checkFormFilled()"/><br />
-      <span></span>
-      <button type="button" name='btn' class="btn" onclick="login()" disabled>로그인하기</button>
-    </form>
-    
-    <!-- <p><a href="/profile">회원정보수정</a></p> -->
-  </div>
-  <p><a href="/signup">회원가입</a></p>
-  <script>
-    function checkFormFilled() {
-      const form = document.forms["login-form"];
-      const idFilled = form.id.value.trim() !== "";
-      const pwFilled = form.pw.value.trim() !== "";
+      <div class="setting">
+        <div>
+          <span onclick="location.href='/home'">←</span>
+        </div>
+      </div>
+    </header>
+    <div>
+      <h2>Login</h2>
+      <form name="login-form">
+        <input
+          type="text"
+          id="id"
+          placeholder="아이디를 입력해주세요."
+          oninput="checkFormFilled()"
+        /><br />
+        <input
+          type="password"
+          id="pw"
+          placeholder="비밀번호를 입력해주세요."
+          oninput="checkFormFilled()"
+        /><br />
+        <span></span>
+        <button type="button" name="btn" class="btn" onclick="login()" disabled>
+          로그인하기
+        </button>
+      </form>
 
-      // 모든 필드가 채워져 있는 경우에만 버튼 활성화
-      form.btn.disabled = !(idFilled && pwFilled);
-    }
-    function login() {
-      const form = document.forms["login-form"];
-        form.button.disabled = true;
-        axios({
-        method: "post",
-        url: "/user/login",
-        data: {
-          userid: form.id.value,
-          pw: form.pw.value,
-        },
-      }).then((res) => {
-        console.log("res", res);
-        if (res.data.result == true) {
-          document.querySelector("span").innerText = '';
-          alert(`${res.data.nickname}님, 로그인 되었습니다.`);
-          document.location.href = "/home";
-
-        } else {
-          document.querySelector("span").innerText = "아이디와 비밀번호가 일치하지 않습니다.";
-          // alert("아이디와 비밀번호가 일치하지 않습니다.");
-          form.reset();
-        }
-      });
-      }
-
-  </script>
-</body>
+      <!-- <p><a href="/profile">회원정보수정</a></p> -->
+    </div>
+    <p><a href="/signup">회원가입</a></p>
     <script>
+      function checkFormFilled() {
+        const form = document.forms["login-form"];
+        const idFilled = form.id.value.trim() !== "";
+        const pwFilled = form.pw.value.trim() !== "";
+
+        // 모든 필드가 채워져 있는 경우에만 버튼 활성화
+        form.btn.disabled = !(idFilled && pwFilled);
+      }
       function login() {
         const form = document.forms["login-form"];
         axios({
@@ -83,11 +66,13 @@
           },
         }).then((res) => {
           console.log("res", res);
-          if ((res.data.result = true)) {
+          if (res.data.result == true) {
+            // document.querySelector("span").innerText = '';
             alert(`${res.data.nickname}님, 로그인 되었습니다.`);
-            document.location.href = `/home`;
+            document.location.href = "/home";
           } else {
-            alert("아이디와 비밀번호가 일치하지 않습니다.");
+            console.log(res.data.message);
+            alert(res.data.message);
             form.reset();
           }
         });
