@@ -36,7 +36,7 @@
         <div class="form-content">
           <div>
             <label for="title">제목</label>
-            <input type="text" id="title" />
+            <input type="text" id="title" maxlength="20" />
           </div>
 
           <div>
@@ -103,7 +103,7 @@
           </div>
 
           <div>
-            <label for="expiration_date">모집 마감 기한</label><br>
+            <label for="expiration_date">모집 마감 기한</label><br />
             <input
               type="datetime-local"
               id="expiration_date"
@@ -111,7 +111,7 @@
             />
           </div>
           <div>
-            <label for="even_date ">이벤트 진행 날짜</label><br>
+            <label for="even_date ">이벤트 진행 날짜</label><br />
             <input type="datetime-local" id="even_date" name="even_date" />
           </div>
           <div>
@@ -127,7 +127,7 @@
             <img src="" alt="" id="represent_before" />
           </div>
           <div>
-            <label for="detail_info">공지사항</label><br>
+            <label for="detail_info">공지사항</label><br />
             <textarea
               id="content"
               name="content"
@@ -200,7 +200,7 @@
           }
         }
 
-        if(form.on_line.value == true){
+        if (form.on_line.value == true) {
           form.location.value = null;
         }
 

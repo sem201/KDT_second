@@ -40,7 +40,7 @@
       <div class="form-content">
       <div>
         <label for="title">제목</label>
-        <input type="text" id="title" value="<%= moim.title %>" />
+        <input type="text" id="title" value="<%= moim.title %>"/>
       </div>
       <div>
         <label for="on_line">모임 형식</label>
@@ -187,7 +187,10 @@
         formData.append("title", form.title.value);
         formData.append("on_line", form.on_line.value);
         formData.append("max_people", form.max_people.value);
-        formData.append("location", form.location.value);
+        if(form.on_line.value == false)
+        {
+          formData.append("location", form.location.value);
+        }
         formData.append("category", form.category.value);
         formData.append("expiration_date", form.expiration_date.value);
         formData.append("even_date", form.even_date.value);
@@ -199,9 +202,18 @@
           form.on_line.value == "" ||
           form.expiration_date.value == "" ||
           form.even_date.value == "" ||
-          form.location.value == "" ||
+          form.content.value == "" ||
           form.category.value == ""
+
         ) {
+          alert(
+            "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
+          );
+          return;
+        }
+
+        if(form.on_line.value == false && form.location.value == "")
+        {
           alert(
             "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
           );
@@ -212,6 +224,9 @@
           alert("모임 가입 가능일은 모임 날짜를 초과하여 설정할 수 없습니다.");
           return;
         }
+
+
+
 
         if(form.represent_img.value != "")
         {
