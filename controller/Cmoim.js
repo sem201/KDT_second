@@ -497,6 +497,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: false,
             user: userInfo,
+            idDibs: isDibs,
           });
         }
       } else {
@@ -641,10 +642,36 @@ exports.DibsMoim = async (req, res) => {
   if (req.session.userInfo) {
     try {
       const data = await Moim.findAll({
+        attributes: [
+          "moim_id",
+          "title",
+          "on_line",
+          "max_people",
+          "location",
+          "represent_img",
+          "nickname",
+          "category",
+          [
+            sequelize.fn(
+              "date_format",
+              sequelize.col("expiration_date"),
+              "%Y-%d-%m %H:%i"
+            ),
+            "expiration_date",
+          ],
+          [
+            sequelize.fn(
+              "date_format",
+              sequelize.col("even_date"),
+              "%Y-%d-%m %H:%i"
+            ),
+            "even_date",
+          ],
+        ],
         include: [
           {
             model: DibsMoim,
-            where: { "dibs_moim.user_id": "4444" },
+            where: { "user_id": req.session.userInfo.userid },
           },
         ],
       });

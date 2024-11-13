@@ -1,8 +1,16 @@
+html {
+    background-color: #E84C54;
+}
+
 body {
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+header {
+    color: white;
 }
 
 /* .header {
@@ -33,11 +41,11 @@ header>div:nth-child(2) {
 
 section {
     position: fixed;
-    top: 60px;
+    top: 50px;
 }
 
 form {
-    width: 90vw;
+    /* width: 90vw; */
     height: 85vh;
     margin: 10px;
     /* padding: 0 10px; */
@@ -49,8 +57,10 @@ form {
 }
 
 .form-content {
+    background-color: white;
     height: 80vh;
-    border: 2px solid black;
+    border: 1px solid black;
+    border-radius: 10px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -61,25 +71,16 @@ form {
     padding: 10px;
 }
 
+button {
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
 #content {
     width: 80vw;
     height: 70px;
 }
 
-label {
-    background-color: #F6D6D6; 
-}
-
-/* input, select {
-    background-color: #F6D6D6;
-    border: none;
-} */
-
-
-/* button:click {
-    background-color: #F6D6D6;
-} */
-
-#represent_img {
-    background-color: white;
+#represent_before {
+    width: 80vw;
 }

@@ -60,7 +60,7 @@ exports.loginUser = async (req, res) => {
         });
       } else {
         res.send({
-          result: true,
+          result: false,
           message: "로그인 실패 비밀번호를 확인해주세요",
         });
       }
@@ -105,6 +105,20 @@ exports.updateUser = async (req, res) => {
   if (nickname || pw) {
     if (nickname != null) {
       updateData.nickname = nickname;
+      await Review.update(
+        {
+          reviewee_nickname: nickname,
+        },
+        { where: { reviewee_nickname: req.session.userInfo.nickname } }
+      );
+      await Review.update(
+        {
+          reviewer_nickname: nickname,
+        },
+        {
+          where: { reviewer_nickname: req.session.userInfo.nickname },
+        }
+      );
     }
     if (pw != null) {
       updateData.pw = bcryptPassword(pw);
@@ -165,6 +179,7 @@ exports.dibsMoim = async (req, res) => {
       await DibsMoim.create({
         user_id: req.session.userInfo.userid,
         moim_id: moimid,
+        nickname: req.session.userInfo.nickname,
       });
       res.send({ result: true, message: "찜 목록에 추가되었습니다." });
     }
@@ -267,8 +282,26 @@ exports.updateReview = async (req, res) => {
 exports.participatingMoim = async (req, res) => {
   let result = await db.sequelize.query(
     `
-    select * from moim_set join moim on moim.moim_id = moim_set.moim_id 
-    where moim_set.nickname=:nickname and moim.even_date >now();
+    SELECT 
+      moim.moim_id,
+      moim.title,
+      moim.on_line,
+      moim.max_people,
+      moim.location,
+      moim.represent_img,
+      moim_set.nickname,
+      moim.category,
+      DATE_FORMAT(moim.expiration_date, '%Y-%d-%m %H:%i') AS expiration_date,
+      DATE_FORMAT(moim.even_date, '%Y-%d-%m %H:%i') AS even_date
+    FROM 
+      moim_set 
+    JOIN 
+      moim 
+    ON 
+      moim.moim_id = moim_set.moim_id 
+    WHERE 
+      moim_set.nickname = :nickname 
+      AND moim.even_date > NOW();
     `,
     {
       type: db.sequelize.QueryTypes.SELECT,
@@ -282,8 +315,26 @@ exports.participatingMoim = async (req, res) => {
 exports.participatedMoim = async (req, res) => {
   let result = await db.sequelize.query(
     `
-    select * from moim_set join moim on moim.moim_id = moim_set.moim_id 
-    where moim_set.nickname=:nickname and moim.even_date <now();
+    SELECT 
+      moim.moim_id,
+      moim.title,
+      moim.on_line,
+      moim.max_people,
+      moim.location,
+      moim.represent_img,
+      moim_set.nickname,
+      moim.category,
+      DATE_FORMAT(moim.expiration_date, '%Y-%d-%m %H:%i') AS expiration_date,
+      DATE_FORMAT(moim.even_date, '%Y-%d-%m %H:%i') AS even_date
+    FROM 
+      moim_set 
+    JOIN 
+      moim 
+    ON 
+      moim.moim_id = moim_set.moim_id 
+    WHERE 
+      moim_set.nickname = :nickname 
+      AND moim.even_date < NOW();
     `,
     {
       type: db.sequelize.QueryTypes.SELECT,

@@ -17,14 +17,3 @@ $(function () {
     $("#represent_before").attr("src", URL.createObjectURL(file));
   });
 });
-function uploadFile() {
-  var fileVal = $("#represent_beforee").val();
-  if (fileVal != "") {
-    var ext = fileVal.split(".").pop().toLowerCase(); //확장자분리
-    //아래 확장자가 있는지 체크
-    if ($.inArray(ext, ["jpg", "jpeg", "gif", "png"]) == -1) {
-      alert("jpg,gif,jpeg,png 파일만 업로드 할수 있습니다.");
-      return;
-    }
-  }
-}

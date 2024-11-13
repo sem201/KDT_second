@@ -10,17 +10,20 @@ const {
 } = require("../models/index");
 
 exports.index = async (req, res) => {
-  const {review} = await User.findOne({
-    where: {user_id: req.session.userInfo.userid},
+  const { review } = await User.findOne({
+    where: { user_id: req.session.userInfo.userid },
   });
 
   // console.log(review);
   const img_link = `star${Math.round(review)}.jpeg`;
-  
+
   // console.log(img_link);
-  
-  
-  res.render("index", {img_link, nickname: req.session.userInfo.nickname, user_id: req.session.userInfo.userid});
+
+  res.render("index", {
+    img_link,
+    nickname: req.session.userInfo.nickname,
+    user_id: req.session.userInfo.userid,
+  });
 };
 
 exports.index_POST = async (req, res) => {
@@ -28,18 +31,18 @@ exports.index_POST = async (req, res) => {
     const nickname = req.session.userInfo.nickname;
 
     const moimSet = await MoimSet.findAll({
-      where: {nickname: nickname},
+      where: { nickname: nickname },
       // group: "nickname"
     });
     console.log(moimSet);
 
     const moimId = [];
-    for(let i=0; i<moimSet.length; i++){
+    for (let i = 0; i < moimSet.length; i++) {
       moimId.push(moimSet[i].moim_id);
     }
-    
+
     const data = await Moim.findAll({
-      where: {moim_id: moimId}
+      where: { moim_id: moimId },
     });
 
     const recommend = await db.sequelize.query(
@@ -58,10 +61,10 @@ exports.index_POST = async (req, res) => {
       }
     );
 
-    if(data && recommend) {
-      res.json({data: data, recommend: recommend});
+    if (data && recommend) {
+      res.json({ data: data, recommend: recommend });
     } else {
-      res.json({message: "모임 정보가 없습니다."});
+      res.json({ message: "모임 정보가 없습니다." });
     }
   } catch (error) {
     res.json({
@@ -69,10 +72,8 @@ exports.index_POST = async (req, res) => {
       Message: "모임 정보 불러오기에 실패하였습니다!",
     });
     console.log(error);
-    
   }
 };
-
 
 exports.login = (req, res) => {
   res.render("login");

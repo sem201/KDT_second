@@ -34,7 +34,7 @@ body {
     justify-content: center;
     margin: 0;
     height: 100vh;
-    align-content: center;
+    align-content: end;
 }
 
 .logo {
@@ -54,10 +54,10 @@ body {
     height: 150px;
     min-width: 170px;
     min-height: 150px;
-    background-color: #f7f99f;
+    background-color: #1E3E62;
     border-radius: 25px;
     margin: 5px;
-    box-shadow: 0px 4px 5px 2px rgba(128, 128, 128, 0.3);
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.3);
     /* position:relative; */
     
 }
@@ -69,8 +69,8 @@ body {
     border-radius: 100%;
     z-index: 1;
     position: relative;
-    left: 20px;
-    top: 20px;
+    left: 10px;
+    top: 10px;
     border: 0.5px solid black;
 }
 
@@ -78,9 +78,11 @@ body {
     z-index: 1;
     position: relative;
     left: 20px;
-    top: 50px;
+    top: 40px;
     font-size: 20px;
     font-weight: 700;
+    color: #EEEEEE;
+    width: 130px;
 }
 
 #more_info {
@@ -98,7 +100,7 @@ body {
 
 .my_page>#more_info {
     left: 140px;
-    top: -70px;
+    top: -80px;
 }
 
 .button {
@@ -111,16 +113,16 @@ body {
     height: 70px;
     min-width: 170px;
     min-height: 70px;
-    background-color: #F6D6D6;
+    background-color: #E74C54;
     border-radius: 25px;
     margin: 5px;
-    box-shadow: 0px 4px 5px 2px rgba(128, 128, 128, 0.3);
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.3);
 }
 
 #icon {
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color: #EEEEEE;
     border-radius: 100%;
     z-index: 1;
     position: relative;
@@ -138,6 +140,7 @@ body {
     position: relative;
     left: 45px;
     top: -5px;
+    color: #EEEEEE;
 }
 
 .moim_list_page {
@@ -145,10 +148,10 @@ body {
     height: 70px;
     min-width: 170px;
     min-height: 70px;
-    background-color: #88D66C;
+    background-color: #E84C54;
     border-radius: 25px;
     margin: 5px;
-    box-shadow: 0px 4px 5px 2px rgba(128, 128, 128, 0.3);
+    box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
 }
 
 .row1 {
@@ -159,27 +162,28 @@ body {
 
 .recommend {
     width: 350px;
-    height: 170px;
+    height: 200px;
     min-width: 170px;
     min-height: 170px;
-    background-color: #7BD3EA;
-    border-radius: 20px;
+    background-color: #EEEFEE;
+    border-radius: 10px;
     margin: 5px;
-    box-shadow: 0px 4px 5px 2px rgba(128, 128, 128, 0.3);
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3)
 }
 
 h3{
     position: relative;
-    left: 20px;
-    margin: 5px 5px 0 5px;
+    /* left: 20px; */
+    margin: 5px 10px;
+    font-weight: 300;
 }
 
 .contents_scroll {
-    overflow-y: scroll;
+    overflow: scroll;
     width: 350px;
-    height: 120px;
+    /* height: 160px; */
     position: relative;
-    top: -20px;
+    top: -30px;
     display: flex;
     flex-direction: row;
 }
@@ -190,27 +194,31 @@ h3{
 }
 
 .moim_content {
-    width: 120px;
-    height: 110px;
-    background-color: white;
-    border-radius: 10px;
-    margin: 5px;
-    justify-items: center;
+    width: 150px;
+    height: 150px;
+    /* background-color: rgb(158, 157, 157); */
+    /* border: 0.5px solid black; */
+    margin: 10px;
+    flex-shrink: 0;
 }
 
 .moim_content>p {
     width: 100px;
     height: 20px;
-    position: relative;
-    margin: 3px 5px;
+    padding: 3px;
+    position: absolute;
     font-weight: 500;
     font-size: 15px;
     overflow: auto;
+    z-index: 1;
+    bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.654);
 }
 
 .moim_content>img {
-    width: 100px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
 }
 
 .recommend>#more_info {
@@ -220,13 +228,13 @@ h3{
 
 .attending {
     width: 350px;
-    height: 170px;
+    height: 200px;
     min-width: 170px;
     min-height: 170px;
-    background-color: #7BD3EA;
-    border-radius: 20px;
+    background-color: #EEEFEE;
+    border-radius: 10px;
     margin: 5px;
-    box-shadow: 0px 4px 5px 2px rgba(128, 128, 128, 0.3);
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
 }
 
 .attending>#more_info {
@@ -241,5 +249,6 @@ h3{
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 

@@ -1,3 +1,11 @@
+html {
+    background-color: #1E3E62;
+}
+
+.logo>a, .setting{
+    color: #EEEEEE;
+}
+
 body {
     height: 100vh;
     width: 100vw;
@@ -14,7 +22,7 @@ section {
 
 .content-box {
     border-radius: 25px;
-    width: 90vw;
+    width: 95vw;
     height: 85vh;
     background-color: white;
     border: 1px solid black;
@@ -24,7 +32,7 @@ section {
     display: flex;
     justify-content: space-between;
     padding: 30px 0;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #1E3E62;
 }
 
 .profile>img {
@@ -73,25 +81,30 @@ section {
     line-height: 22px;
     width: 80px;
     height: 20px;
-    background-color: #7BD3EA;
+    background-color: lightgray;
     border-radius: 5px;
     border: 0.5px solid black;
     margin: 5px;
+    color: black;
 }
+
+.button-box .active {
+    background-color: #1E3E62;
+    color: #EEEEEE;
+  }
 
 .moim-contents {
     height: calc(100% - 170px);
     overflow-y: hidden;
 }
 
-.moims_list {
+/* .moims_list {
     max-height: 600px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    overflow-y: scroll;
-}
+} */
 
 /* .row {
     width: 100%;
@@ -99,7 +112,7 @@ section {
     justify-content: space-evenly;
 } */
 
-table {
+/* table {
     width: 100%;
 }
 
@@ -110,29 +123,29 @@ tr {
 td {
     width: 50%;
     height: 150px;
-}
+} */
 
-.content>img {
-    width: 80%;
-    height: 70%;
-    background-color: #7BD3EA;
+/* .content>img {
+    width: 100%;
+    height: 100%;
 }
 
 .title {
     width: 80%;
     text-align: start;
     margin: 5px 0;
+    position: relative;
+    z-index: 1;
 }
 
 .content {
-    /* width: 100%; */
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-}
+} */
 
 .moim_table {
     width: 100%;
@@ -165,4 +178,116 @@ form>h3 {
     position: absolute;
     right: 10px;
     font-size: 20px;
+}
+
+table {
+    /* border-top: 3px solid black;
+    border-bottom: 3px solid black; */
+    width: 100%;
+}
+
+tbody {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: calc(90vh - 130px);
+    /* overflow-y: scroll; */
+  }
+
+  table tbody tr {
+    display: table;
+    width: 100%;
+  }
+
+td {
+    width: 100%;
+    height: 120px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.empty_td {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.moim_infoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 3px;
+}
+
+#moim_img {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+}
+
+.moim_imgBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moim_infoBox, .moim_imgBox {
+    width: 50%;
+}
+
+
+li {
+    list-style: none;
+    padding: 5px 0;
+}
+
+
+/* pop up */
+.location_item, .category_item {
+    padding: 10px;
+    border-top: 0.5px solid rgb(0, 0, 0);
+    text-align: center;
+}
+
+.location_item:click {
+    background-color: white;
+}
+
+.online_true {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    background-color: #E84C54;
+    position: relative;
+    /* z-index: 10; */
+    left: 65px;
+    top: 35px;
+    line-height: 40px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.online_false {
+    display: none;
+}
+
+.moim_insert_button {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    position: fixed;
+    bottom: 5px;
+    right: calc(50vw - 25px);
+    /* right: 5px; */
+    background-color: #E84C54;
+    text-align: center;
+    line-height: 50px;
+    font-size: 40px;
+    color: #EEEEEE;
 }

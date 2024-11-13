@@ -21,9 +21,9 @@
       <link rel="stylesheet" href="/static/moim_detail.css" type="text/css" />
       <title>상세페이지</title>
       <style>
-        body {    
+        /* body {    
           overflow-x : auto;
-        }
+        } */
       </style>
   </head>
 <body>
@@ -34,7 +34,7 @@
     </div>
     <div class="setting">
         <div>
-            <span onclick="location.href='/moim/moims'">←</span>
+            <span onclick="location.href='/moim/moims';">←</span>
         </div>
     </div>
   </header>
@@ -55,10 +55,12 @@
       </div>
         <table>
           <tbody>
-            <tr>
+            <% if (!moim[0].on_line) { %>
+              <tr>
                 <td id="col1">장소</td>
                 <td id="col2"><%= moim[0].location %></td>
-            </tr>
+              </tr>
+            <% } %>
             <tr>
               <td id="col1">카테고리</td>
               <td id="col2"><%= moim[0].category %></td>

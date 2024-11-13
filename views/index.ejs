@@ -9,6 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <link rel="stylesheet" href="/static/index.css" type="text/css" />
+<link rel="stylesheet" href="/static/style.css" type="text/css" />
 
 <body>
   <header>
@@ -32,19 +33,19 @@
         <div class="moim_set_page">
           <!-- 모임글 작성하기 -->
           <div id="icon">✏️</div>
-          <div id="text" onclick="location.href = '/moim/moim_insert'">모임글 작성하기</div>
+          <div id="text" onclick="location.href = '/moim/moim_insert'">모임글쓰기</div>
         </div>
         <div class="moim_list_page" onclick="location.href='moim/moims'">
           <!-- 모임 리스트 보기 -->
           <div id="icon">👥</div>
-          <div id="text">모임 리스트</div>
+          <div id="text">모임 더보기</div>
         </div>
       </div>
     </div>
     <div class="recommend">
       <h3><%= nickname %>님을 위한 추천</h3>
       <!-- + 버튼 -->
-      <div id="more_info" onclick="location.href = '/moim/moims/recommend'">+</div>
+      <div id="more_info" style="background-color: #00000000;"></div>
       <div class="contents_scroll">
       </div>
     </div>
