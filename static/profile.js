@@ -13,8 +13,15 @@ function selectMoim(src) {
         participatingMoim();
     } else if(src.className.includes("attended")){
         participatedMoim();
+    } else if(src.className.includes("dibs_moims")){
+        dibsMoim();
     }
   }
+
+async function dibsMoim(){
+    
+}
+
 
 async function participatingMoim() {
     const { data } = await axios({
