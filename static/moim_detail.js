@@ -2,10 +2,20 @@ async function showPPL(moimid) {
   const listOfppl = document.createElement("div");
   listOfppl.className = "listOfppl";
 
-  const turnoff = document.createElement("div");
-  turnoff.className = "turnOff";
-  turnoff.innerHTML = "×";
-  listOfppl.append(turnoff);
+  const div = document.createElement("div");
+  div.style.cssText = "display: flex; justify-content: space-between; align-items: center;"
+  div.innerHTML = "<div class='title'>참여자 정보</div><div class='turnOff'>×</div>";
+  listOfppl.append(div);
+
+  // const turnoff = document.createElement("div");
+  // turnoff.className = "turnOff";
+  // turnoff.innerHTML = "×";
+  // listOfppl.append(turnoff);
+
+  // const title = document.createElement("div");
+  // title.className = "title";
+  // title.innerText = "참여자 정보";
+  // listOfppl.append(title);
 
   const { data } = await axios({
     method: "POST",
@@ -15,15 +25,31 @@ async function showPPL(moimid) {
     },
   });
 
+  console.log(data);
+  
+
   for (let item of data.list) {
     let nickname = document.createElement("div");
     nickname.className = "nickname"
     nickname.innerText = item.nickname;
+    nickname.addEventListener('click', () => {
+      location.href = "/user/review"
+    })
     listOfppl.append(nickname);
   }
 
   const body = document.querySelector("body");
   body.append(listOfppl);
+
+  // document.querySelector("button").onclick(() => {
+  //   body.remove(listOfppl);
+  // });
+  // document.querySelector(".apply").onclick(() => {
+  //   body.remove(listOfppl);
+  // });
+  // document.querySelector(".setting").onclick(() => {
+  //   body.remove(listOfppl);
+  // });
 
   const button = document.querySelector("button");
   const setting = document.querySelector(".setting");
@@ -32,12 +58,13 @@ async function showPPL(moimid) {
   setting.style.cssText = "pointer-events: none;";
   apply.style.cssText = "pointer-events: none;";
 
-  listOfppl.onclick(() => {
+
+  document.querySelector(".turnOff").addEventListener('click', () => {
     listOfppl.remove();
     button.style.cssText = "pointer-events: all;";
     setting.style.cssText = "pointer-events: all;";
     apply.style.cssText = "pointer-events: all;";
-  });
+  })
 }
 
 async function DibsMoim() {

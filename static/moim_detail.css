@@ -160,16 +160,20 @@ td > button {
     width: 70vw;
     height: 50vh;
     bottom: 25vh;
-    background-color: aqua;
+    background-color: #EEEEEE;
+    border: 1px solid black;
     z-index: 1;
 }
 
-.turnOff {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 25px;
+.nickname {
+    margin: 10px;
 }
+
+.turnOff, .title {
+    font-size: 25px;
+    margin: 10px;
+}
+
 
 .apply {
     position: fixed;
