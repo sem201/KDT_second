@@ -105,6 +105,20 @@ exports.updateUser = async (req, res) => {
   if (nickname || pw) {
     if (nickname != null) {
       updateData.nickname = nickname;
+      await Review.update(
+        {
+          reviewee_nickname: nickname,
+        },
+        { where: { reviewee_nickname: req.session.userInfo.nickname } }
+      );
+      await Review.update(
+        {
+          reviewer_nickname: nickname,
+        },
+        {
+          where: { reviewer_nickname: req.session.userInfo.nickname },
+        }
+      );
     }
     if (pw != null) {
       updateData.pw = bcryptPassword(pw);
@@ -165,6 +179,7 @@ exports.dibsMoim = async (req, res) => {
       await DibsMoim.create({
         user_id: req.session.userInfo.userid,
         moim_id: moimid,
+        nickname: req.session.userInfo.nickname,
       });
       res.send({ result: true, message: "찜 목록에 추가되었습니다." });
     }
@@ -296,7 +311,6 @@ exports.participatingMoim = async (req, res) => {
   res.send(result);
 };
 
-
 // 참여한 모임 가져오기
 exports.participatedMoim = async (req, res) => {
   let result = await db.sequelize.query(
@@ -329,7 +343,6 @@ exports.participatedMoim = async (req, res) => {
   );
   res.send(result);
 };
-
 
 // 모집글 테스트
 exports.meeting = async (req, res) => {
