@@ -248,45 +248,96 @@ async function showMoim() {
                         }
                     }
 
-                    if (data[i].location === null) {
-                        rows += `
-                        <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
-                            <td>
-                                <div class="moim_infoBox">
-                                    <div class="moim_title">
-                                        <p style="font-size: 20px; font-weight: 700;">${data[i].title}</p><br>
-                                        <span>(${count}/${data[i].max_people})</span>
+                    if (window.screen.width < 650) {
+                        if (data[i].location === null) {
+                            rows += `
+                            <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
+                                <td>
+                                    <div class="moim_infoBox">
+                                        <div class="moim_title">
+                                            <p style="font-size: 20px; font-weight: 700;">${data[i].title}</p><br>
+                                            <span>(${count}/${data[i].max_people})</span>
+                                        </div>
+                                        <div class="locationDate">
+                                            <span><br>${data[i].even_date}</span>
+                                        </div>
                                     </div>
-                                    <div class="locationDate">
-                                        <span><br>${data[i].even_date}</span>
+                                    <div class="moim_imgBox">
+                                        <img src="${img}" alt="" id="moim_img" name="img_${i}">
+                                        <div class="online_${data[i].on_line}">on</div>
                                     </div>
-                                </div>
-                                <div class="moim_imgBox">
-                                    <img src="${img}" alt="" id="moim_img" name="img_${i}">
-                                    <div class="online_${data[i].on_line}">on</div>
-                                </div>
-                            </td>
-                        </tr>`;
+                                </td>
+                            </tr>`;
+                        } else {
+                            rows += `
+                            <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
+                                <td>
+                                    <div class="moim_infoBox">
+                                        <div class="moim_title">
+                                            <div style="font-size: 18px; font-weight: 700;">${data[i].title}</div>
+                                            <div>(${count}/${data[i].max_people})</div>
+                                        </div>
+                                        <div class="locationDate">
+                                            <span>${data[i].location}</span>
+                                            <span><br>${data[i].even_date}</span>
+                                        </div>
+                                    </div>
+                                    <div class="moim_imgBox">
+                                        <img src="${img}" alt="" id="moim_img" name="img_${i}">
+                                        <div class="online_${data[i].on_line}">on</div>
+                                    </div>
+                                </td>
+                            </tr>`;
+                        }
                     } else {
-                        rows += `
-                        <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
-                            <td>
-                                <div class="moim_infoBox">
-                                    <div class="moim_title">
-                                        <div style="font-size: 18px; font-weight: 700;">${data[i].title}</div>
-                                        <div>(${count}/${data[i].max_people})</div>
+                        if (data[i].location === null) {
+                            if (i % 2 == 0) {
+                                rows += "<tr>";
+                            }
+                            rows += `
+                                <td id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
+                                    <div class="moim_infoBox">
+                                        <div class="moim_title">
+                                            <p style="font-size: 20px; font-weight: 700;">${data[i].title}</p><br>
+                                            <span>(${count}/${data[i].max_people})</span>
+                                        </div>
+                                        <div class="locationDate">
+                                            <span><br>${data[i].even_date}</span>
+                                        </div>
                                     </div>
-                                    <div class="locationDate">
-                                        <span>${data[i].location}</span>
-                                        <span><br>${data[i].even_date}</span>
+                                    <div class="moim_imgBox">
+                                        <img src="${img}" alt="" id="moim_img" name="img_${i}">
+                                        <div class="online_${data[i].on_line}">on</div>
                                     </div>
-                                </div>
-                                <div class="moim_imgBox">
-                                    <img src="${img}" alt="" id="moim_img" name="img_${i}">
-                                    <div class="online_${data[i].on_line}">on</div>
-                                </div>
-                            </td>
-                        </tr>`;
+                                </td>`;
+                            if ((i + 1) % 2 == 0) {
+                                rows += "</tr>";
+                            }
+                        } else {
+                            if (i % 2 == 0) {
+                                rows += "</tr>";
+                            }
+                            rows += `
+                                <td  id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
+                                    <div class="moim_infoBox">
+                                        <div class="moim_title">
+                                            <div style="font-size: 18px; font-weight: 700;">${data[i].title}</div>
+                                            <div>(${count}/${data[i].max_people})</div>
+                                        </div>
+                                        <div class="locationDate">
+                                            <span>${data[i].location}</span>
+                                            <span><br>${data[i].even_date}</span>
+                                        </div>
+                                    </div>
+                                    <div class="moim_imgBox">
+                                        <img src="${img}" alt="" id="moim_img" name="img_${i}">
+                                        <div class="online_${data[i].on_line}">on</div>
+                                    </div>
+                                </td>`;
+                            if ((i + 1) % 2 == 0) {
+                                rows += "</tr>";
+                            }
+                        }
                     }
 
                     count = 0;

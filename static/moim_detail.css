@@ -64,14 +64,16 @@ section {
     align-items: center;
     height: 100%;
     overflow-y: scroll;
+    max-width: 600px;
 }
 
 .moim {
   justify-items: center;
+  max-width: 600px;
 }
 
 .moim>div {
-    width: 80vw; 
+    width: 100%; 
     height: 50px;
     display: flex; 
     justify-content: space-between;
@@ -85,7 +87,7 @@ section {
 
 .moim>img {
     width: 80vw;
-    height: 40vh;
+    /* height: 40vh; */
     /* max-width: 430px; */
     padding: 0 10px;
 }
@@ -120,7 +122,7 @@ section {
 
 table {
   border-collapse: collapse;
-  width: 80vw;
+  width: 100%;
 }
 
 tbody {
@@ -226,3 +228,14 @@ td > button {
     background-color: #1E3E62;
     color: white;
 }
+
+@media screen and (min-height: 660px) {
+    body {
+        top: 80px;
+    }
+
+    .moim>img {
+        max-width: 600px;
+    }
+}
+

@@ -163,6 +163,7 @@ td {
     position: fixed;
     z-index: 1;
     top: 25vh;
+    max-width: 400px;
 }
 
 form {
