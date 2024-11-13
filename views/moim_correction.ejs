@@ -128,8 +128,6 @@
           type="datetime-local"
           id="expiration_date"
           name="expiration_date"
-          max="2054-11-20T21:00"
-          min="2024-11-20T21:00"
           value="<%= moim.expiration_date %>"
         />
       </div>
@@ -139,8 +137,6 @@
           type="datetime-local"
           id="even_date"
           name="even_date"
-          max="2054-11-20T21:00"
-          min="2024-11-20T21:00"
           value="<%= moim.even_date %>"
         />
       </div>
@@ -180,18 +176,6 @@
     </div>
     </form>
     <script>
-      function showLocation(onOffline) {
-        const location_select = document.querySelector(".location_select");
-
-        console.log(location_select);
-
-        if (onOffline === "offline") {
-          location_select.style.display = "block";
-        } else if (onOffline === "online") {
-          location_select.style.display = "none";
-        }
-      }
-
       async function moim_correction(moimid) 
       {
         //아직 함수만 건드림, router 설계가 맞는지 확인 필요

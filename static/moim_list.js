@@ -254,7 +254,7 @@ async function showMoim() {
                             <td>
                                 <div class="moim_infoBox">
                                     <div class="moim_title">
-                                        <span style="font-size: 20px; font-weight: 700;">${data[i].title}</span><br>
+                                        <p style="font-size: 20px; font-weight: 700;">${data[i].title}</p><br>
                                         <span>(${count}/${data[i].max_people})</span>
                                     </div>
                                     <div class="locationDate">
@@ -273,8 +273,8 @@ async function showMoim() {
                             <td>
                                 <div class="moim_infoBox">
                                     <div class="moim_title">
-                                        <span style="font-size: 20px; font-weight: 700;">${data[i].title}</span><br>
-                                        <span>(${count}/${data[i].max_people})</span>
+                                        <div style="font-size: 18px; font-weight: 700;">${data[i].title}</div>
+                                        <div>(${count}/${data[i].max_people})</div>
                                     </div>
                                     <div class="locationDate">
                                         <span>${data[i].location}</span>
