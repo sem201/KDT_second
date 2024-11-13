@@ -1,19 +1,26 @@
 function selectMoim(src) {
-  // Remove 'active' class from all items in button-box
-  document
-    .querySelectorAll(".button-box div")
-    .forEach((el) => el.classList.remove("active"));
 
-  // Add 'active' class to the clicked element
-  src.classList.add("active");
-
-  // Call functions based on the clicked element's class
-  if (src.className.includes("attending")) {
-    participatingMoim();
-  } else if (src.className.includes("attended")) {
-    participatedMoim();
+    // Remove 'active' class from all items in button-box
+    document.querySelectorAll('.button-box div').forEach(el => el.classList.remove('active'));
+    
+    // Add 'active' class to the clicked element
+    src.classList.add('active');
+    
+    // Call functions based on the clicked element's class
+    if(src.className.includes("attending")){
+        participatingMoim();
+    } else if(src.className.includes("attended")){
+        participatedMoim();
+    } else if(src.className.includes("dibs_moims")){
+        dibsMoim();
+    }
   }
 }
+
+async function dibsMoim(){
+    
+}
+
 
 async function participatingMoim() {
   const { data } = await axios({
