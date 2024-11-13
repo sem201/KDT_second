@@ -2,6 +2,7 @@ function move(moim_id) {
   const data = "/moim/moim_detail/" + moim_id;
   window.location.href = data;
 }
+
 $(function () {
   $("input:file").change(function () {
     const file = document.querySelector("#represent_img").files[0];
