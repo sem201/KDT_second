@@ -16,9 +16,10 @@ async function showPPL(moimid) {
   });
 
   for (let item of data.list) {
-    let items = document.createElement("div");
-    items.innerText = item.nickname;
-    listOfppl.append(items);
+    let nickname = document.createElement("div");
+    nickname.className = "nickname"
+    nickname.innerText = item.nickname;
+    listOfppl.append(nickname);
   }
 
   const body = document.querySelector("body");

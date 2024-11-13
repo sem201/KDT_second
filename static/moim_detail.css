@@ -148,9 +148,11 @@ td {
 td > button {
   /* width: 30px; */
   height: 30px;
-  border-radius: 10%;
+  border-radius: 10px;
   border: none;
   margin: 0 5px;
+  background-color: #adadad;
+  color: white;
 }
 
 .listOfppl {
@@ -178,7 +180,8 @@ td > button {
     font-size: 20px;
     text-align: center;
     line-height: 60px;
-    background-color: #88d66c;
+    background-color: #1E3E62;
+    color: white;
 }
 
 .apply3 {
@@ -190,7 +193,8 @@ td > button {
   font-size: 20px;
   text-align: center;
   line-height: 60px;
-  background-color: gray;
+  background-color: #1E3E62;
+  color: white;
 }
 
 .apply1 {
@@ -202,7 +206,8 @@ td > button {
     font-size: 20px;
     text-align: center;
     line-height: 60px;
-    background-color: #88d66c;
+    background-color: #1E3E62;
+    color: white;
 }
 
 .apply2 {
@@ -214,5 +219,6 @@ td > button {
     font-size: 20px;
     text-align: center;
     line-height: 60px;
-    background-color: #88d66c;
+    background-color: #1E3E62;
+    color: white;
 }

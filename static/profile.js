@@ -11,14 +11,21 @@ function selectMoim(src) {
         participatingMoim();
     } else if(src.className.includes("attended")){
         participatedMoim();
-    } else if(src.className.includes("dibs_moims")){
+    } else if(src.className.includes("dibs_moim")){
         dibsMoim();
     }
-  }
 }
 
+
 async function dibsMoim(){
+    const {data} = await axios({
+        method: "GET",
+        url: "/moim/moims/dibs",
+    });
+
+    console.log(data.data);
     
+    showTable(data.data);
 }
 
 
@@ -104,7 +111,6 @@ function showTable(data) {
                                 <div class="moim_infoBox">
                                     <div class="moim_title">
                                         <span style="font-size: 20px; font-weight: 700;">${data[i].title}</span><br>
-                                        <span>(${count}/${data[i].max_people})</span>
                                     </div>
                                     <div class="locationDate">
                                         <span>${data[i].location}</span>
@@ -121,7 +127,14 @@ function showTable(data) {
 
     count = 0;
   }
-  tbody.innerHTML = rows;
+
+  if(data.length > 0){
+    tbody.innerHTML = rows;
+  } else {
+    tbody.innerHTML =`<tr><td style="border: 0;">해당하는 모임이 존재하지 않습니다.</td></tr>`
+  }
+
+
 }
 
 // function buttonChangeClr(){

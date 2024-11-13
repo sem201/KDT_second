@@ -32,7 +32,6 @@
           <button type="button" onclick="deleteUser()">계정 삭제</button>
         </div>
       </form>
-
       <script>
         function updateUser() {
           const form = document.forms["update-user-form"];
@@ -55,10 +54,8 @@
               console.error("Update user information error", error)
             );
         }
-      </script>
-    </section>
-    <script>
-      function deleteUser() {
+        
+        function deleteUser() {
         if (confirm("정말 계정을 삭제하시겠습니까?")) {
           axios
             .delete("/user/delete")
@@ -76,6 +73,7 @@
             );
         }
       }
-    </script>
+      </script>
+    </section>
   </body>
 </html>
