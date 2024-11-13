@@ -1,82 +1,79 @@
-
-
-
 function selectMoim(src) {
-    // Remove 'active' class from all items in button-box
-    document.querySelectorAll('.button-box div').forEach(el => el.classList.remove('active'));
-    
-    // Add 'active' class to the clicked element
-    src.classList.add('active');
-    
-    // Call functions based on the clicked element's class
-    if(src.className.includes("attending")){
-        participatingMoim();
-    } else if(src.className.includes("attended")){
-        participatedMoim();
-    }
+  // Remove 'active' class from all items in button-box
+  document
+    .querySelectorAll(".button-box div")
+    .forEach((el) => el.classList.remove("active"));
+
+  // Add 'active' class to the clicked element
+  src.classList.add("active");
+
+  // Call functions based on the clicked element's class
+  if (src.className.includes("attending")) {
+    participatingMoim();
+  } else if (src.className.includes("attended")) {
+    participatedMoim();
   }
+}
 
 async function participatingMoim() {
-    const { data } = await axios({
-        method: "GET",
-        url: "/user/participating",
-    });
+  const { data } = await axios({
+    method: "GET",
+    url: "/user/participating",
+  });
 
-    console.log(data);
+  console.log(data);
 
-    showTable(data);
+  showTable(data);
 }
 
 async function participatedMoim() {
-    const { data } = await axios({
-        method: "GET",
-        url: "/user/participated",
-    })
+  const { data } = await axios({
+    method: "GET",
+    url: "/user/participated",
+  });
 
-    console.log(data);
+  console.log(data);
 
-    showTable(data);
+  showTable(data);
 }
 
-
 function showTable(data) {
-    // const tbody = document.querySelector("tbody");
+  // const tbody = document.querySelector("tbody");
 
-    // if (data) {
-    //   let row = ``;
+  // if (data) {
+  //   let row = ``;
 
-    //   for (let i = 0; i < data.length; i++) {
-    //     if (i % 2 === 0) {
-    //       row += `<tr>`;
-    //     }
-    //     row += `<td>
-    //                 <div class="content" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
-    //                   <div class="title">${data[i].title}</div>
-    //                   <img src="${data[i].represent_img}" alt="" />
-    //                 </div>
-    //               </td>`;
+  //   for (let i = 0; i < data.length; i++) {
+  //     if (i % 2 === 0) {
+  //       row += `<tr>`;
+  //     }
+  //     row += `<td>
+  //                 <div class="content" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
+  //                   <div class="title">${data[i].title}</div>
+  //                   <img src="${data[i].represent_img}" alt="" />
+  //                 </div>
+  //               </td>`;
 
-    //     if ((i + 1) % 2 === 0) {
-    //       row += `</tr>`;
-    //     }
-    //   }
-    //   if (data.length % 2 != 0) {
-    //     row += `<td></td><tr>`;
-    //   }
-    //   console.log(row);
-    //   tbody.innerHTML = row;
-    // }
+  //     if ((i + 1) % 2 === 0) {
+  //       row += `</tr>`;
+  //     }
+  //   }
+  //   if (data.length % 2 != 0) {
+  //     row += `<td></td><tr>`;
+  //   }
+  //   console.log(row);
+  //   tbody.innerHTML = row;
+  // }
 
-    const tbody = document.querySelector("tbody");
-    let rows = "";
+  const tbody = document.querySelector("tbody");
+  let rows = "";
 
-    for (let i = 0; i < data.length; i++) {
-        let count = 0;
-        let img = "/" + data[i].represent_img;
+  for (let i = 0; i < data.length; i++) {
+    let count = 0;
+    let img = "/" + data[i].represent_img;
 
-
-        if (data[i].location === null) {
-            rows += `
+    if (data[i].location === null) {
+      rows += `
                         <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
                             <td>
                                 <div class="moim_infoBox">
@@ -93,8 +90,8 @@ function showTable(data) {
                                 </div>
                             </td>
                         </tr>`;
-        } else {
-            rows += `
+    } else {
+      rows += `
                         <tr id="${data[i].moim_id}" onclick="location.href='/moim/moim_detail/${data[i].moim_id}'">
                             <td>
                                 <div class="moim_infoBox">
@@ -113,12 +110,11 @@ function showTable(data) {
                                 </div>
                             </td>
                         </tr>`;
-        }
-
-        count = 0;
-
     }
-    tbody.innerHTML = rows;
+
+    count = 0;
+  }
+  tbody.innerHTML = rows;
 }
 
 // function buttonChangeClr(){
