@@ -42,7 +42,7 @@
         <label for="title">제목</label>
         <input type="text" id="title" value="<%= moim.title %>"/>
       </div>
-      <div>
+      <div class="inactive">
         <label for="on_line">모임 형식</label>
         <% if (moim.on_line == true) { %>
           <input type="radio" name="on_line" id="on_line" value="true" onchange="showLocation('online')" checked/>
@@ -80,7 +80,8 @@
         </select>
       </div>
       <% } %>
-      <div>
+
+      <div class="inactive">
         <label for="min_people">최소 인원수</label>
         <% if (detail.min_people != null) { %>
           <input
@@ -101,7 +102,7 @@
           <% } %>
       </div>
   
-      <div>
+      <div class="inactive">
         <label for="max_people">최대 인원수</label>
         <% if (moim.max_people != 0) { %>
           <input

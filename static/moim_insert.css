@@ -1,5 +1,5 @@
 html {
-    background-color: #E84C54;
+    background-color: #1E3E62;
 }
 
 body {
@@ -83,4 +83,14 @@ button {
 
 #represent_before {
     width: 80vw;
+}
+
+.inactive {
+    color: lightgray;
+}
+
+.inactive>input {
+    background-color: #e9e9e9;
+    border: 0.5px solid black;
+    color: #656565;
 }
