@@ -254,3 +254,36 @@ h3{
     margin-bottom: 30px;
 }
 
+
+
+@media screen and (min-width: 550px) {
+    .main_content {
+      flex-direction: row-reverse;
+    }
+
+    .row1 {
+        flex-direction: column;
+    }
+
+    body {
+        align-content: center;
+    }
+
+    /* #more_info {
+        top: -27px;
+        left: 396px;
+    } */
+
+    .contents_scroll {
+        width: 50vw;
+    }
+
+    .recommend, .attending {
+        width: 50vw;
+        max-width: 600px;
+    }
+
+    .my_page {
+        width: 30vw;
+    }
+  }
