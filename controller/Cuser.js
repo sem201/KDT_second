@@ -220,7 +220,8 @@ exports.review = async (req, res) => {
 
 // review 점수 주기
 exports.postReview = async (req, res) => {
-  const { moim_id, reviewee_nickname, score } = req.body;
+  const { moim_id, reviewee_nickname } = req.params;
+  const { score } = req.body;
   const reviewer_nickname = req.session.userInfo.nickname;
   try {
     await Review.create({

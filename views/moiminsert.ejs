@@ -36,7 +36,7 @@
         <div class="form-content">
           <div>
             <label for="title">제목</label>
-            <input type="text" id="title" maxlength="20" />
+            <input type="text" id="title" maxlength="20" required />
           </div>
 
           <div>
@@ -134,6 +134,7 @@
               rows="10"
               cols="100"
               placeholder="내용을 입력해주세요?"
+              required
             ></textarea>
           </div>
         </div>
@@ -161,6 +162,10 @@
 
       async function moim_insert() {
         let form = document.forms["moim-insert"];
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
         console.log(form.on_line.value);
         const on_line = [];
         form.on_line.forEach((element) => {

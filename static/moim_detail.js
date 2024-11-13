@@ -3,8 +3,10 @@ async function showPPL(moimid) {
   listOfppl.className = "listOfppl";
 
   const div = document.createElement("div");
-  div.style.cssText = "display: flex; justify-content: space-between; align-items: center;"
-  div.innerHTML = "<div class='title'>참여자 정보</div><div class='turnOff'>×</div>";
+  div.style.cssText =
+    "display: flex; justify-content: space-between; align-items: center;";
+  div.innerHTML =
+    "<div class='title'>참여자 정보</div><div class='turnOff'>×</div>";
   listOfppl.append(div);
 
   // const turnoff = document.createElement("div");
@@ -26,15 +28,18 @@ async function showPPL(moimid) {
   });
 
   console.log(data);
-  
 
   for (let item of data.list) {
     let nickname = document.createElement("div");
-    nickname.className = "nickname"
+    nickname.className = "nickname";
     nickname.innerText = item.nickname;
-    nickname.addEventListener('click', () => {
-      location.href = "/user/review"
-    })
+    nickname.addEventListener("click", () => {
+      const reviewee_nickname = nickname.innerText;
+      const url = window.location.href;
+      const parts = url.split("/");
+      const moim_id = parts[parts.length - 1];
+      document.location.href = `/user/review?reviewee_nickname=${reviewee_nickname}&moim_id=${moim_id}`;
+    });
     listOfppl.append(nickname);
   }
 
@@ -58,13 +63,12 @@ async function showPPL(moimid) {
   setting.style.cssText = "pointer-events: none;";
   apply.style.cssText = "pointer-events: none;";
 
-
-  document.querySelector(".turnOff").addEventListener('click', () => {
+  document.querySelector(".turnOff").addEventListener("click", () => {
     listOfppl.remove();
     button.style.cssText = "pointer-events: all;";
     setting.style.cssText = "pointer-events: all;";
     apply.style.cssText = "pointer-events: all;";
-  })
+  });
 }
 
 async function DibsMoim() {
