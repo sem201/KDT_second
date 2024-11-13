@@ -7,6 +7,7 @@
   <title>HOME</title>
   <script src="/static/index.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://kit.fontawesome.com/b9cc1d7a42.js" crossorigin="anonymous"></script>
 </head>
 <link rel="stylesheet" href="/static/index.css" type="text/css" />
 <link rel="stylesheet" href="/static/style.css" type="text/css" />
@@ -19,15 +20,22 @@
     </div>
   </header>
   <div class="main_content">
+    <div>
     <div class="row1">
       <div class="my_page" onclick="location.href='/user/profile'">
-        <!-- 프로필사진 -->
-        <img src="/static/upload/star_imgs/<%= img_link %>" alt="" id="profile_img">
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+          <!-- 프로필사진 -->
+          <img src="/static/upload/star_imgs/<%= img_link %>" alt="" id="profile_img">
+          <!-- + 버튼 -->
+          <div id="more_info">+</div>
+          <div class="menu">
+            <span class="logout" onclick="logout()"><i class="fas fa-regular fa-arrow-right-from-bracket"></i></span>
+          </div>
+        </div>
         <!-- <div id="profile_img"></div> -->
         <!-- 닉네임 -->
         <div id="name"><%= nickname %></div>
-        <!-- + 버튼 -->
-        <div id="more_info">+</div>
+
       </div>
       <div class="button">
         <div class="moim_set_page">
@@ -42,22 +50,52 @@
         </div>
       </div>
     </div>
-    <div>
-    <div class="recommend">
-      <h3><%= nickname %>님을 위한 추천</h3>
-      <!-- + 버튼 -->
-      <div id="more_info" style="background-color: #00000000;"></div>
-      <div class="contents_scroll">
+      <div class="recommend">
+        <div>
+          <h3><%= nickname %>님을 위한 추천</h3>
+          <!-- + 버튼 -->
+          <!-- <div id="more_info" style="background-color: #00000000;"></div> -->
+        </div>
+        <div class="contents_scroll">
+        </div>
       </div>
-    </div>
-    <div class="attending">
-      <h3><%= nickname %>님이 참여중인 모임</h3>
-      <!-- + 버튼 -->
-      <div id="more_info" onclick="location.href='/user/profile'">+</div>
-      <div class="contents_scroll">
       </div>
-    </div>
+      <div class="attending">
+        <div>
+          <h3><%= nickname %>님이 참여중인 모임</h3>
+          <!-- + 버튼 -->
+          <div id="more_info" onclick="location.href='/user/profile'">+</div>
+        </div>
+        <div class="contents_scroll">
+        </div>
+      </div>
+      <div class="dibs">
+        <div>
+          <h3><%= nickname %>님이 찜한 모임</h3>
+          <!-- + 버튼 -->
+          <div id="more_info" onclick="location.href='/user/profile'">+</div>
+        </div>
+        <div class="contents_scroll">
+        </div>
+      </div>
   </div>
-  </div>
+
+  <script>
+    async function logout() {
+      try {
+        const response = await axios({
+          method: "GET",
+          url: "/user/logout",
+        });
+        if (response.data) {
+          alert("로그아웃 되었습니다.");
+          location.href = "/";
+        }
+      } catch (error) {
+        console.log("error");
+      }
+    }
+  </script>
 </body>
+
 </html>

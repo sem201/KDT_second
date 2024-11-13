@@ -59,3 +59,10 @@ header {
 img {
     object-fit:cover;
 }
+
+
+@media screen and ((min-width: 650px) and (min-height: 667px)) {
+    .logo>a {
+        font-size: 40px;
+    }
+}
