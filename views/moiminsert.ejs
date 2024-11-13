@@ -161,11 +161,11 @@
       }
 
       async function moim_insert() {
+        let form = document.forms["moim-insert"];
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
         }
-        let form = document.forms["moim-insert"];
         console.log(form.on_line.value);
         const on_line = [];
         form.on_line.forEach((element) => {
