@@ -497,6 +497,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: false,
             user: userInfo,
+            idDibs: isDibs,
           });
         }
       } else {

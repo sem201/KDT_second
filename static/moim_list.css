@@ -36,7 +36,7 @@ body {
 
 section {
     position: relative;
-    top: 80px;
+    top: 85px;
     width: 100%;
 }
 
@@ -53,8 +53,8 @@ section {
 
 .categorize {
     position: fixed;
-    left: 120px;
-    margin: 15px;
+    left: 90px;
+    margin: 20px;
 }
 
 .categorize>p {
@@ -83,8 +83,8 @@ section {
     display: flex;
     padding: 10px;
     position: fixed;
-    background-color: white;
-    z-index: 1;
+    /* background-color: white; */
+    /* z-index: 1; */
 }
 
 .onOff>.is_online {
@@ -93,7 +93,7 @@ section {
     line-height: 22px;
     width: 65px;
     height: 20px;
-    background-color: #88d66cc4;
+    background-color: #e84c54a8;
     border-radius: 5px;
     border: 0.5px solid black;
     margin: 3px;
@@ -103,7 +103,7 @@ section {
     width: 100%;
     height: 480px;
     position: fixed;
-    top: 126px;
+    top: 130px;
 }
 
 table {
@@ -187,7 +187,7 @@ li {
     border-radius: 100%;
     width: 40px;
     height: 40px;
-    background-color: green;
+    background-color: #E84C54;
     position: relative;
     /* z-index: 10; */
     left: 65px;
@@ -208,9 +208,11 @@ li {
     border-radius: 100%;
     position: fixed;
     bottom: 5px;
-    right: 5px;
-    background-color: #88d66c;
+    right: calc(50vw - 25px);
+    /* right: 5px; */
+    background-color: #E84C54;
     text-align: center;
     line-height: 50px;
-    font-size: 30px;
+    font-size: 40px;
+    color: #EEEEEE;
 }
