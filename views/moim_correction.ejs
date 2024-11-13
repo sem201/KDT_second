@@ -40,9 +40,9 @@
       <div class="form-content">
       <div>
         <label for="title">제목</label>
-        <input type="text" id="title" value="<%= moim.title %>" />
+        <input type="text" id="title" value="<%= moim.title %>"/>
       </div>
-      <div>
+      <div class="inactive">
         <label for="on_line">모임 형식</label>
         <% if (moim.on_line == true) { %>
           <input type="radio" name="on_line" id="on_line" value="true" onchange="showLocation('online')" checked/>
@@ -80,7 +80,8 @@
         </select>
       </div>
       <% } %>
-      <div>
+
+      <div class="inactive">
         <label for="min_people">최소 인원수</label>
         <% if (detail.min_people != null) { %>
           <input
@@ -101,7 +102,7 @@
           <% } %>
       </div>
   
-      <div>
+      <div class="inactive">
         <label for="max_people">최대 인원수</label>
         <% if (moim.max_people != 0) { %>
           <input
@@ -187,7 +188,10 @@
         formData.append("title", form.title.value);
         formData.append("on_line", form.on_line.value);
         formData.append("max_people", form.max_people.value);
-        formData.append("location", form.location.value);
+        if(form.on_line.value == false)
+        {
+          formData.append("location", form.location.value);
+        }
         formData.append("category", form.category.value);
         formData.append("expiration_date", form.expiration_date.value);
         formData.append("even_date", form.even_date.value);
@@ -199,9 +203,18 @@
           form.on_line.value == "" ||
           form.expiration_date.value == "" ||
           form.even_date.value == "" ||
-          form.location.value == "" ||
+          form.content.value == "" ||
           form.category.value == ""
+
         ) {
+          alert(
+            "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
+          );
+          return;
+        }
+
+        if(form.on_line.value == false && form.location.value == "")
+        {
           alert(
             "데이터를 모두 입력해주세요. 입력되지 않은 값이 존재합니다(이미지 제외)"
           );
@@ -213,9 +226,11 @@
           return;
         }
 
+
+
+
         if(form.represent_img.value != "")
         {
-          alert("dfsafas");
           formData.append("represent_img", file.files[0]);
           let { data } = await axios({
             method: "PATCH",
