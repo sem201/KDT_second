@@ -16,6 +16,14 @@
     <div class="logo">
       <!-- 로고 -->
       <a href="/home">MOiM</a>
+      <div class="categorize">
+        <!-- 위치 정보 불러오기 -->
+        <p>in <span class="location" onclick="selectLocation()">WHERE?
+        </span></p>
+      <p>about <span class="category" onclick="selectCategory()">WHAT?
+          <!-- 관심사 정보 불러오기 -->
+        </span></p>
+    </div>
     </div>
     <div class="setting">
       <div>
@@ -23,22 +31,13 @@
       </div>
   </div>
   </header>
-  <div class="categorize">
-    <!-- 위치 정보 불러오기 -->
-    <p>in <span class="location" onclick="selectLocation()">WHERE?
-    </span></p>
-  <p>about <span class="category" onclick="selectCategory()">WHAT?
-      <!-- 관심사 정보 불러오기 -->
-    </span></p>
-</div>
   <section>
-      <div class="onOff">
-        <div class="is_online" name="*" onclick="selectOnOff()">전체</div>
-        <div class="is_online" name="true" onclick="selectOnOff()">온라인</div>
-        <div class="is_online" name="false" onclick="selectOnOff()">오프라인</div>
-      </div>
-
       <div class="moim_table">
+        <div class="onOff">
+          <div class="is_online" name="*" onclick="selectOnOff()">전체</div>
+          <div class="is_online" name="true" onclick="selectOnOff()">온라인</div>
+          <div class="is_online" name="false" onclick="selectOnOff()">오프라인</div>
+        </div>
         <table>
           <tbody>
             

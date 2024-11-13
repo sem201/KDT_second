@@ -166,7 +166,7 @@ body {
     background-color: #EEEFEE;
     border-radius: 10px;
     margin: 5px;
-    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3)
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.649);
 }
 
 h3 {
@@ -234,7 +234,7 @@ h3 {
     background-color: #EEEFEE;
     border-radius: 10px;
     margin: 5px;
-    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.649);
 }
 
 /* .attending>#more_info {
@@ -277,7 +277,7 @@ h3 {
     background-color: #EEEFEE;
     border-radius: 10px;
     margin: 5px;
-    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.649);
 }
 
 .dibs>div:first-child {
@@ -368,10 +368,6 @@ h3 {
         width: 20vw;
         max-width: 100px;
     }
-
-    .dibs {
-        display: block;
-    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -383,12 +379,18 @@ h3 {
     }
 }
 
-@media screen and (min-height: 667px) {
+@media screen and (min-height: 668px) {
     body {
         align-content: center;
     }
 
     .main_content {
         margin-bottom: 0;
+    }
+}
+
+@media screen and ((min-height: 668px) and (min-width: 1200px)) {
+    .dibs {
+        display: block;
     }
 }

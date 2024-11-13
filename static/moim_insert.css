@@ -1,5 +1,5 @@
 html {
-    background-color: #1E3E62;
+    background-color: #3A6D8C;
 }
 
 body {
@@ -7,10 +7,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    /* width: fit-content; */
 }
 
 header {
     color: white;
+
 }
 
 /* .header {
@@ -46,6 +48,7 @@ section {
 
 form {
     /* width: 90vw; */
+    max-width: 600px;
     height: 85vh;
     margin: 10px;
     /* padding: 0 10px; */
