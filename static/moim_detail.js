@@ -82,9 +82,9 @@ async function DibsMoim() {
   console.log("클릭 실행됨");
   const button = document.querySelector(".dibsMoim");
 
-  if (data.result == true) {
-    button.innerHTML = "♥";
+  if (data.result === true) {
+    button.innerText = "♥";
   } else {
-    button.innerHTML = "♡";
+    button.innerText = "♡";
   }
 }

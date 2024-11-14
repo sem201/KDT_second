@@ -45,10 +45,10 @@
       <div>
       <h3><%= moim[0].title %></h3>
       <button class="dibsMoim" onclick="DibsMoim()">
-          <% if(idDibs) { %>
-             ♥  
-          <% } else { %>
+          <% if(!isDibs) { %>
             ♡
+          <% } else { %>
+            ♥
           <% } %> 
         </button>
         </div>
@@ -116,4 +116,9 @@
     </div>
   </section>
 </body>
+<script>
+  const isDibs = "<%= isDibs %>";
+  console.log(isDibs);
+    
+</script>
 </html>

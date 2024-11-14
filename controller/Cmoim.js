@@ -486,7 +486,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: true,
             user: userInfo,
-            idDibs: isDibs,
+            isDibs: isDibs,
           });
         } else {
           console.log("모임에 가입되지 않은 사용자입니다.");
@@ -497,7 +497,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: false,
             user: userInfo,
-            idDibs: isDibs,
+            isDibs: isDibs,
           });
         }
       } else {
