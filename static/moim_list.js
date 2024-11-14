@@ -17,7 +17,7 @@ function selectLocation() {
     });
 
     let location_list = [
-        "WHERE?",
+        "전체",
         "서울특별시",
         "부산광역시",
         "대구광역시",
@@ -103,7 +103,7 @@ function selectCategory() {
     });
 
     let category_list = [
-        "WHAT?",
+        "전체",
         "취미•여가",
         "운동•레저",
         "문화•예술",
@@ -170,7 +170,7 @@ function selectOnOff() {
     document
         .querySelectorAll(".is_online")
         .forEach((el) => (el.style.backgroundColor = "")); // 이전 버튼 색상 초기화
-    this.event.target.style.backgroundColor = "#d3d3d3"; // 클릭된 버튼 색상 변경
+    this.event.target.style.backgroundColor = "#e84c54a8"; // 클릭된 버튼 색상 변경
     showMoim();
 }
 
@@ -203,12 +203,12 @@ async function showMoim() {
         async function fetchData() {
             // categorize = [location, category, is_online];
 
-            if (location === "WHERE?") {
+            if (location === "전체" || location === "위치를 선택하세요.") {
                 categorize[0] = "*";
             } else {
                 categorize[0] = location;
             }
-            if (category === "WHAT?") {
+            if (category === "전체" || category === "카테고리를 선택하세요.") {
                 categorize[1] = "*";
             } else {
                 categorize[1] = category;
