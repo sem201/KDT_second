@@ -1,33 +1,32 @@
 function selectMoim(src) {
+  // Remove 'active' class from all items in button-box
+  document
+    .querySelectorAll(".button-box div")
+    .forEach((el) => el.classList.remove("active"));
 
-    // Remove 'active' class from all items in button-box
-    document.querySelectorAll('.button-box div').forEach(el => el.classList.remove('active'));
-    
-    // Add 'active' class to the clicked element
-    src.classList.add('active');
-    
-    // Call functions based on the clicked element's class
-    if(src.className.includes("attending")){
-        participatingMoim();
-    } else if(src.className.includes("attended")){
-        participatedMoim();
-    } else if(src.className.includes("dibs_moim")){
-        dibsMoim();
-    }
+  // Add 'active' class to the clicked element
+  src.classList.add("active");
+
+  // Call functions based on the clicked element's class
+  if (src.className.includes("attending")) {
+    participatingMoim();
+  } else if (src.className.includes("attended")) {
+    participatedMoim();
+  } else if (src.className.includes("dibs_moim")) {
+    dibsMoim();
+  }
 }
 
+async function dibsMoim() {
+  const { data } = await axios({
+    method: "GET",
+    url: "/moim/moims/dibs",
+  });
 
-async function dibsMoim(){
-    const {data} = await axios({
-        method: "GET",
-        url: "/moim/moims/dibs",
-    });
+  console.log(data.data);
 
-    console.log(data.data);
-    
-    showTable(data.data);
+  showTable(data.data);
 }
-
 
 async function participatingMoim() {
   const { data } = await axios({
@@ -128,13 +127,11 @@ function showTable(data) {
     count = 0;
   }
 
-  if(data.length > 0){
+  if (data.length > 0) {
     tbody.innerHTML = rows;
   } else {
-    tbody.innerHTML =`<tr><td style="border: 0;">해당하는 모임이 존재하지 않습니다.</td></tr>`
+    tbody.innerHTML = `<tr><td style="border: 0;">해당하는 모임이 존재하지 않습니다.</td></tr>`;
   }
-
-
 }
 
 // function buttonChangeClr(){
