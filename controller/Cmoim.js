@@ -461,7 +461,7 @@ exports.MoimDetail_render = async (req, res) => {
           ? true
           : false;
 
-        console.log(isDibs);
+        console.log(isDibs, "찜 상태");
 
         let moimcount = [];
         for (let i = 0; i < moimset.length; i++) {
@@ -486,7 +486,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: true,
             user: userInfo,
-            idDibs: isDibs,
+            isDibs: isDibs,
           });
         } else {
           console.log("모임에 가입되지 않은 사용자입니다.");
@@ -497,7 +497,7 @@ exports.MoimDetail_render = async (req, res) => {
             detail,
             accession: false,
             user: userInfo,
-            idDibs: isDibs,
+            isDibs: isDibs,
           });
         }
       } else {
