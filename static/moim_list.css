@@ -38,27 +38,32 @@ section {
     position: relative;
     top: 85px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* .logo {
-    margin: 10px;
+.logo {
+    margin: 0;
 }
 
 .logo>a {
-    text-decoration: none;
-    color: black;
-    font-size: 30px;
-} */
+    margin: 10px;
+}
 
 
 .categorize {
-    position: fixed;
-    left: 90px;
-    margin: 20px;
+    /* position: fixed;
+    left: 90px; */
+    margin: 20px 0;
+}
+
+.logo {
+    display: flex;
 }
 
 .categorize>p {
-    margin: 5px 0;
+    margin: 5px 5px;
 }
 
 .categorize>p>span {
@@ -79,12 +84,13 @@ section {
 }
 
 .onOff {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     padding: 10px;
-    position: fixed;
+    /* position: fixed; */
     /* background-color: white; */
     /* z-index: 1; */
+    /* max-width: 419px; */
 }
 
 .onOff>.is_online {
@@ -100,29 +106,33 @@ section {
 }
 
 .moim_table {
-    width: 100%;
+    /* width: fit-content; */
     height: 480px;
-    position: fixed;
-    top: 130px;
+    /* position: fixed;
+    top: 130px; */
 }
 
 table {
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
-    width: 100%;
+    width: fit-content;
 }
 
 tbody {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    border-right: 0.5px solid black;
+    border-left: 0.5px solid black;
     display: block;
-    width: 100%;
-    height: calc(90vh - 130px);
-    max-height: calc(90vh - 130px);
+    width: 100vw;
+    max-width: 870px;
+    height: calc(90vh - 140px);
+    max-height: 700px;
     overflow-y: scroll;
   }
 
   table tbody tr {
     display: table;
     width: 100%;
+    background-color: white;
   }
 
 td {
@@ -207,7 +217,7 @@ li {
     height: 50px;
     border-radius: 100%;
     position: fixed;
-    bottom: 5px;
+    bottom: 10px;
     right: calc(50vw - 25px);
     /* right: 5px; */
     background-color: #E84C54;
@@ -215,4 +225,15 @@ li {
     line-height: 55px;
     font-size: 40px;
     color: #EEEEEE;
+}
+
+@media screen and (min-width: 650px) {
+    .categorize {
+        display: flex;
+        margin: 10px;
+    }
+
+    .logo {
+        align-items: flex-end;
+    }
 }

@@ -1,6 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  display: flex;
 }
 
 h2 {
@@ -10,12 +9,12 @@ h2 {
 
 .container {
   width: 80%;
-  max-width: 600px;
+  max-width: 400px;
   margin: 50px auto;
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .star-rating {
@@ -43,7 +42,7 @@ h2 {
   color: #ffc107;
 }
 
-button {
+/* button {
   width: 100%;
   padding: 10px;
   background-color: #0078ff;
@@ -52,7 +51,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
-}
+} */
 
 button:hover {
   background-color: #0056b3;

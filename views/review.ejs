@@ -1,69 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>별점 리뷰 등록</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="/static/review.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <h2>별점 리뷰 남기기</h2>
-      <div class="star-rating">
-        <input type="radio" id="star5" name="rating" value="5" />
-        <label for="star5" title="5 stars">★</label>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>별점 리뷰 등록</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="/static/style.css" type="text/css" />
+  <link rel="stylesheet" href="/static/login.css" />
+  <link rel="stylesheet" href="/static/review.css" />
+</head>
 
-        <input type="radio" id="star4" name="rating" value="4" />
-        <label for="star4" title="4 stars">★</label>
-
-        <input type="radio" id="star3" name="rating" value="3" />
-        <label for="star3" title="3 stars">★</label>
-
-        <input type="radio" id="star2" name="rating" value="2" />
-        <label for="star2" title="2 stars">★</label>
-
-        <input type="radio" id="star1" name="rating" value="1" />
-        <label for="star1" title="1 star">★</label>
-      </div>
-      <button onclick="submitReview()">리뷰 제출</button>
+<body>
+  <header>
+    <div class="logo">
+      <!-- 로고 -->
+      <a href="/home">MOiM</a>
     </div>
-    <script>
-      function submitReview() {
-        const ratingElement = document.querySelector(
-          'input[name="rating"]:checked'
-        );
+    <div class="setting">
+      <div>
+        <span onclick="location.href='/home'">←</span>
+      </div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <h2>별점 리뷰 남기기</h2>
+    <div class="star-rating">
+      <input type="radio" id="star5" name="rating" value="5" />
+      <label for="star5" title="5 stars">★</label>
 
-        const organizer = "모임 작성자";
-        const participant = "모임 참여자";
+      <input type="radio" id="star4" name="rating" value="4" />
+      <label for="star4" title="4 stars">★</label>
 
-        console.log(`모임 작성자: ${organizer}`);
-        console.log(`모임 참여자: ${participant}`);
+      <input type="radio" id="star3" name="rating" value="3" />
+      <label for="star3" title="3 stars">★</label>
 
-        if (!ratingElement) {
-          alert("별점을 선택해주세요.");
-          return;
-        }
+      <input type="radio" id="star2" name="rating" value="2" />
+      <label for="star2" title="2 stars">★</label>
 
-        const score = ratingElement.value;
-        // 앞에서 moim_id는 가져와야함
-        // reviewee_nickname도 앞에서 선택으로 가져와야함
+      <input type="radio" id="star1" name="rating" value="1" />
+      <label for="star1" title="1 star">★</label>
+    </div>
+    <button onclick="submitReview()">리뷰 제출</button>
+  </div>
+  <script>
+    function submitReview() {
+      const ratingElement = document.querySelector(
+        'input[name="rating"]:checked'
+      );
 
-        data = {
-          score: score,
-        };
-        axios({
-          method: "post",
-          url: "/user/review",
-          data: data,
-        }).then((res) => {
-          if ((res.data.result = true)) {
-            alert("리뷰 작성이 완료되었습니다.");
-            document.location.href = "/moim/moims";
-          }
-        });
+      const organizer = "모임 작성자";
+      const participant = "모임 참여자";
+
+      console.log(`모임 작성자: ${organizer}`);
+      console.log(`모임 참여자: ${participant}`);
+
+      if (!ratingElement) {
+        alert("별점을 선택해주세요.");
+        return;
       }
-    </script>
-  </body>
+
+      const score = ratingElement.value;
+      // 앞에서 moim_id는 가져와야함
+      // reviewee_nickname도 앞에서 선택으로 가져와야함
+
+      data = {
+        score: score,
+      };
+      axios({
+        method: "post",
+        url: "/user/review",
+        data: data,
+      }).then((res) => {
+        if ((res.data.result = true)) {
+          alert("리뷰 작성이 완료되었습니다.");
+          document.location.href = "/moim/moims";
+        }
+      });
+    }
+  </script>
+</body>
+
 </html>

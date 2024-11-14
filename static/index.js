@@ -50,7 +50,34 @@ async function show_Recommend() {
     }
 }
 
+async function show_Dibs(){
+    const {data} = await axios({
+        method: "GET",
+        url: "/moim/moims/dibs"
+    });
+
+    console.log(data.data);
+    const moims = data.data;    
+
+    if (moims) {
+        
+        let moim_content = '';
+
+        for (let i = 0; i < moims.length; i++) {
+            moim_content += `<div class="moim_content" onclick="location.href='/moim/moim_detail/${moims[i].moim_id}'">
+          <!-- 사진 -->
+          <img src="${moims[i].represent_img}" alt="">
+          <!-- 모임명 -->
+          <p>${moims[i].title}</p>
+        </div>`;
+        }
+
+        document.querySelector(".dibs").lastElementChild.innerHTML = moim_content;
+    } else {
+        document.querySelector(".dibs").lastElementChild.innerHTML = '<span>찜한 모임이 없습니다.</span>';
+    }
+}
+
 show_MoimSet();
 show_Recommend();
-
-
+show_Dibs();

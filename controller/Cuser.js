@@ -61,13 +61,13 @@ exports.loginUser = async (req, res) => {
       } else {
         res.send({
           result: false,
-          message: "로그인 실패 비밀번호를 확인해주세요",
+          message: "비밀번호가 일치하지 않습니다.",
         });
       }
     } else {
       res.send({
         result: false,
-        message: "로그인 실패 아이디를 확인해주세요",
+        message: "해당 아이디 정보가 존재하지 않습니다.",
       });
     }
   } catch (error) {
