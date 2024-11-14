@@ -292,8 +292,8 @@ exports.participatingMoim = async (req, res) => {
       moim.represent_img,
       moim_set.nickname,
       moim.category,
-      DATE_FORMAT(moim.expiration_date, '%Y-%d-%m %H:%i') AS expiration_date,
-      DATE_FORMAT(moim.even_date, '%Y-%d-%m %H:%i') AS even_date
+      DATE_FORMAT(moim.expiration_date, '%Y-%m-%d %H:%i') AS expiration_date,
+      DATE_FORMAT(moim.even_date, '%Y-%m-%d %H:%i') AS even_date
     FROM 
       moim_set 
     JOIN 
@@ -325,8 +325,8 @@ exports.participatedMoim = async (req, res) => {
       moim.represent_img,
       moim_set.nickname,
       moim.category,
-      DATE_FORMAT(moim.expiration_date, '%Y-%d-%m %H:%i') AS expiration_date,
-      DATE_FORMAT(moim.even_date, '%Y-%d-%m %H:%i') AS even_date
+      DATE_FORMAT(moim.expiration_date, '%Y-%m-%d %H:%i') AS expiration_date,
+      DATE_FORMAT(moim.even_date, '%Y-%m-%d %H:%i') AS even_date
     FROM 
       moim_set 
     JOIN 
