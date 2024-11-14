@@ -86,6 +86,7 @@ button {
 
 #represent_before {
     width: 80vw;
+    max-width: 480px;
 }
 
 .inactive {
