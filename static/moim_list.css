@@ -25,18 +25,13 @@ body {
     z-index: 1;
 } */
 
-/* header {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.500);
-} */
+header {
+    position: static;
+}
 
 section {
-    position: relative;
-    top: 85px;
+    /* position: relative;
+    top: 85px; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -55,7 +50,9 @@ section {
 .categorize {
     /* position: fixed;
     left: 90px; */
-    margin: 20px 0;
+    /* margin: 20px 0; */
+    /* display: flex; */
+    display: block;
 }
 
 .logo {
@@ -86,11 +83,15 @@ section {
 .onOff {
     /* width: 100%; */
     display: flex;
-    padding: 10px;
+    padding: 0 10px;
     /* position: fixed; */
     /* background-color: white; */
     /* z-index: 1; */
     /* max-width: 419px; */
+}
+
+.categorize {
+    padding: 0 10px;
 }
 
 .onOff>.is_online {
@@ -99,10 +100,30 @@ section {
     line-height: 22px;
     width: 65px;
     height: 20px;
-    background-color: #e84c54a8;
+    background-color: #d3d3d3;
     border-radius: 5px;
     border: 0.5px solid black;
     margin: 3px;
+}
+
+.categorize>div>div {
+    font-size: 15px;
+    text-align: center;
+    line-height: 22px;
+    width: fit-content;
+    height: 20px;
+    background-color: #d3d3d3;
+    border-radius: 5px;
+    border: 0.5px solid black;
+    margin: 3px;
+}
+
+.categorize>div {
+    display: flex;
+}
+
+.categorize>div>span {
+    width: 70px;
 }
 
 .moim_table {
@@ -213,8 +234,8 @@ li {
 }
 
 .moim_insert_button {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     position: fixed;
     bottom: 10px;
@@ -222,17 +243,12 @@ li {
     /* right: 5px; */
     background-color: #E84C54;
     text-align: center;
-    line-height: 55px;
+    line-height: 44px;
     font-size: 40px;
     color: #EEEEEE;
 }
 
 @media screen and (min-width: 650px) {
-    .categorize {
-        display: flex;
-        margin: 10px;
-    }
-
     .logo {
         align-items: flex-end;
     }
