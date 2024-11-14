@@ -36,6 +36,7 @@ body {
     margin: 0;
     height: 100vh;
     align-content: end;
+    align-content: center;
 }
 
 .logo {
@@ -260,7 +261,7 @@ h3 {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .menu {
@@ -379,7 +380,7 @@ h3 {
     }
 }
 
-@media screen and (min-height: 668px) {
+/* @media screen and (min-height: 668px) {
     body {
         align-content: center;
     }
@@ -387,7 +388,7 @@ h3 {
     .main_content {
         margin-bottom: 0;
     }
-}
+} */
 
 @media screen and ((min-height: 668px) and (min-width: 1200px)) {
     .dibs {
