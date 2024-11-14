@@ -45,7 +45,7 @@ exports.MoimList_POST = async (req, res) => {
           sequelize.fn(
             "date_format",
             sequelize.col("expiration_date"),
-            "%Y-%d-%m %H:%i"
+            "%Y-%m-%d %H:%i"
           ),
           "expiration_date",
         ],
@@ -53,7 +53,7 @@ exports.MoimList_POST = async (req, res) => {
           sequelize.fn(
             "date_format",
             sequelize.col("even_date"),
-            "%Y-%d-%m %H:%i"
+            "%Y-%m-%d %H:%i"
           ),
           "even_date",
         ],
@@ -415,7 +415,7 @@ exports.MoimDetail_render = async (req, res) => {
             sequelize.fn(
               "date_format",
               sequelize.col("expiration_date"),
-              "%Y-%d-%m %H:%i"
+              "%Y-%m-%d %H:%i"
             ),
             "expiration_date",
           ],
@@ -423,7 +423,7 @@ exports.MoimDetail_render = async (req, res) => {
             sequelize.fn(
               "date_format",
               sequelize.col("even_date"),
-              "%Y-%d-%m %H:%i"
+              "%Y-%m-%d %H:%i"
             ),
             "even_date",
           ],
@@ -537,7 +537,7 @@ exports.moimlistSelect = async (req, res) => {
               sequelize.fn(
                 "date_format",
                 sequelize.col("expiration_date"),
-                "%Y-%d-%m %H:%i"
+                "%Y-%m-%d %H:%i"
               ),
               "expiration_date",
             ],
@@ -545,7 +545,7 @@ exports.moimlistSelect = async (req, res) => {
               sequelize.fn(
                 "date_format",
                 sequelize.col("even_date"),
-                "%Y-%d-%m %H:%i"
+                "%Y-%m-%d %H:%i"
               ),
               "even_date",
             ],
@@ -599,7 +599,7 @@ exports.moimlist = async (req, res) => {
             sequelize.fn(
               "date_format",
               sequelize.col("expiration_date"),
-              "%Y-%d-%m %H:%i"
+              "%Y-%m-%d %H:%i"
             ),
             "expiration_date",
           ],
@@ -607,7 +607,7 @@ exports.moimlist = async (req, res) => {
             sequelize.fn(
               "date_format",
               sequelize.col("even_date"),
-              "%Y-%d-%m %H:%i"
+              "%Y-%m-%d %H:%i"
             ),
             "even_date",
           ],
@@ -655,7 +655,7 @@ exports.DibsMoim = async (req, res) => {
             sequelize.fn(
               "date_format",
               sequelize.col("expiration_date"),
-              "%Y-%d-%m %H:%i"
+              "%Y-%m-%d %H:%i"
             ),
             "expiration_date",
           ],
@@ -663,7 +663,7 @@ exports.DibsMoim = async (req, res) => {
             sequelize.fn(
               "date_format",
               sequelize.col("even_date"),
-              "%Y-%d-%m %H:%i"
+              "%Y-%m-%d %H:%i"
             ),
             "even_date",
           ],
@@ -671,7 +671,7 @@ exports.DibsMoim = async (req, res) => {
         include: [
           {
             model: DibsMoim,
-            where: { "user_id": req.session.userInfo.userid },
+            where: { user_id: req.session.userInfo.userid },
           },
         ],
       });
