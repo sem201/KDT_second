@@ -159,12 +159,13 @@ td > button {
 
 .listOfppl {
     position: fixed;
-    width: 70vw;
-    height: 50vh;
-    bottom: 25vh;
+    width: 50vw;
+    height: fit-content;
+    top: 25vh;
     background-color: #EEEEEE;
     border: 1px solid black;
     z-index: 1;
+    max-width: 300px;
 }
 
 .nickname {

@@ -19,7 +19,7 @@
     </div>
     <div class="setting">
       <div>
-        <span onclick="location.href='/home'">←</span>
+        <span onclick="history.back()">←</span>
       </div>
     </div>
   </header>
@@ -75,7 +75,7 @@
       }).then((res) => {
         if ((res.data.result = true)) {
           alert("리뷰 작성이 완료되었습니다.");
-          document.location.href = "/moim/moims";
+          history.back();
         }
       });
     }

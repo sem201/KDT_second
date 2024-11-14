@@ -35,6 +35,7 @@ async function showPPL(moimid) {
     nickname.innerText = item.nickname;
     nickname.addEventListener("click", () => {
       const reviewee_nickname = nickname.innerText;
+      listOfppl.remove();
       const url = window.location.href;
       const parts = url.split("/");
       const moim_id = parts[parts.length - 1];
